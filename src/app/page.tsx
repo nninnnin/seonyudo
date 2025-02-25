@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 export default function Home() {
-  const introWatched = true;
+  const introWatched = false;
 
   if (!introWatched) {
     return redirect("/intro");
