@@ -1,19 +1,23 @@
+"use client";
+
+import { useStore } from "zustand";
 import { redirect } from "next/navigation";
 
-export default function Home() {
-  const introWatched = false;
+import { introStore } from "@/shared/store/intro";
+import ARList from "@/features/ar/components/ARList";
+import NavigationBar from "@/features/home/components/NavigationBar";
 
-  if (!introWatched) {
+export default function Home() {
+  const { isIntroWatched } = useStore(introStore);
+
+  if (!isIntroWatched) {
     return redirect("/intro");
   }
 
   return (
-    <div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eaque
-      tenetur eos, inventore hic a minima placeat ipsum quam earum natus quae
-      iusto, mollitia maxime ullam esse molestias, quasi sed itaque accusamus
-      quibusdam. Possimus deserunt quia, quam ipsam fugiat cupiditate adipisci
-      optio totam, beatae repellendus pariatur id impedit voluptatibus nam?
+    <div className="w-full h-full flex flex-col">
+      <ARList />
+      <NavigationBar />
     </div>
   );
 }
