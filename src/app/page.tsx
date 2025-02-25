@@ -1,4 +1,12 @@
+import { redirect } from "next/navigation";
+
 export default function Home() {
+  const introWatched = true;
+
+  if (!introWatched) {
+    return redirect("/intro");
+  }
+
   return (
     <div>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eaque
