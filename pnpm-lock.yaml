@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@fxts/core':
+        specifier: ^1.4.0
+        version: 1.4.0
+      '@rebel9/memex-fetcher':
+        specifier: ^1.5.1
+        version: 1.5.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -64,8 +70,15 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
+  '@babel/runtime-corejs3@7.26.9':
+    resolution: {integrity: sha512-5EVjbTegqN7RSJle6hMWYxO4voo4rI+9krITk+DWR+diJgGrjZjrIBnJhjrHYYQsFgI7j1w1QnrvV7YSKBfYGg==}
+    engines: {node: '>=6.9.0'}
+
   '@emnapi/runtime@1.3.1':
     resolution: {integrity: sha512-kEBmG8KyqtxJZv+ygbEim+KCGtIq1fC22Ms3S4ziXmYKm8uyoLX0MHONVKwp+9opg390VaKRNt4a7A9NwmpNhw==}
+
+  '@fxts/core@1.4.0':
+    resolution: {integrity: sha512-1NkDIUUejuaeYCrCsA86clY1si3TP6FIoNYANPfwls2H53kezIqBFfEoWDg+gGUF3kmwIW1fnL0R2O2CloXVEw==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -287,6 +300,9 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
+  '@rebel9/memex-fetcher@1.5.1':
+    resolution: {integrity: sha512-8yyY0xlxpsDF3LVRioc/5XIktTCic3e62krQwjJINw6+r6bBK/D/8zXD+LQhW3nsTpNn8us4gB1S/tEFbur0mw==}
+
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
 
@@ -504,6 +520,9 @@ packages:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
 
+  core-js-pure@3.40.0:
+    resolution: {integrity: sha512-AtDzVIgRrmRKQai62yuSIN5vNiQjcJakJb4fbhVw3ehxx7Lohphvw9SGNWKhLFqSxC4ilD0g/L1huAYFQU3Q6A==}
+
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
@@ -530,6 +549,15 @@ packages:
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  debug@4.4.0:
+    resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
 
   detect-libc@2.0.3:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
@@ -629,6 +657,9 @@ packages:
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
+
+  fxjs@0.21.3:
+    resolution: {integrity: sha512-8VubsQoPEm2bA+Q80Bh12cTWCnGpIi1T6e6Ot61ZfqbB3yoickB+//HJDpq+okdmu9gNQmnN7VpfRaT/aBdwXA==}
 
   geojson-vt@4.0.2:
     resolution: {integrity: sha512-AV9ROqlNqoZEIJGfm1ncNjEXfkz2hdFlZf0qkVfmkwdKa8vj7H16YUOT81rJw1rdFhyEDlN2Tds91p/glzbl5A==}
@@ -779,6 +810,9 @@ packages:
 
   motion-utils@12.0.0:
     resolution: {integrity: sha512-MNFiBKbbqnmvOjkPyOKgHUp3Q6oiokLkI1bEwm5QA28cxMZrv0CbbBGDNmhF6DIXsi1pCQBSs0dX8xjeER1tmA==}
+
+  ms@2.1.3:
+    resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
   murmurhash-js@1.0.0:
     resolution: {integrity: sha512-TvmkNhkv8yct0SVBSy+o8wYzXjE4Zz3PCesbfs8HiCXXdcTuocApFv11UWlNFWKYsP2okqrhb7JNlSm9InBhIw==}
@@ -971,6 +1005,9 @@ packages:
   readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
+
+  regenerator-runtime@0.14.1:
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
   require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
@@ -1220,10 +1257,19 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
+  '@babel/runtime-corejs3@7.26.9':
+    dependencies:
+      core-js-pure: 3.40.0
+      regenerator-runtime: 0.14.1
+
   '@emnapi/runtime@1.3.1':
     dependencies:
       tslib: 2.8.1
     optional: true
+
+  '@fxts/core@1.4.0':
+    dependencies:
+      tslib: 2.8.1
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
@@ -1387,6 +1433,13 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@rebel9/memex-fetcher@1.5.1':
+    dependencies:
+      '@fxts/core': 1.4.0
+      debug: 4.4.0(supports-color@8.1.1)
+      fxjs: 0.21.3
+      supports-color: 8.1.1
 
   '@swc/counter@0.1.3': {}
 
@@ -1628,6 +1681,8 @@ snapshots:
 
   commander@4.1.1: {}
 
+  core-js-pure@3.40.0: {}
+
   cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
@@ -1652,6 +1707,12 @@ snapshots:
   cssesc@3.0.0: {}
 
   csstype@3.1.3: {}
+
+  debug@4.4.0(supports-color@8.1.1):
+    dependencies:
+      ms: 2.1.3
+    optionalDependencies:
+      supports-color: 8.1.1
 
   detect-libc@2.0.3:
     optional: true
@@ -1732,6 +1793,10 @@ snapshots:
     optional: true
 
   function-bind@1.1.2: {}
+
+  fxjs@0.21.3:
+    dependencies:
+      '@babel/runtime-corejs3': 7.26.9
 
   geojson-vt@4.0.2: {}
 
@@ -1886,6 +1951,8 @@ snapshots:
       motion-utils: 12.0.0
 
   motion-utils@12.0.0: {}
+
+  ms@2.1.3: {}
 
   murmurhash-js@1.0.0: {}
 
@@ -2055,6 +2122,8 @@ snapshots:
   readdirp@3.6.0:
     dependencies:
       picomatch: 2.3.1
+
+  regenerator-runtime@0.14.1: {}
 
   require-from-string@2.0.2: {}
 
