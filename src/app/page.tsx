@@ -3,7 +3,7 @@
 import { useStore } from "zustand";
 import { redirect } from "next/navigation";
 
-import { introStore } from "@/shared/store/intro";
+import { introStore } from "@/app/intro/store/intro";
 import ARList from "@/features/ar/components/ARList";
 import NavigationBar from "@/features/home/components/NavigationBar";
 

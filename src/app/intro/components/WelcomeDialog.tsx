@@ -12,7 +12,7 @@ import { GeolocationPermissionCode } from "@/features/permission/constants/index
 import Overlay from "@/shared/components/Overlay";
 import usePageRouter from "@/shared/hooks/usePageRouter";
 import { useStore } from "zustand";
-import { introStore } from "@/shared/store/intro";
+import { introStore } from "@/app/intro/store/intro";
 
 const WelcomeDialog = () => {
   const { goHome } = usePageRouter();
