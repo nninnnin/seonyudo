@@ -1,14 +1,20 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useStore } from "zustand";
 import React, { useEffect } from "react";
 
 import Splash from "@/app/intro/components/Splash";
 import WelcomeDialog from "@/app/intro/components/WelcomeDialog";
-import DesktopNotice from "@/app/intro/components/DesktopNotice";
+
 import { isMobile } from "@/shared/utils/isMobile";
 import { introStore } from "@/app/intro/store/intro";
 import ErrorDialog from "@/app/intro/components/ErrorDialog";
+
+const DesktopNotice = dynamic(
+  () => import("@/app/intro/components/DesktopNotice"),
+  { ssr: false }
+);
 
 const IntroPage = () => {
   if (!isMobile()) {
