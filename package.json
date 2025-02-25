@@ -1,7 +1,8 @@
 {
-  "name": "s",
+  "name": "seonyudo-park",
   "version": "0.1.0",
   "private": true,
+  "description": "Seonyudo Park에서 펼쳐지는 AR의 향연, CP24-029 수변갤러리",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
