@@ -5,7 +5,7 @@ const ARList = () => {
   return (
     <ul
       className={clsx(
-        "flex-1 w-full",
+        "w-full h-full",
         "flex flex-col items-center justify-center",
         "gap-[10px]",
         "bg-green-100"
