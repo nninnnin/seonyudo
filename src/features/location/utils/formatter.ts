@@ -16,7 +16,7 @@ export const formatLocations = (
     mapListItems(flattenListItem),
     mapListItems(
       extractStringValues(
-        ["name", "description"],
+        ["name", "description", "arContentsUrl"],
         "KO"
       )
     )

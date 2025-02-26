@@ -8,6 +8,7 @@ export interface Location {
     latitude: string;
     longitude: string;
     description: LanguageMap;
+    arContentsUrl: LanguageMap;
   };
 }
 
@@ -18,6 +19,7 @@ export interface LocationFormatted {
   latitude: string;
   longitude: string;
   description: string;
+  arContentsUrl: string;
 }
 
 export type LocationName =

@@ -66,7 +66,9 @@ LocationDetails.ArTriggerButton = ({
         "disabled:bg-gray-300",
         "disabled:pointer-events-none"
       )}
-      onClick={() => router.push("/ar")}
+      onClick={() =>
+        router.push(`/ar?location=${locationName}`)
+      }
       disabled={!locationProximity[locationName]}
     >
       AR 실행하기
