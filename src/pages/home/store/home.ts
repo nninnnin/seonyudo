@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { HomeRoute } from "@/app/types/home";
+import { HomeRoute } from "@/pages/home/types/home";
 
 export const homeStore = create<{
   route: HomeRoute;

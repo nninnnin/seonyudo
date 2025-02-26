@@ -2,10 +2,10 @@ import clsx from "clsx";
 import React, { useEffect } from "react";
 import { useStore } from "zustand";
 
-import { homeStore } from "@/app/store/home";
-import { HomeRoute } from "@/app/types/home";
 import { useSearchParams } from "next/navigation";
 import { locationStore } from "@/features/location/store/location";
+import { homeStore } from "@/pages/home/store/home";
+import { HomeRoute } from "@/pages/home/types/home";
 
 const NavigationBar = () => {
   const { route, setRoute } = useStore(homeStore);
@@ -15,7 +15,7 @@ const NavigationBar = () => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const locationName = searchParams.get("location");
+    const locationName = searchParams?.get("location");
 
     if (locationName) {
       setSelectedLocation(locationName);

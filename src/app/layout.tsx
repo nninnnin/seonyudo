@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SuspenseWrapper from "@/app/components/SuspenseWrapper";
+
+import SuspenseWrapper from "@/pages/home/components/SuspenseWrapper";
 
 export const metadata: Metadata = {
   title: "선유도에서",

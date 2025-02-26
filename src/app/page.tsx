@@ -7,11 +7,11 @@ import {
 } from "next/navigation";
 
 import { introStore } from "@/pages/intro/store/intro";
-import { homeStore } from "@/app/store/home";
+import { homeStore } from "@/pages/home/store/home";
 
 import ARMap from "@/features/map/components/Map";
-import About from "@/app/components/About";
-import NavigationBar from "@/app/components/NavigationBar";
+import About from "@/pages/home/components/About";
+import NavigationBar from "@/pages/home/components/NavigationBar";
 import Locations from "@/features/location/components/Locations";
 import LocationDetails from "@/features/location/components/LocationDetails";
 import { locationStore } from "@/features/location/store/location";
@@ -22,7 +22,7 @@ export default function Home() {
   const { selectedLocation } = useStore(locationStore);
 
   const searchParams = useSearchParams();
-  const hasNoSearchParam = searchParams.size === 0;
+  const hasNoSearchParam = searchParams?.size === 0;
 
   if (!isIntroWatched && hasNoSearchParam) {
     return redirect("/intro");
