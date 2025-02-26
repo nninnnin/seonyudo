@@ -6,7 +6,7 @@ import {
   useSearchParams,
 } from "next/navigation";
 
-import { introStore } from "@/app/intro/store/intro";
+import { introStore } from "@/pages/intro/store/intro";
 import { homeStore } from "@/app/store/home";
 
 import ARMap from "@/features/map/components/Map";

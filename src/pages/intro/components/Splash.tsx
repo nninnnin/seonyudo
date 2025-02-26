@@ -7,7 +7,7 @@ import {
 } from "framer-motion";
 import React from "react";
 
-import useTimeout from "@/app/intro/hooks/useTimeout";
+import useTimeout from "@/pages/intro/hooks/useTimeout";
 
 const Splash = () => {
   const { isTimeout } = useTimeout(2000);

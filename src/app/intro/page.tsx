@@ -4,16 +4,17 @@ import dynamic from "next/dynamic";
 import { useStore } from "zustand";
 import React, { useEffect } from "react";
 
-import Splash from "@/app/intro/components/Splash";
+import Splash from "@/pages/intro/components/Splash";
 
 import { isMobile } from "@/shared/utils/isMobile";
-import { introStore } from "@/app/intro/store/intro";
-import ErrorDialog from "@/app/intro/components/ErrorDialog";
+import { introStore } from "@/pages/intro/store/intro";
+import ErrorDialog from "@/pages/intro/components/ErrorDialog";
 import { isServer } from "@/shared/utils/isServer";
-import WelcomeDialog from "@/app/intro/components/WelcomeDialog";
+import WelcomeDialog from "@/pages/intro/components/WelcomeDialog";
 
 const DesktopNotice = dynamic(
-  () => import("@/app/intro/components/DesktopNotice"),
+  () =>
+    import("@/pages/intro/components/DesktopNotice"),
   { ssr: false }
 );
 

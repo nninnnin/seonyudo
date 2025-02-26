@@ -8,6 +8,7 @@ import Overlay from "@/shared/components/Overlay";
 import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
 import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
 import { LocationName } from "@/features/location/types/location";
+import { useRouter } from "next/router";
 
 const LocationDetails = () => {
   const { selectedLocation, resetSelectedLocation } =
@@ -52,6 +53,8 @@ LocationDetails.ArTriggerButton = ({
 }: {
   locationName: LocationName;
 }) => {
+  const router = useRouter();
+
   const locationProximity = useContext(
     LocationProximityContext
   );
@@ -63,7 +66,7 @@ LocationDetails.ArTriggerButton = ({
         "disabled:bg-gray-300",
         "disabled:pointer-events-none"
       )}
-      onClick={() => console.log(locationProximity)}
+      onClick={() => router.push("/ar")}
       disabled={!locationProximity[locationName]}
     >
       AR 실행하기
