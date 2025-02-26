@@ -10,7 +10,7 @@ import Overlay from "@/shared/components/Overlay";
 import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
 import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
 import { LocationName } from "@/features/location/types/location";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const LocationDetails = () => {
   const { selectedLocation, resetSelectedLocation } =
