@@ -1,1 +1,1 @@
-export const ADJACENT_STANDARD_IN_METER = 50;
+export const ADJACENT_STANDARD_IN_METER = 100;
