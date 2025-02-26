@@ -4,8 +4,8 @@ import { useStore } from "zustand";
 
 import { useSearchParams } from "next/navigation";
 import { locationStore } from "@/features/location/store/location";
-import { homeStore } from "@/pages/home/store/home";
-import { HomeRoute } from "@/pages/home/types/home";
+import { homeStore } from "@/views/home/store/home";
+import { HomeRoute } from "@/views/home/types/home";
 
 const NavigationBar = () => {
   const { route, setRoute } = useStore(homeStore);

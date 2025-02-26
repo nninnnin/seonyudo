@@ -1,26 +1,19 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useStore } from "zustand";
 import React, { useEffect } from "react";
-
-import Splash from "@/pages/intro/components/Splash";
+import { redirect } from "next/navigation";
 
 import { isMobile } from "@/shared/utils/isMobile";
-import { introStore } from "@/pages/intro/store/intro";
-import ErrorDialog from "@/pages/intro/components/ErrorDialog";
+import Splash from "@/views/intro/components/Splash";
+import { introStore } from "@/views/intro/store/intro";
+import ErrorDialog from "@/views/intro/components/ErrorDialog";
+import WelcomeDialog from "@/views/intro/components/WelcomeDialog";
 import { isServer } from "@/shared/utils/isServer";
-import WelcomeDialog from "@/pages/intro/components/WelcomeDialog";
-
-const DesktopNotice = dynamic(
-  () =>
-    import("@/pages/intro/components/DesktopNotice"),
-  { ssr: false }
-);
 
 const IntroPage = () => {
-  if (!isServer() && !isMobile()) {
-    return <DesktopNotice />;
+  if (isServer() || !isMobile()) {
+    return redirect("/desktop");
   }
 
   const { setIsIntroWatched, hasPermissionError } =

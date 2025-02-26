@@ -6,12 +6,12 @@ import {
   useSearchParams,
 } from "next/navigation";
 
-import { introStore } from "@/pages/intro/store/intro";
-import { homeStore } from "@/pages/home/store/home";
+import { introStore } from "@/views/intro/store/intro";
+import { homeStore } from "@/views/home/store/home";
 
 import ARMap from "@/features/map/components/Map";
-import About from "@/pages/home/components/About";
-import NavigationBar from "@/pages/home/components/NavigationBar";
+import About from "@/views/home/components/About";
+import NavigationBar from "@/views/home/components/NavigationBar";
 import Locations from "@/features/location/components/Locations";
 import LocationDetails from "@/features/location/components/LocationDetails";
 import { locationStore } from "@/features/location/store/location";
