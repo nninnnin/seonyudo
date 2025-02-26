@@ -1,29 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import mapboxgl from "mapbox-gl";
+import mapboxgl, { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+const mapSettings = {
+  center: {
+    lat: 37.543536,
+    lng: 126.899887,
+  },
+  zoom: 16,
+};
+
 const useMapboxgl = () => {
-  const mapRef = React.useRef<mapboxgl.Map | null>(
-    null
-  );
+  const [mapInstance, setMapInstance] =
+    useState<Map | null>(null);
+
   const mapContainerRef =
     React.useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.MAPBOX_TOKEN;
-    mapRef.current = new mapboxgl.Map({
+
+    const mapInstance = new Map({
+      ...mapSettings,
       container:
-        mapContainerRef.current ?? "map-container",
+        mapContainerRef.current as HTMLDivElement,
     });
 
+    setMapInstance(mapInstance);
+
     return () => {
-      mapRef.current?.remove();
+      mapInstance?.remove();
     };
   }, [mapContainerRef]);
 
   return {
-    mapRef,
+    mapInstance,
     mapContainerRef,
   };
 };
