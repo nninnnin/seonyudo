@@ -1,8 +1,9 @@
 "use client";
 
 import clsx from "clsx";
-import React, { useContext } from "react";
 import { useStore } from "zustand";
+import React, { useContext } from "react";
+import { useRouter } from "next/navigation";
 
 import useLocation from "@/features/location/hooks/useLocation";
 import { locationStore } from "@/features/location/store/location";
@@ -10,7 +11,6 @@ import Overlay from "@/shared/components/Overlay";
 import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
 import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
 import { LocationName } from "@/features/location/types/location";
-import { useRouter } from "next/navigation";
 
 const LocationDetails = () => {
   const { selectedLocation, resetSelectedLocation } =

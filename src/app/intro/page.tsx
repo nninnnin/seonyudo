@@ -12,7 +12,7 @@ import WelcomeDialog from "@/views/intro/components/WelcomeDialog";
 import { isServer } from "@/shared/utils/isServer";
 
 const IntroPage = () => {
-  if (isServer() || !isMobile()) {
+  if (!isServer() && !isMobile()) {
     return redirect("/desktop");
   }
 
