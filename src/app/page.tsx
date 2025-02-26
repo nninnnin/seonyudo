@@ -1,7 +1,10 @@
 "use client";
 
 import { useStore } from "zustand";
-import { redirect } from "next/navigation";
+import {
+  redirect,
+  useSearchParams,
+} from "next/navigation";
 
 import { introStore } from "@/app/intro/store/intro";
 import { homeStore } from "@/app/store/home";
@@ -14,11 +17,14 @@ import LocationDetails from "@/features/location/components/LocationDetails";
 import { locationStore } from "@/features/location/store/location";
 
 export default function Home() {
-  const { isIntroWatched } = useStore(introStore);
   const { route } = useStore(homeStore);
+  const { isIntroWatched } = useStore(introStore);
   const { selectedLocation } = useStore(locationStore);
 
-  if (!isIntroWatched) {
+  const searchParams = useSearchParams();
+  const hasNoSearchParam = searchParams.size === 0;
+
+  if (!isIntroWatched && hasNoSearchParam) {
     return redirect("/intro");
   }
 

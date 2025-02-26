@@ -1,12 +1,26 @@
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStore } from "zustand";
 
 import { homeStore } from "@/app/store/home";
 import { HomeRoute } from "@/app/types/home";
+import { useSearchParams } from "next/navigation";
+import { locationStore } from "@/features/location/store/location";
 
 const NavigationBar = () => {
   const { route, setRoute } = useStore(homeStore);
+  const { setSelectedLocation } =
+    useStore(locationStore);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const locationName = searchParams.get("location");
+
+    if (locationName) {
+      setSelectedLocation(locationName);
+    }
+  }, [searchParams]);
 
   const handleItemClick =
     (homeRoute: HomeRoute) => () => {
