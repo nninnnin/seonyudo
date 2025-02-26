@@ -1,9 +1,13 @@
+import clsx from "clsx";
+import React, { useContext } from "react";
+import { useStore } from "zustand";
+
 import useLocation from "@/features/location/hooks/useLocation";
 import { locationStore } from "@/features/location/store/location";
 import Overlay from "@/shared/components/Overlay";
-import clsx from "clsx";
-import React from "react";
-import { useStore } from "zustand";
+import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
+import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
+import { LocationName } from "@/features/location/types/location";
 
 const LocationDetails = () => {
   const { selectedLocation, resetSelectedLocation } =
@@ -33,11 +37,37 @@ const LocationDetails = () => {
 
         <p>{location?.description ?? ""}</p>
 
-        <button className="bg-black text-white mt-[20px] p-[10px]">
-          AR 실행하기
-        </button>
+        <LocationProximityProvider>
+          <LocationDetails.ArTriggerButton
+            locationName={location?.name ?? ""}
+          />
+        </LocationProximityProvider>
       </div>
     </Overlay>
+  );
+};
+
+LocationDetails.ArTriggerButton = ({
+  locationName,
+}: {
+  locationName: LocationName;
+}) => {
+  const locationProximity = useContext(
+    LocationProximityContext
+  );
+
+  return (
+    <button
+      className={clsx(
+        "bg-black text-white mt-[20px] p-[10px]",
+        "disabled:bg-gray-300",
+        "disabled:pointer-events-none"
+      )}
+      onClick={() => console.log(locationProximity)}
+      disabled={!locationProximity[locationName]}
+    >
+      AR 실행하기
+    </button>
   );
 };
 
