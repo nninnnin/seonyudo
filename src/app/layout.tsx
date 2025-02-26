@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SuspenseWrapper from "@/app/components/SuspenseWrapper";
 
 export const metadata: Metadata = {
   title: "선유도에서",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <SuspenseWrapper>{children}</SuspenseWrapper>
+      </body>
     </html>
   );
 }
