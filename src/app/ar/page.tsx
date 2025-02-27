@@ -3,7 +3,10 @@
 import clsx from "clsx";
 import React, { useEffect } from "react";
 import { useOverlay } from "@toss/use-overlay";
-import { useSearchParams } from "next/navigation";
+import {
+  redirect,
+  useSearchParams,
+} from "next/navigation";
 
 import Overlay from "@/shared/components/Overlay";
 import ArFrame from "@/features/ar/components/ArFrame";
@@ -16,6 +19,45 @@ const ArPage = () => {
   const locationName = searchParams?.get("location");
   const { location } = useLocation(locationName ?? "");
 
+  useEffect(() => {
+    if (!location?.arContentsUrl) return;
+
+    overlay.open(({ close, isOpen }) => (
+      <>
+        {isOpen && (
+          <Overlay>
+            <div
+              className={clsx(
+                "flex flex-col items-center justify-center",
+                "gap-[10px]",
+                "p-[20px]",
+                "w-[300px] h-[300px]",
+                "bg-white"
+              )}
+            >
+              <h2>AR Guide</h2>
+
+              <p>
+                Lorem ipsum dolor, sit amet consectetur
+                adipisicing elit. Similique quia qui
+                minima impedit necessitatibus. Iure
+                eveniet asperiores dolor placeat
+                voluptates.
+              </p>
+
+              <button
+                className="bg-black text-white p-[10px]"
+                onClick={close}
+              >
+                close
+              </button>
+            </div>
+          </Overlay>
+        )}
+      </>
+    ));
+  }, [location]);
+
   if (!location || !location.arContentsUrl) {
     overlay.open(({ isOpen, close }) => (
       <>
@@ -24,11 +66,20 @@ const ArPage = () => {
             <div
               className={clsx(
                 "w-[200px] h-[200px] bg-white",
-                "flex flex-col justify-center items-center"
+                "flex flex-col justify-center items-center",
+                "gap-[20px]"
               )}
             >
               <p>AR 컨텐츠가 없습니다.</p>
-              <button onClick={close}>닫기</button>
+
+              <button
+                onClick={() => {
+                  close();
+                  redirect("/intro");
+                }}
+              >
+                닫기
+              </button>
             </div>
           </Overlay>
         )}
@@ -37,21 +88,6 @@ const ArPage = () => {
 
     return <></>;
   }
-
-  useEffect(() => {
-    overlay.open(({ close, isOpen }) => (
-      <>
-        {isOpen && (
-          <Overlay>
-            <div className="flex flex-col">
-              <p>Guide</p>
-              <button onClick={close}>close</button>
-            </div>
-          </Overlay>
-        )}
-      </>
-    ));
-  }, []);
 
   return (
     <div>
