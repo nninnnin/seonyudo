@@ -11,7 +11,6 @@ import { homeStore } from "@/views/home/store/home";
 
 import ARMap from "@/features/map/components/Map";
 import About from "@/views/home/components/About";
-import NavigationBar from "@/views/home/components/NavigationBar";
 import Locations from "@/features/location/components/Locations";
 import LocationDetails from "@/features/location/components/LocationDetails";
 import { locationStore } from "@/features/location/store/location";
@@ -40,8 +39,6 @@ export default function Home() {
         {route === "map" && <ARMap />}
         {route === "about" && <About />}
       </div>
-
-      <NavigationBar />
     </div>
   );
 }
