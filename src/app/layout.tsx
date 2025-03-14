@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
 
 import AppWrapper from "@/views/home/components/AppWrapper";
+import Analytics from "@/shared/components/Analytics";
+
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "선유도에서",
@@ -18,6 +20,8 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <AppWrapper>{children}</AppWrapper>
       </body>
+
+      <Analytics />
     </html>
   );
 }
