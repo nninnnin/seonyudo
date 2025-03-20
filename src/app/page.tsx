@@ -1,44 +1,38 @@
 "use client";
 
-import { useStore } from "zustand";
-import {
-  redirect,
-  useSearchParams,
-} from "next/navigation";
+import clsx from "clsx";
 
-import { introStore } from "@/views/intro/store/intro";
-import { homeStore } from "@/views/home/store/home";
-
-import ARMap from "@/features/map/components/Map";
-import About from "@/views/home/components/About";
-import Locations from "@/features/location/components/Locations";
-import LocationDetails from "@/features/location/components/LocationDetails";
-import { locationStore } from "@/features/location/store/location";
+import PageHeader from "@/shared/components/PageHeader";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { route } = useStore(homeStore);
-  const { isIntroWatched } = useStore(introStore);
-  const { selectedLocation } = useStore(locationStore);
-
-  const searchParams = useSearchParams();
-  const hasNoSearchParam = searchParams?.size === 0;
-
-  if (!isIntroWatched && hasNoSearchParam) {
-    return redirect("/intro");
-  }
+  const router = useRouter();
 
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="flex-1 w-full">
-        {route === "ar-list" && (
-          <>
-            <Locations />
-            {selectedLocation && <LocationDetails />}
-          </>
-        )}
-        {route === "map" && <ARMap />}
-        {route === "about" && <About />}
+    <div
+      className={clsx(
+        "w-[100vw] h-[100dvh]",
+        "flex flex-col justify-center items-center",
+        "home-background-gradient"
+      )}
+    >
+      <div className="text-white text-center text-[20px] font-bold">
+        <h1>UNSEEING</h1>
+        <h2>선유동화</h2>
       </div>
+
+      <button
+        className={clsx(
+          "bg-white",
+          "px-[14px] py-[8px] rounded-[20px]",
+          "fixed left-1/2 -translate-x-1/2 bottom-[40px]"
+        )}
+        onClick={() => router.push("/map")}
+      >
+        Open the map
+      </button>
+
+      <PageHeader />
     </div>
   );
 }

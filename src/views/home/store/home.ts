@@ -5,6 +5,6 @@ export const homeStore = create<{
   route: HomeRoute;
   setRoute: (route: HomeRoute) => void;
 }>((set) => ({
-  route: "ar-list",
+  route: "map",
   setRoute: (route: HomeRoute) => set({ route }),
 }));
