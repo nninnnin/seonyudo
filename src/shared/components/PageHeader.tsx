@@ -1,11 +1,37 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
 import Menu from "@/shared/components/Menu";
 import Logo from "@/shared/components/Logo";
+import { IntroductionSubjects } from "@/features/introduction/constants";
+import { useStore } from "zustand";
+import { menuStore } from "@/shared/store/menu";
 
 const PageHeader = () => {
+  const router = useRouter();
+  const { setVisibility } = useStore(menuStore);
+
+  const subItems = [
+    {
+      label: "프로젝트 소개",
+      href: `/about?subject=${IntroductionSubjects.Project}`,
+    },
+    {
+      label: "작품 소개",
+      href: `/about?subject=${IntroductionSubjects.Work}`,
+    },
+    {
+      label: "시민 아이디어 갤러리",
+      href: `/about?subject=${IntroductionSubjects.Ideas}`,
+    },
+    {
+      label: "선유도공원 소개",
+      href: `/about?subject=${IntroductionSubjects.Seonyudo}`,
+    },
+  ];
+
   return (
     <>
       <Logo />
@@ -16,18 +42,34 @@ const PageHeader = () => {
           <Menu.Item
             subList={
               <Menu.List>
-                <Menu.Item>프로젝트 소개</Menu.Item>
-                <Menu.Item>작품 소개</Menu.Item>
-                <Menu.Item>
-                  시민 아이디어 갤러리
-                </Menu.Item>
-                <Menu.Item>선유도공원 소개</Menu.Item>
+                {subItems.map((subItem) => {
+                  const handleClick = () => {
+                    router.push(subItem.href);
+                    setVisibility(false);
+                  };
+
+                  return (
+                    <Menu.Item
+                      key={subItem.label}
+                      onClick={handleClick}
+                    >
+                      {subItem.label}
+                    </Menu.Item>
+                  );
+                })}
               </Menu.List>
             }
           >
-            About
+            소개
           </Menu.Item>
-          <Menu.Item>AR Map</Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              router.push("/map");
+              setVisibility(false);
+            }}
+          >
+            AR 지도
+          </Menu.Item>
         </Menu.List>
       </Menu.Container>
     </>

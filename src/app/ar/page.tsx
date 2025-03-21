@@ -52,8 +52,6 @@ ArPage.ArContents = ({
   const [showDialog, setShowDialog] = useState(true);
   const close = () => setShowDialog(false);
 
-  console.log(arContentsUrl);
-
   return (
     <>
       {showDialog && <ArPage.ArGuide close={close} />}

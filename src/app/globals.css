@@ -5,6 +5,8 @@
 * {
   box-sizing: border-box;
   overscroll-behavior: none;
+
+  touch-action: manipulation;
 }
 
 html,

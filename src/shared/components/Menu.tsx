@@ -88,9 +88,11 @@ Menu.List = ({
 Menu.Item = ({
   children,
   subList,
+  onClick,
 }: {
   children: React.ReactNode;
   subList?: React.ReactNode;
+  onClick?: () => void;
 }) => {
   const [height, setHeight] = useState<null | number>(
     null
@@ -103,15 +105,35 @@ Menu.Item = ({
   useLayoutEffect(() => {
     if (!subList) return;
 
-    const subListContainerSize =
-      subListContainerRef.current?.getBoundingClientRect();
+    const alreadySetHeight = height !== null;
+    if (alreadySetHeight) return;
 
-    setHeight(subListContainerSize?.height || 0);
+    const setSubListContainerHeight = () => {
+      const subListContainerSize =
+        subListContainerRef.current?.getBoundingClientRect();
+
+      setHeight(subListContainerSize?.height || 0);
+    };
+
+    setSubListContainerHeight();
+
+    // close after height is calculated
     setOpenSubList(false);
   }, [subList]);
 
+  const toggleSubList = () =>
+    setOpenSubList((prev) => !prev);
+
+  const handleClick =
+    !subList && onClick
+      ? onClick
+      : () => toggleSubList();
+
   return (
-    <Dropdown.Item className={clsx("bg-green-100")}>
+    <Dropdown.Item
+      className={clsx("bg-green-100")}
+      onClick={handleClick}
+    >
       <div
         className={clsx(
           "flex justify-between",
@@ -123,11 +145,7 @@ Menu.Item = ({
         {children}
 
         {subList && (
-          <button
-            onClick={() =>
-              setOpenSubList((prev) => !prev)
-            }
-          >
+          <button>
             {openSubList ? "닫기" : "열기"}
           </button>
         )}
