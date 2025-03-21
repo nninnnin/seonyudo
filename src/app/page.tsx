@@ -17,7 +17,7 @@ export default function Home() {
       )}
     >
       <div className="text-white text-center text-[20px] font-bold">
-        <h1>UNSEEING</h1>
+        <h1>UNSEENING</h1>
         <h2>선유동화</h2>
       </div>
 
