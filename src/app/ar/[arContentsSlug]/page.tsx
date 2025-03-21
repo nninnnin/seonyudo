@@ -9,16 +9,18 @@ const ArContentsPage = () => {
 
   console.log(params);
 
+  const arContentsSlug = params["arContentsSlug"];
+
   return (
     <div
       className={clsx(
         "bg-violet-100",
         "w-[100vw] h-[100dvh]",
         "flex justify-center items-center",
-        "font-bold text-4xl"
+        "font-medium text-lg"
       )}
     >
-      {params["arContentsSlug"]}
+      {`${arContentsSlug}의 AR 컨텐츠 페이지가 연결될 예정입니다.`}
     </div>
   );
 };
