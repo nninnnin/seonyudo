@@ -24,11 +24,15 @@ const AboutPage = () => {
     redirect("/");
   }
 
+  console.log("subject", subject);
+
   const { data: introductions } = useIntroductions(
     subject as IntroductionSubjects
   );
 
   const { pageHeaderHeight } = usePageHeaderHeight();
+
+  console.log("introductions", introductions);
 
   if (!introductions) {
     return <></>;
@@ -38,17 +42,16 @@ const AboutPage = () => {
     <div
       className={clsx(
         "w-full h-full",
-        "home-background-gradient",
-        "pt-[calc(44px+32px)]"
+        "home-background-gradient"
       )}
-      style={{
-        paddingTop: `${pageHeaderHeight}px)`,
-      }}
     >
       <PageHeader />
 
       <Chat.Container
-        height={window.innerHeight - pageHeaderHeight}
+        style={{
+          height: window.innerHeight,
+          paddingTop: pageHeaderHeight,
+        }}
       >
         {introductions.map((introduction) => {
           const isQuestion =

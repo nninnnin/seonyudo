@@ -12,6 +12,7 @@ import {
 import {
   CategoryInterface,
   FormattedCategory,
+  FormattedImageMedia,
   MediaInterface,
 } from "@/shared/types/memex";
 import {
@@ -52,7 +53,7 @@ export const formatIntroductions = (
 
 export const extractMediaImage = (
   medias: MediaInterface[]
-): FormattedImage => {
+): (MediaInterface | FormattedImageMedia)[] => {
   return medias.map((media) => {
     if (media.fileType !== "IMAGE") {
       return media;

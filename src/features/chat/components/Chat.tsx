@@ -7,11 +7,11 @@ const Chat = () => {
 
 Chat.Container = ({
   className = "",
-  height,
+  style,
   children,
 }: {
   className?: string;
-  height?: number;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 }) => {
   return (
@@ -22,9 +22,7 @@ Chat.Container = ({
         "p-[1em]",
         className
       )}
-      style={{
-        height: height ? `${height}px` : "auto",
-      }}
+      style={style ?? {}}
     >
       {children}
     </ul>
