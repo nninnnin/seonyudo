@@ -17,6 +17,9 @@ importers:
       '@rebel9/memex-fetcher':
         specifier: ^1.5.1
         version: 1.5.1
+      '@tanstack/react-query':
+        specifier: ^5.69.0
+        version: 5.69.0(react@19.0.0)
       '@toss/use-overlay':
         specifier: ^1.4.2
         version: 1.4.2(react@19.0.0)
@@ -59,6 +62,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      react-query:
+        specifier: link:@types/@tanstack/react-query
+        version: link:@types/@tanstack/react-query
       zustand:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@19.0.10)(react@19.0.0)
@@ -332,6 +338,14 @@ packages:
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
+
+  '@tanstack/query-core@5.69.0':
+    resolution: {integrity: sha512-Kn410jq6vs1P8Nm+ZsRj9H+U3C0kjuEkYLxbiCyn3MDEiYor1j2DGVULqAz62SLZtUZ/e9Xt6xMXiJ3NJ65WyQ==}
+
+  '@tanstack/react-query@5.69.0':
+    resolution: {integrity: sha512-Ift3IUNQqTcaFa1AiIQ7WCb/PPy8aexZdq9pZWLXhfLcLxH0+PZqJ2xFImxCpdDZrFRZhLJrh76geevS5xjRhA==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@toss/use-overlay@1.4.2':
     resolution: {integrity: sha512-OYJKSKkldho8qrJR0xMJLpz85H68+E+y6H3y/N0XUed/b0ytbfU+fuxcPd14uiC8H0xzliTGBlY8GQP9Z/lteQ==}
@@ -1528,6 +1542,13 @@ snapshots:
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
+
+  '@tanstack/query-core@5.69.0': {}
+
+  '@tanstack/react-query@5.69.0(react@19.0.0)':
+    dependencies:
+      '@tanstack/query-core': 5.69.0
+      react: 19.0.0
 
   '@toss/use-overlay@1.4.2(react@19.0.0)':
     dependencies:

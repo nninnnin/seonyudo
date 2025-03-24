@@ -1,9 +1,9 @@
 "use client";
 
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 import PageHeader from "@/shared/components/PageHeader";
-import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();

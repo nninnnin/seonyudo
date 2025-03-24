@@ -65,3 +65,28 @@ export interface RelationInterface {
   uid: string;
   languageMap: LanguageMap;
 }
+
+type MemexModelItem<Item> = {
+  uid: string;
+  data: Item;
+  createdAt: string;
+};
+
+type PageInfo = {
+  isLast: boolean;
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+};
+
+export type MemexListResult<Item> = {
+  list: MemexModelItem<Item>[];
+  pageInfo: PageInfo;
+  validateAt: string;
+};
+
+export type FormattedCategory = {
+  id: number;
+  value: string;
+};

@@ -1,8 +1,15 @@
 "use client";
 
-import { OverlayProvider } from "@toss/use-overlay";
 import React from "react";
+import { OverlayProvider } from "@toss/use-overlay";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
 import SuspenseWrapper from "@/views/home/components/SuspenseWrapper";
+
+const queryClient = new QueryClient();
 
 const AppWrapper = ({
   children,
@@ -10,9 +17,11 @@ const AppWrapper = ({
   children: React.ReactNode;
 }) => {
   return (
-    <OverlayProvider>
-      <SuspenseWrapper>{children}</SuspenseWrapper>
-    </OverlayProvider>
+    <QueryClientProvider client={queryClient}>
+      <OverlayProvider>
+        <SuspenseWrapper>{children}</SuspenseWrapper>
+      </OverlayProvider>
+    </QueryClientProvider>
   );
 };
 

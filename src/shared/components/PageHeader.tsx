@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
+import { useStore } from "zustand";
 import { useRouter } from "next/navigation";
 
 import Menu from "@/shared/components/Menu";
 import Logo from "@/shared/components/Logo";
-import { IntroductionSubjects } from "@/features/introduction/constants";
-import { useStore } from "zustand";
+import { IntroductionSubjects } from "@/features/chat/constants";
 import { menuStore } from "@/shared/store/menu";
 
 const PageHeader = () => {
