@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import AppWrapper from "@/views/home/components/AppWrapper";
 import Analytics from "@/shared/components/Analytics";
 
-import "./globals.css";
+import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "선유도에서",

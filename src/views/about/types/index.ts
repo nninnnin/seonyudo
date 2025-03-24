@@ -39,10 +39,8 @@ export type FormattedIntroductionItem = {
   contentsText: string;
   contentsType: ContentsType;
   ideaImage?: FormattedImageMedia[];
+  uid: string;
 };
 
 export type IntroductionQueryData =
   MemexListResult<IntroductionItem>;
-
-export type IntroductionFormattedQueryData =
-  FormattedIntroductionItem[];

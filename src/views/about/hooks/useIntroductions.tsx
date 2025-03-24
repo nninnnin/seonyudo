@@ -11,7 +11,7 @@ import {
 import { INTRODUCTION_MODEL_KEYS } from "@/views/about/constants/index";
 import {
   IntroductionQueryData,
-  IntroductionFormattedQueryData,
+  FormattedIntroductionItem,
 } from "@/views/about/types/index";
 import {
   formatIntroductions,
@@ -30,7 +30,7 @@ const useIntroductions = (
   return useQuery<
     IntroductionQueryData,
     null,
-    IntroductionFormattedQueryData
+    FormattedIntroductionItem[]
   >({
     queryKey: [QueryKeys.Introductions, subject],
     queryFn: async () => {
@@ -45,7 +45,7 @@ const useIntroductions = (
 
       return await response.json();
     },
-    select: (data): IntroductionFormattedQueryData => {
+    select: (data): FormattedIntroductionItem[] => {
       return pipe(
         data,
         formatIntroductions,
