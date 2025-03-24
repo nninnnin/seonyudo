@@ -41,13 +41,20 @@ export const formatIntroductions = (
     mapListItems(
       extractStringValues(["contentsText"], "KO")
     ),
-    mapListItems((item: any) =>
-      mapObjectProps(
+    mapListItems((item: any) => {
+      if (
+        !item.ideaImage ||
+        item.ideaImage.length === 0
+      ) {
+        return item;
+      }
+
+      return mapObjectProps(
         item,
         ["ideaImage"],
         extractImageMedia
-      )
-    )
+      );
+    })
   );
 };
 
