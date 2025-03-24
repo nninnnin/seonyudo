@@ -6,16 +6,25 @@ const Chat = () => {
 };
 
 Chat.Container = ({
+  className = "",
+  height,
   children,
 }: {
+  className?: string;
+  height?: number;
   children: React.ReactNode;
 }) => {
   return (
     <ul
       className={clsx(
+        "h-[300px] overflow-auto",
         "flex flex-col gap-[1em]",
-        "p-[1em]"
+        "p-[1em]",
+        className
       )}
+      style={{
+        height: height ? `${height}px` : "auto",
+      }}
     >
       {children}
     </ul>
@@ -25,12 +34,36 @@ Chat.Container = ({
 Chat.Item = ({
   contents,
   type,
+  image,
 }: {
   contents: string;
   type: "question" | "answer";
+  image?: {
+    name: string;
+    path: string;
+  };
 }) => {
   return (
-    <li
+    <li>
+      <>
+        {image && (
+          <img className="mb-[1em]" src={image.path} />
+        )}
+      </>
+      <Chat.Bubble type={type}>{contents}</Chat.Bubble>
+    </li>
+  );
+};
+
+Chat.Bubble = ({
+  children,
+  type,
+}: {
+  children: React.ReactNode;
+  type: "question" | "answer";
+}) => {
+  return (
+    <div
       className={clsx(
         "w-[270px] ",
         "p-[1em] rounded-xl",
@@ -39,8 +72,8 @@ Chat.Item = ({
           "bg-green-400 text-white ml-auto"
       )}
     >
-      {contents}
-    </li>
+      {children}
+    </div>
   );
 };
 

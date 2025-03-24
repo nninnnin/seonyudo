@@ -1,5 +1,5 @@
 import { orderBy } from "lodash";
-import { curry } from "@fxts/core";
+import { curry, filter } from "@fxts/core";
 import {
   flattenListItem,
   mapListItems,
@@ -13,6 +13,7 @@ import {
   CategoryInterface,
   FormattedCategory,
   MediaInterface,
+  FormattedImageMedia,
 } from "@/shared/types/memex";
 import {
   IntroductionFormattedQueryData,
@@ -44,26 +45,24 @@ export const formatIntroductions = (
       mapObjectProps(
         item,
         ["ideaImage"],
-        extractMediaImage
+        extractImageMedia
       )
     )
   );
 };
 
-export const extractMediaImage = (
+export const extractImageMedia = (
   medias: MediaInterface[]
-): FormattedImage => {
-  return medias.map((media) => {
-    if (media.fileType !== "IMAGE") {
-      return media;
-    }
-
-    return {
-      id: media._id,
-      name: media.file.name,
-      path: media.file.path,
-    };
-  });
+): FormattedImageMedia[] => {
+  return medias
+    .filter((media) => media.fileType === "IMAGE")
+    .map((media) => {
+      return {
+        id: media._id,
+        name: media.file.name,
+        path: media.file.path,
+      };
+    });
 };
 
 export const extractCategoryValues = curry(

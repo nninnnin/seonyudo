@@ -7,16 +7,16 @@ import {
 import {
   IntroductionSubjects,
   QueryKeys,
-} from "@/features/chat/constants";
-import { INTRODUCTION_MODEL_KEYS } from "@/features/chat/constants/index";
+} from "@/views/about/constants";
+import { INTRODUCTION_MODEL_KEYS } from "@/views/about/constants/index";
 import {
   IntroductionQueryData,
   IntroductionFormattedQueryData,
-} from "@/features/chat/types/index";
+} from "@/views/about/types/index";
 import {
   formatIntroductions,
   sortIntroductions,
-} from "@/features/chat/utils/formatters";
+} from "@/views/about/utils/formatters";
 
 const token = process.env.MEMEX_TOKEN ?? "";
 const memexFetcher = createMemexFetcher(token);

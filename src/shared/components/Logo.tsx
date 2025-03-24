@@ -1,22 +1,33 @@
 import clsx from "clsx";
-import React from "react";
+import React, {
+  ForwardedRef,
+  forwardRef,
+} from "react";
 import { useRouter } from "next/navigation";
 
-const Logo = () => {
-  const router = useRouter();
+export const PAGE_HEADER_POSITION_TOP = 16;
 
-  return (
-    <div
-      className={clsx(
-        "fixed",
-        "top-[16px] left-[16px] z-[9999]",
-        "bg-white p-[10px]"
-      )}
-      onClick={() => router.push("/")}
-    >
-      UNSEENING
-    </div>
-  );
-};
+const Logo = forwardRef(
+  (props, ref: ForwardedRef<HTMLDivElement>) => {
+    const router = useRouter();
+
+    return (
+      <div
+        ref={ref}
+        className={clsx(
+          "fixed",
+          "left-[16px] z-[9999]",
+          "bg-white p-[10px]"
+        )}
+        style={{
+          top: `${PAGE_HEADER_POSITION_TOP}px`,
+        }}
+        onClick={() => router.push("/")}
+      >
+        UNSEENING
+      </div>
+    );
+  }
+);
 
 export default Logo;

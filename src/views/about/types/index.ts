@@ -1,5 +1,7 @@
 import {
   CategoryInterface,
+  FormattedImageMedia,
+  MediaInterface,
   MemexListResult,
 } from "@/shared/types/memex";
 
@@ -11,6 +13,7 @@ export type IntroductionItem = {
     EN: string;
   };
   contentsType: CategoryInterface;
+  ideaImage?: MediaInterface[];
 };
 
 export enum ContentsTypeId {
@@ -35,6 +38,7 @@ export type FormattedIntorductionItem = {
   contentsSubOrder: number;
   contentsText: string;
   contentsType: ContentsType;
+  ideaImage?: FormattedImageMedia[];
 };
 
 export type IntroductionQueryData =

@@ -90,3 +90,9 @@ export type FormattedCategory = {
   id: number;
   value: string;
 };
+
+export type FormattedImageMedia = {
+  id: number;
+  name: string;
+  path: string;
+};

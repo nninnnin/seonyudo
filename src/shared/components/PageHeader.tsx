@@ -6,12 +6,16 @@ import { useRouter } from "next/navigation";
 
 import Menu from "@/shared/components/Menu";
 import Logo from "@/shared/components/Logo";
-import { IntroductionSubjects } from "@/features/chat/constants";
+import { IntroductionSubjects } from "@/views/about/constants";
 import { menuStore } from "@/shared/store/menu";
+import useElementHeight from "@/shared/hooks/useElementHeight";
 
 const PageHeader = () => {
   const router = useRouter();
   const { setVisibility } = useStore(menuStore);
+
+  const { setElementRef } =
+    useElementHeight("page-header");
 
   const subItems = [
     {
@@ -34,7 +38,7 @@ const PageHeader = () => {
 
   return (
     <>
-      <Logo />
+      <Logo ref={setElementRef} />
 
       <Menu.Toggler />
       <Menu.Container className="py-[80px] px-[16px]">
