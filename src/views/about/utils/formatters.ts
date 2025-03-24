@@ -19,7 +19,7 @@ import {
   IntroductionFormattedQueryData,
   IntroductionQueryData,
 } from "@/views/about/types";
-import { FormattedIntorductionItem } from "@/views/about/types/index";
+import { FormattedIntroductionItem } from "@/views/about/types/index";
 
 export const formatIntroductions = (
   introductions: IntroductionQueryData
@@ -94,7 +94,7 @@ export const extractCategoryValues = curry(
 );
 
 export const sortIntroductions = (
-  formattedIntroductions: FormattedIntorductionItem[]
+  formattedIntroductions: FormattedIntroductionItem[]
 ) => {
   return orderBy(
     formattedIntroductions,

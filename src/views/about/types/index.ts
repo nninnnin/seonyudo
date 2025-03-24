@@ -33,7 +33,7 @@ type AnswerCategory = {
 
 type ContentsType = QuestionCategory | AnswerCategory;
 
-export type FormattedIntorductionItem = {
+export type FormattedIntroductionItem = {
   contentsOrder: number;
   contentsSubOrder: number;
   contentsText: string;
@@ -45,4 +45,4 @@ export type IntroductionQueryData =
   MemexListResult<IntroductionItem>;
 
 export type IntroductionFormattedQueryData =
-  FormattedIntorductionItem[];
+  FormattedIntroductionItem[];
