@@ -1,12 +1,12 @@
 import useLocations from "@/features/location/hooks/useLocations";
-import { LocationName } from "@/features/location/types/location";
+import { LocationSlugs } from "@/features/location/types/location";
 
-const useLocation = (locationName: LocationName) => {
+const useLocation = (locationSlug: LocationSlugs) => {
   const { locations } = useLocations();
 
   return {
     location: locations.find(
-      (location) => location.name === locationName
+      (location) => location.slug === locationSlug
     ),
   };
 };

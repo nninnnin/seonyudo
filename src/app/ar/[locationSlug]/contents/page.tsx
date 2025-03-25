@@ -4,18 +4,26 @@ import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import {
   redirect,
+  useParams,
   useSearchParams,
 } from "next/navigation";
 
 import Overlay from "@/shared/components/Overlay";
 import ArFrame from "@/features/ar/components/ArFrame";
 import useLocation from "@/features/location/hooks/useLocation";
+import { LocationSlugs } from "@/features/location/types/location";
 
 const ArPage = () => {
-  const searchParams = useSearchParams();
+  const params = useParams();
+  const locationSlug = params["locationSlug"];
 
-  const locationName = searchParams?.get("location");
-  const { location } = useLocation(locationName ?? "");
+  if (!locationSlug) {
+    redirect("/");
+  }
+
+  const { location } = useLocation(
+    locationSlug as LocationSlugs
+  );
 
   const [hasArContents, setHasArContents] = useState<
     null | boolean

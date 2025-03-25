@@ -13,10 +13,12 @@ import {
 } from "@/features/map/utils/marker";
 import { useOverlay } from "@toss/use-overlay";
 import LocationDetailsToast from "@/features/location/components/LocationDetailsToast";
+import { LocationSlugs } from "@/features/location/types/location";
 
 type Location = {
   name: string;
   coords: { lat: number; lng: number };
+  slug: LocationSlugs;
 };
 type Locations = Location[];
 
@@ -43,6 +45,7 @@ const useAddMarkers = (
                     KO: "설명",
                     EN: "Description",
                   },
+                  slug: location.slug,
                 }}
               />
             )}

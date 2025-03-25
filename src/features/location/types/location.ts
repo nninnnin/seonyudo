@@ -9,6 +9,7 @@ export interface Location {
     longitude: string;
     description: LanguageMap;
     arContentsUrl: LanguageMap;
+    slug: LocationSlugs;
   };
 }
 
@@ -20,6 +21,7 @@ export interface LocationFormatted {
   longitude: string;
   description: string;
   arContentsUrl: string;
+  slug: LocationSlugs;
 }
 
 export type LocationName =
@@ -29,5 +31,12 @@ export type LocationName =
   | "선유정"
   | "녹색기둥의 정원"
   | (string & {});
+
+export type LocationSlugs =
+  | "seonyugyo"
+  | "transitiongarden"
+  | "greencolumns"
+  | "seonyujeong"
+  | "purification";
 
 export interface Location {}

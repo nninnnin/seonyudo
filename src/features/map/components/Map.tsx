@@ -21,6 +21,7 @@ const Map = () => {
         lat: parseCoordString(loc.latitude),
         lng: parseCoordString(loc.longitude),
       },
+      slug: loc.slug,
     }))
   );
 

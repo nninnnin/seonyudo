@@ -5,9 +5,11 @@ import React from "react";
 const Button = ({
   children,
   iconSource,
+  onClick = () => {},
 }: {
   children: React.ReactNode;
   iconSource?: string;
+  onClick?: () => void;
 }) => {
   return (
     <button
@@ -18,6 +20,7 @@ const Button = ({
         "px-[12px]",
         "rounded-[30px]"
       )}
+      onClick={onClick}
     >
       {iconSource && (
         <Image
@@ -28,6 +31,7 @@ const Button = ({
           priority
         />
       )}
+
       <span className="px-[8px] button-typo">
         {children}
       </span>

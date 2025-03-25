@@ -1,24 +1,23 @@
 "use client";
 
 import clsx from "clsx";
-import { useStore } from "zustand";
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 
 import useLocation from "@/features/location/hooks/useLocation";
-import { locationStore } from "@/features/location/store/location";
-import Overlay from "@/shared/components/Overlay";
+import { LocationSlugs } from "@/features/location/types/location";
 import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
 import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
-import { LocationName } from "@/features/location/types/location";
+import Overlay from "@/shared/components/Overlay";
 
-const LocationDetails = () => {
-  const { selectedLocation, resetSelectedLocation } =
-    useStore(locationStore);
+const LocationDetails = ({
+  locationSlug,
+}: {
+  locationSlug: LocationSlugs;
+}) => {
+  const { location } = useLocation(locationSlug);
 
-  const { location } = useLocation(
-    selectedLocation ?? ""
-  );
+  if (!location) return <></>;
 
   return (
     <Overlay>
@@ -31,18 +30,11 @@ const LocationDetails = () => {
           "relative"
         )}
       >
-        <button
-          className="absolute top-0 right-0 p-[10px]"
-          onClick={() => resetSelectedLocation()}
-        >
-          X
-        </button>
-
-        <p>{location?.description ?? ""}</p>
+        <p>{location.description}</p>
 
         <LocationProximityProvider>
           <LocationDetails.ArTriggerButton
-            locationName={location?.name ?? ""}
+            locationSlug={location?.slug}
           />
         </LocationProximityProvider>
       </div>
@@ -51,9 +43,9 @@ const LocationDetails = () => {
 };
 
 LocationDetails.ArTriggerButton = ({
-  locationName,
+  locationSlug,
 }: {
-  locationName: LocationName;
+  locationSlug: LocationSlugs;
 }) => {
   const router = useRouter();
 
@@ -69,7 +61,7 @@ LocationDetails.ArTriggerButton = ({
         "disabled:pointer-events-none"
       )}
       onClick={() =>
-        router.push(`/ar?location=${locationName}`)
+        router.push(`/ar/${locationSlug}/contents`)
       }
       // disabled={!locationProximity[locationName]}
     >
