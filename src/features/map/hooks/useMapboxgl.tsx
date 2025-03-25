@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import mapboxgl, { Map } from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+import { 지도_시작점 } from "@/features/map/constants";
 
 const mapSettings = {
-  center: {
-    lat: 37.543536,
-    lng: 126.899887,
-  },
+  center: 지도_시작점.한남동,
   zoom: 16,
 };
 

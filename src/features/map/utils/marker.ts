@@ -1,4 +1,5 @@
 import { Map, Marker } from "mapbox-gl";
+
 import { curry } from "@fxts/core";
 
 export const createMarker = (name: string) => {
@@ -11,7 +12,9 @@ export const createMarker = (name: string) => {
 
   markerElement.appendChild(markerLabel);
 
-  return new Marker(markerElement);
+  return new Marker({
+    element: markerElement,
+  });
 };
 
 export const setMarkerCoords = curry(

@@ -10,17 +10,19 @@ import {
   setMarkerCoords,
 } from "@/features/map/utils/marker";
 
+type Locations = {
+  name: string;
+  coords: { lat: number; lng: number };
+}[];
+
 const useAddMarkers = (
   map: Map | null,
-  locations: {
-    name: string;
-    coords: { lat: number; lng: number };
-  }[]
+  locations: Locations
 ) => {
-  useEffect(() => {
-    if (!map) return;
-    if (!locations || !locations.length) return;
-
+  const addMarkers = (
+    map: Map,
+    locations: Locations
+  ) => {
     locations.forEach((location) => {
       const { name, coords } = location;
 
@@ -42,6 +44,13 @@ const useAddMarkers = (
         addMarker(map)
       );
     });
+  };
+
+  useEffect(() => {
+    if (!map) return;
+    if (!locations || !locations.length) return;
+
+    addMarkers(map, locations);
   }, [map, locations]);
 };
 
