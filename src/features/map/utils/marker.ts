@@ -31,3 +31,13 @@ export const addMarker = curry(
     marker.addTo(map);
   }
 );
+
+export const addMarkerClickHandler = curry(
+  (handler: () => void, marker: Marker) => {
+    marker
+      .getElement()
+      .addEventListener("click", handler);
+
+    return marker;
+  }
+);

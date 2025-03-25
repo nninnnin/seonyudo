@@ -1,0 +1,43 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+* {
+  font-family: Pretendard;
+  text-rendering: optimizeLegibility;
+
+  /* font smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.body2 {
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 134%; /* 21.44px */
+}
+
+.body3 {
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 134%; /* 18.76px */
+}
+
+.glassmorph {
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+
+  color: var(--white, #fff);
+}
+
+.button-typo {
+  color: var(--white, #fff);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 134%; /* 21.44px */
+}

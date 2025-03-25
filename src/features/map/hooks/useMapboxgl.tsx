@@ -24,6 +24,9 @@ const useMapboxgl = () => {
         mapContainerRef.current as HTMLDivElement,
     });
 
+    // Map settings: Disable double click zoom
+    mapInstance.doubleClickZoom.disable();
+
     setMapInstance(mapInstance);
 
     return () => {

@@ -2,23 +2,55 @@ import { useEffect } from "react";
 import { Map } from "mapbox-gl";
 import { pipe } from "@rebel9/memex-fetcher";
 import { isEqual } from "lodash";
+import { AnimatePresence } from "motion/react";
 
 import "../styles/marker.css";
 import {
   addMarker,
   createMarker,
   setMarkerCoords,
+  addMarkerClickHandler,
 } from "@/features/map/utils/marker";
+import { useOverlay } from "@toss/use-overlay";
+import LocationDetailsToast from "@/features/location/components/LocationDetailsToast";
 
-type Locations = {
+type Location = {
   name: string;
   coords: { lat: number; lng: number };
-}[];
+};
+type Locations = Location[];
 
 const useAddMarkers = (
   map: Map | null,
   locations: Locations
 ) => {
+  const overlay = useOverlay();
+
+  const handleClickMarker =
+    (location: Location) => () => {
+      overlay.open(({ close, isOpen }) => {
+        return (
+          <AnimatePresence>
+            {isOpen && (
+              <LocationDetailsToast
+                close={close}
+                location={{
+                  name: {
+                    KO: location.name,
+                    EN: location.name,
+                  },
+                  description: {
+                    KO: "설명",
+                    EN: "Description",
+                  },
+                }}
+              />
+            )}
+          </AnimatePresence>
+        );
+      });
+    };
+
   const addMarkers = (
     map: Map,
     locations: Locations
@@ -41,6 +73,9 @@ const useAddMarkers = (
       pipe(
         createMarker(name),
         setMarkerCoords(coords),
+        addMarkerClickHandler(
+          handleClickMarker(location)
+        ),
         addMarker(map)
       );
     });
