@@ -16,14 +16,13 @@ import {
   MediaInterface,
 } from "@/shared/types/memex";
 import {
-  IntroductionFormattedQueryData,
+  FormattedIntroductionItem,
   IntroductionQueryData,
 } from "@/views/about/types";
-import { FormattedIntroductionItem } from "@/views/about/types/index";
 
 export const formatIntroductions = (
   introductions: IntroductionQueryData
-): IntroductionFormattedQueryData => {
+): FormattedIntroductionItem => {
   return pipe(
     introductions,
     pluckList,
