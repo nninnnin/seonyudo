@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Map } from "mapbox-gl";
 import { pipe } from "@rebel9/memex-fetcher";
+import { isEqual } from "lodash";
 
 import "../styles/marker.css";
 import {
@@ -22,6 +23,18 @@ const useAddMarkers = (
 
     locations.forEach((location) => {
       const { name, coords } = location;
+
+      // check if the location is already added
+      const hasAlreadyAdded = map._markers.find(
+        (marker) => {
+          return isEqual(
+            { ...marker._lngLat },
+            location.coords
+          );
+        }
+      );
+
+      if (hasAlreadyAdded) return;
 
       pipe(
         createMarker(name),
