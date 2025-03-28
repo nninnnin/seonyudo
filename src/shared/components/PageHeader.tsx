@@ -68,6 +68,14 @@ const PageHeader = () => {
           </Menu.Item>
           <Menu.Item
             onClick={() => {
+              router.push("/guide");
+              setVisibility(false);
+            }}
+          >
+            체험 안내 유의사항
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
               router.push("/map");
               setVisibility(false);
             }}
