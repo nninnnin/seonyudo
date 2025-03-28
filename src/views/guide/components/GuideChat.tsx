@@ -36,6 +36,8 @@ const GuideChat = () => {
     subject as GuideSubjects
   );
 
+  console.log("guides:", guides);
+
   const {
     slicedItems: slicedGuides,
     scrollContainerRef,
@@ -49,6 +51,8 @@ const GuideChat = () => {
         }))
       : undefined
   );
+
+  console.log("slicedGuides:", slicedGuides);
 
   useEffect(() => {
     setTimeout(() => {
