@@ -59,9 +59,6 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
-      react-query:
-        specifier: link:@types/@tanstack/react-query
-        version: link:@types/@tanstack/react-query
       zustand:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@19.0.10)(react@19.0.0)
