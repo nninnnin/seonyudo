@@ -15,6 +15,14 @@ import {
 import Overlay from "@/shared/components/Overlay";
 import useLocation from "@/features/location/hooks/useLocation";
 import { LocationSlugs } from "@/features/location/types/location";
+import CapturedThumbnails from "@/features/capture/components/CapturedThumbnails";
+import { useStore } from "zustand";
+import {
+  blobToUrl,
+  capturedPictureStore,
+  NUMBER_OF_CAPTURED_PICTURES,
+} from "@/features/capture/store";
+import CaptureComplete from "@/features/capture/components/CaptureComplete";
 
 const ArPage = () => {
   const params = useParams();
@@ -42,6 +50,14 @@ const ArPage = () => {
     }
   }, [location]);
 
+  const { capturedPictures } = useStore(
+    capturedPictureStore
+  );
+
+  const isCapturingCompleted =
+    capturedPictures.length ===
+    NUMBER_OF_CAPTURED_PICTURES;
+
   return (
     <>
       {hasArContents === false && (
@@ -53,6 +69,10 @@ const ArPage = () => {
           arContentsUrl={location!.arContentsUrl}
         />
       )}
+
+      <CapturedThumbnails />
+
+      {isCapturingCompleted && <CaptureComplete />}
     </>
   );
 };
@@ -71,6 +91,10 @@ ArPage.ArContents = ({
   const { ArContentsIframe, showCaptureButton } =
     useArContents();
 
+  const { addCapturedPicture } = useStore(
+    capturedPictureStore
+  );
+
   useArContentsMessages({
     handleARLoaded: () => {
       console.log("AR 로딩 완료!");
@@ -78,6 +102,8 @@ ArPage.ArContents = ({
     },
     handleCapturedImage: (capturedImage) => {
       console.log("캡쳐된 이미지: ", capturedImage);
+
+      addCapturedPicture(blobToUrl(capturedImage));
     },
   });
 

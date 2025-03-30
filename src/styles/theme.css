@@ -9,6 +9,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.body1 {
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 134%; /* 26.8px */
+}
+
 .body2 {
   font-family: Pretendard;
   font-size: 16px;
