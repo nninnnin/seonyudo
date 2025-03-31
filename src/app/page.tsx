@@ -1,9 +1,17 @@
 "use client";
 
 import clsx from "clsx";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
 import PageHeader from "@/shared/components/PageHeader";
+
+const Facade = dynamic(
+  () => import("@/views/home/components/Facade"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Home() {
   const router = useRouter();
@@ -12,14 +20,10 @@ export default function Home() {
     <div
       className={clsx(
         "w-[100vw] h-[100dvh]",
-        "flex flex-col justify-center items-center",
-        "home-background-gradient"
+        "flex flex-col justify-center items-center"
       )}
     >
-      <div className="text-white text-center text-[20px] font-bold">
-        <h1>UNSEENING</h1>
-        <h2>선유동화</h2>
-      </div>
+      <Facade />
 
       <button
         className={clsx(
