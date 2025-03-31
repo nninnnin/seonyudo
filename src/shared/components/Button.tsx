@@ -5,16 +5,19 @@ import React from "react";
 const Button = ({
   children,
   iconSource,
+  theme = "black",
   onClick = () => {},
 }: {
   children: React.ReactNode;
   iconSource?: string;
+  theme?: "black" | "white";
   onClick?: () => void;
 }) => {
   return (
     <button
       className={clsx(
-        "bg-black text-white",
+        theme === "black" && "bg-black",
+        theme === "white" && "bg-white",
         "w-fit h-[32px]",
         "flex justify-between items-center gap-[4px]",
         "px-[12px]",
@@ -32,7 +35,13 @@ const Button = ({
         />
       )}
 
-      <span className="px-[8px] button-typo">
+      <span
+        className={clsx(
+          "px-[8px] button-typo",
+          theme === "black" && "text-white",
+          theme === "white" && "text-black"
+        )}
+      >
         {children}
       </span>
     </button>

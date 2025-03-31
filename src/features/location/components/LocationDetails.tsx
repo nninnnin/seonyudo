@@ -8,7 +8,7 @@ import useLocation from "@/features/location/hooks/useLocation";
 import { LocationSlugs } from "@/features/location/types/location";
 import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
 import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
-import Overlay from "@/shared/components/Overlay";
+import Button from "@/shared/components/Button";
 
 const LocationDetails = ({
   locationSlug,
@@ -20,25 +20,56 @@ const LocationDetails = ({
   if (!location) return <></>;
 
   return (
-    <Overlay>
+    <div
+      className={clsx(
+        "w-full h-full",
+        "bg-violet-300",
+        "flex flex-col justify-center items-center",
+        "gap-[16px]",
+        "p-[10px]",
+        "relative",
+        "text-white"
+      )}
+    >
       <div
         className={clsx(
-          "w-[300px] h-[300px]",
-          "bg-white",
+          "w-full min-h-[20vh]",
           "flex flex-col justify-center items-center",
-          "p-[10px]",
-          "relative"
+          "gap-[4px]",
+          "text-center"
         )}
       >
-        <p>{location.description}</p>
+        <h1 className="text-[5em] leading-[1.2em] font-extrabold">
+          Whale
+        </h1>
 
-        <LocationProximityProvider>
+        <p>
+          바다와 구름이 떠도든 무엇이든 문의해주세요{" "}
+          <br />
+          꽃이 오면 봄이 간다 가을 겨울 봄 여름
+          예술경영
+        </p>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Tempora, modi.
+        </p>
+      </div>
+
+      <LocationProximityProvider>
+        <div
+          className={clsx(
+            "fixed left-1/2 -translate-x-1/2 bottom-[48px]",
+            "flex flex-col items-center gap-[12px]"
+          )}
+        >
           <LocationDetails.ArTriggerButton
             locationSlug={location?.slug}
           />
-        </LocationProximityProvider>
-      </div>
-    </Overlay>
+          <LocationDetails.ViewIdeasButton />
+        </div>
+      </LocationProximityProvider>
+    </div>
   );
 };
 
@@ -54,19 +85,26 @@ LocationDetails.ArTriggerButton = ({
   );
 
   return (
-    <button
-      className={clsx(
-        "bg-black text-white mt-[20px] p-[10px]",
-        "disabled:bg-gray-300",
-        "disabled:pointer-events-none"
-      )}
+    <Button
+      iconSource="/icons/magic.svg"
       onClick={() =>
         router.push(`/ar/${locationSlug}/contents`)
       }
-      // disabled={!locationProximity[locationName]}
     >
-      AR 실행하기
-    </button>
+      Open AR
+    </Button>
+  );
+};
+
+LocationDetails.ViewIdeasButton = () => {
+  return (
+    <Button
+      theme="white"
+      iconSource="/icons/twinkle.svg"
+      onClick={() => {}}
+    >
+      View Ideas
+    </Button>
   );
 };
 
