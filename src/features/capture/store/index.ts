@@ -28,7 +28,20 @@ export const capturedPictureStore = create<{
       selectedCardIndex: index,
     });
   },
-  capturedPictures: [],
+  capturedPictures: [
+    {
+      id: "1",
+      url: "/images/captured1.jpg",
+    },
+    {
+      id: "2",
+      url: "/images/captured2.jpg",
+    },
+    {
+      id: "3",
+      url: "/images/captured3.jpg",
+    },
+  ],
   resetCapturedPictures: () => {
     set({
       capturedPictures: [],

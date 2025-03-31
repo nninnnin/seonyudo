@@ -24,95 +24,173 @@ const CapturedImageCard = ({
   const {
     selectedCardIndex,
     increaseSelectedCardIndex,
+    capturedPictures,
+    addCapturedPicture,
   } = useStore(capturedPictureStore);
 
   useEffect(() => {
+    const touchStartHandler = (e: TouchEvent) => {
+      const startPoint = e.touches[0].clientX;
+      touchStart.current = startPoint;
+    };
+
+    const touchMoveHandler = (e: TouchEvent) => {
+      if (cardIndex !== selectedCardIndex) {
+        return;
+      }
+
+      const moveX =
+        touchStart.current - e.touches[0].clientX;
+
+      containerRef.current!.style.transform = `translateX(${-moveX}px) rotateZ(${
+        (moveX / 10) * -1
+      }deg)`;
+
+      const relativePosition =
+        (e.touches[0].clientX / window.innerWidth) *
+          2 -
+        1;
+
+      const isLeft =
+        relativePosition < 0 &&
+        relativePosition < -0.5;
+      const isRight =
+        relativePosition > 0 && relativePosition > 0.5;
+
+      if (isLeft) {
+        swipeTo.current = "left";
+      } else if (isRight) {
+        swipeTo.current = "right";
+      } else {
+        swipeTo.current = null;
+      }
+    };
+
+    const addNewCard = () => {
+      setTimeout(() => {
+        const currentCard =
+          capturedPictures[selectedCardIndex];
+
+        addCapturedPicture(currentCard.url);
+      }, 400);
+    };
+
+    const touchEndHandler = () => {
+      if (!swipeTo.current) {
+        containerRef.current!.style.transform = `translateX(0px)`;
+      }
+
+      if (swipeTo.current === "left") {
+        containerRef.current!.style.transform = `translateX(-150vw)`;
+      } else if (swipeTo.current === "right") {
+        containerRef.current!.style.transform = `translateX(150vw)`;
+      }
+
+      const isSwiped = swipeTo.current !== null;
+      if (isSwiped) {
+        increaseSelectedCardIndex();
+        addNewCard();
+      }
+
+      containerRef.current!.style.transition = `transform 0.3s ease-in-out`;
+
+      setTimeout(() => {
+        containerRef.current!.style.transition = ``;
+      }, 300);
+    };
+
     if (containerRef.current) {
       containerRef.current.addEventListener(
         "touchstart",
-        (e) => {
-          const startPoint = e.touches[0].clientX;
-          touchStart.current = startPoint;
-        }
+        touchStartHandler
       );
 
       containerRef.current.addEventListener(
         "touchmove",
-        (e) => {
-          const moveX =
-            touchStart.current - e.touches[0].clientX;
-
-          containerRef.current!.style.transform = `translateX(${-moveX}px) rotateZ(${
-            (moveX / 10) * -1
-          }deg)`;
-
-          const relativePosition =
-            (e.touches[0].clientX /
-              window.innerWidth) *
-              2 -
-            1;
-
-          const isLeft =
-            relativePosition < 0 &&
-            relativePosition < -0.8;
-          const isRight =
-            relativePosition > 0 &&
-            relativePosition > 0.8;
-
-          if (isLeft) {
-            swipeTo.current = "left";
-          } else if (isRight) {
-            swipeTo.current = "right";
-          } else {
-            swipeTo.current = null;
-          }
-        }
+        touchMoveHandler
       );
 
       containerRef.current.addEventListener(
         "touchend",
-        () => {
-          if (!swipeTo.current) {
-            containerRef.current!.style.transform = `translateX(0px)`;
-          }
-
-          if (swipeTo.current === "left") {
-            containerRef.current!.style.transform = `translateX(-100vw)`;
-          } else if (swipeTo.current === "right") {
-            containerRef.current!.style.transform = `translateX(100vw)`;
-          }
-
-          const isSwiped = swipeTo.current !== null;
-          if (isSwiped) {
-            increaseSelectedCardIndex();
-          }
-
-          containerRef.current!.style.transition = `transform 0.3s ease-in-out`;
-
-          setTimeout(() => {
-            containerRef.current!.style.transition = ``;
-          }, 300);
-        }
+        touchEndHandler
       );
     }
-  }, []);
 
-  console.log("카드 인덱스: ", selectedCardIndex);
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.removeEventListener(
+          "touchstart",
+          touchStartHandler
+        );
+        containerRef.current.removeEventListener(
+          "touchmove",
+          touchMoveHandler
+        );
+        containerRef.current.removeEventListener(
+          "touchend",
+          touchEndHandler
+        );
+      }
+    };
+  }, [selectedCardIndex]);
+
+  const isSelectedCard =
+    selectedCardIndex === cardIndex;
 
   return (
-    <img
-      ref={containerRef}
+    <div
       className={clsx(
         "absolute top-0 left-0",
-        "w-[240px] h-[360px] bg-white",
-        "rounded-[18px]"
+        "w-[240px] h-[360px]"
       )}
+      ref={containerRef}
       style={{
         zIndex: 1000 - cardIndex,
       }}
-      src={src}
-    />
+    >
+      <img
+        className={clsx(
+          "w-full h-full bg-white",
+          "rounded-[18px]",
+          "transition duration-500 ease-in-out",
+          "shadow-xl"
+        )}
+        src={src}
+        style={{
+          transformOrigin: "center",
+          transform: isSelectedCard
+            ? ""
+            : `rotateZ(${getRandomRotation(
+                cardIndex
+              )}deg) translateX(calc(${getRandomTranslateX(
+                cardIndex
+              )}px)) scale(0.8)`,
+        }}
+      />
+    </div>
   );
+};
+
+const isOdd = (n: number) => n % 2 === 1;
+const isEven = (n: number) => n % 2 === 0;
+
+const getRandomRotation = (index: number) => {
+  if (isOdd(index)) {
+    return Math.random() * 20 + 10;
+  } else if (isEven(index)) {
+    return Math.random() * -20 - 10;
+  }
+
+  return 0;
+};
+
+const getRandomTranslateX = (index: number) => {
+  if (isOdd(index)) {
+    return Math.random() * 20 + 50;
+  } else if (isEven(index)) {
+    return Math.random() * -20 - 50;
+  }
+  return 0;
 };
 
 export default CapturedImageCard;
