@@ -1,14 +1,11 @@
 "use client";
 
 import clsx from "clsx";
-import React from "react";
+import React, { useState } from "react";
 import { useStore } from "zustand";
 import dynamic from "next/dynamic";
 
-import {
-  capturedPictureStore,
-  NUMBER_OF_CAPTURED_PICTURES,
-} from "@/features/capture/store";
+import { capturedPictureStore } from "@/features/capture/store";
 import Button from "@/shared/components/Button";
 import { useRouter } from "next/navigation";
 
@@ -27,6 +24,8 @@ const SharePage = () => {
 
   const { selectedCardIndex, capturedPictures } =
     useStore(capturedPictureStore);
+
+  const [isSharing, setIsSharing] = useState(false);
 
   const dummy = [
     {
@@ -49,6 +48,8 @@ const SharePage = () => {
     if (!navigator.share) {
       alert("다운로드 할 수 없습니다.");
     }
+
+    setIsSharing(true);
 
     const currentCard = (
       capturedPictures && capturedPictures.length > 0
@@ -75,6 +76,9 @@ const SharePage = () => {
         if (error.name !== "AbortError") {
           console.error("Error sharing:", error);
         }
+      })
+      .finally(() => {
+        setIsSharing(false);
       });
   };
 
@@ -142,17 +146,14 @@ const SharePage = () => {
           "w-full",
           "flex items-center justify-center",
           "gap-[16px]",
-          "pb-[48px]"
+          "pb-[48px]",
+          isSharing && "pointer-events-none"
         )}
       >
         <Button
           iconSource="/icons/download.svg"
           theme="white"
           onClick={handleShareClick}
-          disabled={
-            selectedCardIndex + 1 >
-            NUMBER_OF_CAPTURED_PICTURES
-          }
         >
           Save
         </Button>
@@ -161,10 +162,6 @@ const SharePage = () => {
           iconSource="/icons/share.svg"
           theme="white"
           onClick={handleShareClick}
-          disabled={
-            selectedCardIndex + 1 >
-            NUMBER_OF_CAPTURED_PICTURES
-          }
         >
           Share
         </Button>
