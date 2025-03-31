@@ -2,6 +2,9 @@ import { create } from "zustand";
 import { v4 as uuidv4 } from "uuid";
 
 export const capturedPictureStore = create<{
+  selectedCardIndex: number;
+  setSelectedCardIndex: (index: number) => void;
+  increaseSelectedCardIndex: () => void;
   capturedPictures: {
     id: string;
     url: string;
@@ -9,11 +12,29 @@ export const capturedPictureStore = create<{
   setCapturedPictures: (
     capturedPictures: string[]
   ) => void;
+  resetCapturedPictures: () => void;
   addCapturedPicture: (
     capturedPicture: string
   ) => void;
 }>((set) => ({
+  selectedCardIndex: 0,
+  increaseSelectedCardIndex: () => {
+    set((state) => ({
+      selectedCardIndex: state.selectedCardIndex + 1,
+    }));
+  },
+  setSelectedCardIndex: (index: number) => {
+    set({
+      selectedCardIndex: index,
+    });
+  },
   capturedPictures: [],
+  resetCapturedPictures: () => {
+    set({
+      capturedPictures: [],
+      selectedCardIndex: 0,
+    });
+  },
   setCapturedPictures: (pictureUrls: string[]) =>
     set({
       capturedPictures: pictureUrls.map(

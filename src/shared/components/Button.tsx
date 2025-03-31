@@ -7,17 +7,20 @@ const Button = ({
   iconSource,
   theme = "black",
   onClick = () => {},
+  disabled = false,
 }: {
   children: React.ReactNode;
   iconSource?: string;
   theme?: "black" | "white";
   onClick?: () => void;
+  disabled?: boolean;
 }) => {
   return (
     <button
       className={clsx(
         theme === "black" && "bg-black",
         theme === "white" && "bg-white",
+        disabled && "bg-gray-300 cursor-not-allowed",
         "w-fit h-[32px]",
         "flex justify-between items-center gap-[4px]",
         "px-[12px]",
@@ -39,7 +42,8 @@ const Button = ({
         className={clsx(
           "px-[8px] button-typo",
           theme === "black" && "text-white",
-          theme === "white" && "text-black"
+          theme === "white" && "text-black",
+          disabled && "text-gray-100"
         )}
       >
         {children}

@@ -23,6 +23,7 @@ import {
   NUMBER_OF_CAPTURED_PICTURES,
 } from "@/features/capture/store";
 import CaptureComplete from "@/features/capture/components/CaptureComplete";
+import Button from "@/shared/components/Button";
 
 const ArPage = () => {
   const params = useParams();
@@ -55,7 +56,7 @@ const ArPage = () => {
   );
 
   const isCapturingCompleted =
-    capturedPictures.length ===
+    capturedPictures.length >=
     NUMBER_OF_CAPTURED_PICTURES;
 
   return (
@@ -91,9 +92,8 @@ ArPage.ArContents = ({
   const { ArContentsIframe, showCaptureButton } =
     useArContents();
 
-  const { addCapturedPicture } = useStore(
-    capturedPictureStore
-  );
+  const { addCapturedPicture, resetCapturedPictures } =
+    useStore(capturedPictureStore);
 
   useArContentsMessages({
     handleARLoaded: () => {
@@ -106,6 +106,10 @@ ArPage.ArContents = ({
       addCapturedPicture(blobToUrl(capturedImage));
     },
   });
+
+  useEffect(() => {
+    resetCapturedPictures();
+  }, []);
 
   return (
     <>
@@ -123,7 +127,8 @@ ArPage.ArContents = ({
           className={clsx(
             "bg-[violet] text-white text-2xl",
             "w-[100vw] h-[100dvh]",
-            "fixed top-0 left-0 z-[9999]"
+            "fixed top-0 left-0 z-[9999]",
+            "flex justify-center items-center"
           )}
         >
           로딩중..
@@ -183,28 +188,43 @@ ArPage.ArGuide = ({
     <Overlay>
       <div
         className={clsx(
-          "flex flex-col items-center justify-center",
+          "flex flex-col items-center justify-between",
+          "p-[45px]",
           "gap-[10px]",
-          "p-[20px]",
-          "w-[300px] h-[300px]",
-          "bg-white"
+          "w-full h-full",
+          "bg-black bg-opacity-50"
         )}
       >
-        <h2>AR Guide</h2>
-
-        <p>
-          Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Similique quia qui minima
-          impedit necessitatibus. Iure eveniet
-          asperiores dolor placeat voluptates.
-        </p>
-
-        <button
-          className="bg-black text-white p-[10px]"
-          onClick={close}
+        <div
+          className={clsx(
+            "flex flex-col items-center",
+            "body1 text-center text-white"
+          )}
         >
-          close
-        </button>
+          <h2>가이드 메시지가 출력될 자리입니다</h2>
+          <h2>Lorem ipsum dolor sit amet elit.</h2>
+        </div>
+
+        <div className="flex flex-col items-center gap-[20px]">
+          <p
+            className={clsx(
+              "flex flex-col gap-[4px]",
+              "body2 text-white text-center"
+            )}
+          >
+            <span>안전한 위치에서 체험해 주세요.</span>
+            <span>
+              Please experience from a safe spot
+            </span>
+          </p>
+
+          <Button
+            iconSource="/icons/thumbsup.svg"
+            onClick={() => close()}
+          >
+            Okay
+          </Button>
+        </div>
       </div>
     </Overlay>
   );

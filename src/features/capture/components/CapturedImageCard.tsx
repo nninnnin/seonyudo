@@ -1,10 +1,16 @@
-import React, { useEffect, useRef } from "react";
+'use client";';
+
+import { capturedPictureStore } from "@/features/capture/store";
 import clsx from "clsx";
+import React, { useEffect, useRef } from "react";
+import { useStore } from "zustand";
 
 const CapturedImageCard = ({
   src,
+  cardIndex,
 }: {
   src: string;
+  cardIndex: number;
 }) => {
   const containerRef = useRef<HTMLImageElement | null>(
     null
@@ -14,6 +20,11 @@ const CapturedImageCard = ({
   const swipeTo = useRef<null | "left" | "right">(
     null
   );
+
+  const {
+    selectedCardIndex,
+    increaseSelectedCardIndex,
+  } = useStore(capturedPictureStore);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -40,8 +51,6 @@ const CapturedImageCard = ({
               window.innerWidth) *
               2 -
             1;
-
-          console.log(relativePosition);
 
           const isLeft =
             relativePosition < 0 &&
@@ -73,7 +82,13 @@ const CapturedImageCard = ({
             containerRef.current!.style.transform = `translateX(100vw)`;
           }
 
+          const isSwiped = swipeTo.current !== null;
+          if (isSwiped) {
+            increaseSelectedCardIndex();
+          }
+
           containerRef.current!.style.transition = `transform 0.3s ease-in-out`;
+
           setTimeout(() => {
             containerRef.current!.style.transition = ``;
           }, 300);
@@ -82,13 +97,19 @@ const CapturedImageCard = ({
     }
   }, []);
 
+  console.log("카드 인덱스: ", selectedCardIndex);
+
   return (
     <img
       ref={containerRef}
       className={clsx(
+        "absolute top-0 left-0",
         "w-[240px] h-[360px] bg-white",
         "rounded-[18px]"
       )}
+      style={{
+        zIndex: 1000 - cardIndex,
+      }}
       src={src}
     />
   );

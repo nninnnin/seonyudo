@@ -46,7 +46,7 @@ const CaptureComplete = () => {
           return (
             <img
               key={`thumbnail-big-${id}`}
-              className="w-[80px] h-[80px] rounded-[4px] "
+              className="w-[80px] h-[80px] rounded-[4px] object-cover"
               src={url}
             />
           );
