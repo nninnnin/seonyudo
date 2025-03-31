@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@ar-framework/utils':
-        specifier: ^1.1.10
-        version: 1.1.10
+        specifier: ^1.2.0
+        version: 1.2.0
       '@fxts/core':
         specifier: ^1.4.0
         version: 1.4.0
@@ -65,6 +65,9 @@ importers:
       react-query:
         specifier: link:@types/@tanstack/react-query
         version: link:@types/@tanstack/react-query
+      uuid:
+        specifier: ^11.1.0
+        version: 11.1.0
       zustand:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@19.0.10)(react@19.0.0)
@@ -94,8 +97,8 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@ar-framework/utils@1.1.10':
-    resolution: {integrity: sha512-nkVinhLcbG+V67UCKmZ3MlxRJFq+EPSOG1uASo8pAZhPiDhHTaOHwSSqOigpGhXuOnEyi22qwS3QjKrqfjMHwA==}
+  '@ar-framework/utils@1.2.0':
+    resolution: {integrity: sha512-9+jaWkCB/Xhqz9JPNXzx44VAXX+6sj8/3XLUrTzgbPw48N0B7Mp4399w2rNwRNfkMVSwOBfStT1n3O3hxf2v4Q==}
 
   '@babel/runtime-corejs3@7.26.9':
     resolution: {integrity: sha512-5EVjbTegqN7RSJle6hMWYxO4voo4rI+9krITk+DWR+diJgGrjZjrIBnJhjrHYYQsFgI7j1w1QnrvV7YSKBfYGg==}
@@ -1275,6 +1278,10 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
+
   vt-pbf@3.1.3:
     resolution: {integrity: sha512-2LzDFzt0mZKZ9IpVF2r69G9bXaP2Q2sArJCmcCgvfTdCCZzSyz4aCLoQyUilu37Ll56tCblIZrXFIjNUpGIlmA==}
 
@@ -1336,7 +1343,7 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@ar-framework/utils@1.1.10':
+  '@ar-framework/utils@1.2.0':
     dependencies:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -2455,6 +2462,8 @@ snapshots:
       picocolors: 1.1.1
 
   util-deprecate@1.0.2: {}
+
+  uuid@11.1.0: {}
 
   vt-pbf@3.1.3:
     dependencies:
