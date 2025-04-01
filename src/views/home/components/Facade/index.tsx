@@ -41,7 +41,7 @@ const Facade = () => {
       id="facade-container"
       ref={containerRef}
       className={clsx(
-        "absolute top-0 left-0",
+        "absolute top-0 left-0 z-[-1]",
         "h-full bg-red-300 bg-opacity-20",
         "overflow-x-hidden"
       )}

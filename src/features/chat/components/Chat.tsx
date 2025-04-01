@@ -1,3 +1,4 @@
+import ChatBackground from "@/features/chat/components/ChatBackground";
 import clsx from "clsx";
 import React, {
   ForwardedRef,
@@ -31,6 +32,8 @@ Chat.Container = forwardRef(
         style={style ?? {}}
         ref={forwardedRef}
       >
+        <ChatBackground />
+
         {children}
       </ul>
     );
@@ -77,7 +80,7 @@ Chat.Bubble = ({
         "p-[1em] rounded-xl",
         type === "question" && "bg-white",
         type === "answer" &&
-          "bg-green-400 text-white ml-auto"
+          "bg-black bg-opacity-30 backdrop-blur-[30px] text-white ml-auto"
         // "animate-chat-bubble" // TODO: 스크롤링 이후 추가되도록
       )}
     >

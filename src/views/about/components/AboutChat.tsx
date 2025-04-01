@@ -1,5 +1,7 @@
 "use client";
 
+import clsx from "clsx";
+import { format } from "date-fns";
 import { last } from "lodash";
 import React, { useEffect } from "react";
 import { redirect } from "next/navigation";
@@ -17,7 +19,6 @@ import useSlicedItems from "@/features/chat/hooks/useSlicedItems";
 
 const AboutChat = () => {
   const { pageHeaderHeight } = usePageHeaderHeight();
-
   const { subject } = useIntroductionSubject();
 
   const isSubjectValid = Object.values(
@@ -76,6 +77,8 @@ const AboutChat = () => {
     return <></>;
   }
 
+  const currentTime = format(new Date(), "a h:mm");
+
   return (
     <Chat.Container
       style={{
@@ -84,6 +87,15 @@ const AboutChat = () => {
       }}
       ref={scrollContainerRef}
     >
+      <h1
+        className={clsx(
+          "w-full",
+          "text-white text-[12px] font-bold leading-[22px] text-center"
+        )}
+      >
+        (오늘) 오후 {currentTime}
+      </h1>
+
       {slicedIntroductions.map((introduction) => {
         const isQuestion =
           introduction.contentsType.id ===

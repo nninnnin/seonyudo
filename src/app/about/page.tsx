@@ -2,10 +2,10 @@
 
 import clsx from "clsx";
 import React from "react";
+import dynamic from "next/dynamic";
 
 import PageHeader from "@/shared/components/PageHeader";
-import LanguageToggler from "@/features/chat/components/LanguageToggler";
-import dynamic from "next/dynamic";
+import PageFooter from "@/shared/components/PageFooter";
 
 const AboutChat = dynamic(
   () => import("@/views/about/components/AboutChat"),
@@ -16,17 +16,24 @@ const AboutChat = dynamic(
 
 const AboutPage = () => {
   return (
-    <div
-      className={clsx(
-        "w-full h-full",
-        "home-background-gradient"
-      )}
-    >
+    <AboutPage.Container>
       <PageHeader />
 
       <AboutChat />
 
-      <LanguageToggler />
+      <PageFooter />
+    </AboutPage.Container>
+  );
+};
+
+AboutPage.Container = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  return (
+    <div className={clsx("w-full h-full")}>
+      {children}
     </div>
   );
 };

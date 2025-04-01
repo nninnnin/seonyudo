@@ -19,6 +19,7 @@
     "@types/lodash": "^4.17.15",
     "clsx": "^2.1.1",
     "css-loader": "^7.1.2",
+    "date-fns": "^4.1.0",
     "geolib": "^3.3.4",
     "lodash": "^4.17.21",
     "mapbox-gl": "^3.10.0",
