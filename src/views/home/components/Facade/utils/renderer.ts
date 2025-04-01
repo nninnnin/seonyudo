@@ -58,7 +58,7 @@ export const removeFacades = () => {
   });
 };
 
-export const addFacade = () => {
+export const addFacadePillar = () => {
   const container = document.getElementById(
     "facade-container"
   ) as HTMLDivElement;
@@ -81,7 +81,8 @@ const addObserver = (target: HTMLDivElement) => {
         !entry.isIntersecting &&
         !!entry.rootBounds
       ) {
-        addFacade();
+        entry.target.remove();
+        addFacadePillar();
       }
     }
   );

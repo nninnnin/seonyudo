@@ -34,10 +34,14 @@
 }
 
 .glassmorph {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.15) !important;
   backdrop-filter: blur(10px);
 
-  color: var(--white, #fff);
+  color: var(--white, #fff) !important;
+}
+
+.glassmorph * {
+  color: var(--white, #fff) !important;
 }
 
 .button-typo {
@@ -48,4 +52,13 @@
   font-style: normal;
   font-weight: 700;
   line-height: 134%; /* 21.44px */
+}
+
+.logo-typo {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 134%; /* 26.8px */
 }

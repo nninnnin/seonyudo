@@ -17,7 +17,7 @@ const Logo = forwardRef(
         className={clsx(
           "fixed",
           "left-[16px] z-[9999]",
-          "bg-white p-[10px]"
+          "logo-typo"
         )}
         style={{
           top: `${PAGE_HEADER_POSITION_TOP}px`,

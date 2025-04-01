@@ -1,10 +1,14 @@
 "use client";
 
 import clsx from "clsx";
+import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
 import PageHeader from "@/shared/components/PageHeader";
+import Button from "@/shared/components/Button";
+import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
+import PageFooter from "@/shared/components/PageFooter";
 
 const Facade = dynamic(
   () => import("@/views/home/components/Facade"),
@@ -15,6 +19,11 @@ const Facade = dynamic(
 
 export default function Home() {
   const router = useRouter();
+  const { openLoadingOverlay } = useLoadingOverlay();
+
+  useEffect(() => {
+    router.prefetch("/map");
+  }, [router]);
 
   return (
     <div
@@ -23,20 +32,28 @@ export default function Home() {
         "flex flex-col justify-center items-center"
       )}
     >
+      <PageHeader />
+
       <Facade />
 
-      <button
+      <Button
         className={clsx(
-          "bg-white",
-          "px-[14px] py-[8px] rounded-[20px]",
-          "fixed left-1/2 -translate-x-1/2 bottom-[40px]"
+          "glassmorph",
+          "fixed bottom-[63px] left-1/2 -translate-x-1/2"
         )}
-        onClick={() => router.push("/map")}
+        onClick={() => {
+          openLoadingOverlay(
+            "지도를 불러오는 중입니다.."
+          );
+          router.push("/map");
+        }}
+        theme="white"
+        iconSource="/icons/pin.svg"
       >
         Open the map
-      </button>
+      </Button>
 
-      <PageHeader />
+      <PageFooter />
     </div>
   );
 }

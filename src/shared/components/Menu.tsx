@@ -22,12 +22,17 @@ Menu.Toggler = () => {
     <div
       className={clsx(
         "fixed top-[16px] right-[16px] z-[9999]",
-        "bg-white p-[10px]",
+        "bg-white",
+        "px-[11px] pt-[5px] pb-[4px]",
+        "rounded-[16px]",
         "select-none"
       )}
       onClick={() => toggleVisibility()}
     >
-      메뉴
+      <img
+        className="w-[20px] h-[21px]"
+        src="/icons/menu.svg"
+      />
     </div>
   );
 };
@@ -127,10 +132,7 @@ Menu.Item = ({
       : () => toggleSubList();
 
   return (
-    <Dropdown.Item
-      className={clsx("bg-green-100")}
-      onClick={handleClick}
-    >
+    <Dropdown.Item onClick={handleClick}>
       <div
         className={clsx(
           "flex justify-between",

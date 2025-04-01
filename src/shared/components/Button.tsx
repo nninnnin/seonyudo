@@ -4,12 +4,14 @@ import React from "react";
 
 const Button = ({
   children,
+  className = "",
   iconSource,
   theme = "black",
   onClick = () => {},
   disabled = false,
 }: {
   children: React.ReactNode;
+  className?: string;
   iconSource?: string;
   theme?: "black" | "white";
   onClick?: () => void;
@@ -24,7 +26,8 @@ const Button = ({
         "w-fit h-[32px]",
         "flex justify-between items-center gap-[4px]",
         "px-[12px]",
-        "rounded-[30px]"
+        "rounded-[30px]",
+        className
       )}
       onClick={onClick}
     >
