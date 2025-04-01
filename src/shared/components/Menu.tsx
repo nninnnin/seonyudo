@@ -68,12 +68,17 @@ Menu.Container = ({
 
 Menu.List = ({
   children,
+  className = "",
 }: {
   children: React.ReactNode;
+  className?: string;
 }) => {
   return (
     <Dropdown.Container
-      className="flex flex-col"
+      className={clsx(
+        "flex flex-col gap-[8px]",
+        className
+      )}
       showItems={false}
     >
       {children}
@@ -85,10 +90,12 @@ Menu.Item = ({
   children,
   subList,
   onClick,
+  className = "",
 }: {
   children: React.ReactNode;
   subList?: React.ReactNode;
   onClick?: () => void;
+  className?: string;
 }) => {
   const [height, setHeight] = useState<null | number>(
     null
@@ -132,7 +139,8 @@ Menu.Item = ({
           "flex justify-between",
           "glassmorph",
           "px-[18px] py-[12px]",
-          "rounded-[18px]"
+          "rounded-[18px]",
+          className
         )}
       >
         {children}
@@ -154,7 +162,6 @@ Menu.Item = ({
               ? `${height}px`
               : "auto",
             overflow: "hidden",
-            marginBottom: "8px",
           }}
           ref={subListContainerRef}
         >
