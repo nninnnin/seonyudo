@@ -1,0 +1,49 @@
+.paused {
+  animation-play-state: paused;
+}
+
+@keyframes flowRight {
+  0% {
+    left: var(--left-px);
+  }
+  100% {
+    left: calc(var(--left-px) + 120vw);
+  }
+}
+
+.facade-pillar {
+  background: linear-gradient(
+    270deg,
+    #3f9ef1 -10%,
+    #00064a 100%
+  );
+  height: 100%;
+
+  position: absolute;
+
+  animation: flowRight 10s linear forwards;
+  transform: translateX(2px);
+}
+
+@keyframes flowBackgroundLeft {
+  0% {
+    background-position: var(
+        --background-position-start,
+        0%
+      )
+      0%;
+  }
+  100% {
+    background-position: 120% 0%;
+  }
+}
+
+.facade-pillar-bg {
+  background-image: url("/images/statue-bg--4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  mix-blend-mode: color-dodge;
+
+  animation: flowBackgroundLeft 10s linear forwards;
+}
