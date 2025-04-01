@@ -49,24 +49,18 @@ Menu.Container = ({
   return (
     <AnimatePresence>
       {visibility && (
-        <motion.div
+        <div
           key="menu-container"
           className={clsx(
             "w-[100vw] h-[100dvh]",
             "fixed top-0 left-0 z-[10]",
-            "bg-black bg-opacity-40",
             className
           )}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: 1,
-          }}
-          exit={{
-            opacity: 0,
-          }}
         >
+          <div className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-40"></div>
+
           {children}
-        </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );
@@ -79,7 +73,7 @@ Menu.List = ({
 }) => {
   return (
     <Dropdown.Container
-      className="flex flex-col gap-[10px]"
+      className="flex flex-col"
       showItems={false}
     >
       {children}
@@ -136,9 +130,9 @@ Menu.Item = ({
       <div
         className={clsx(
           "flex justify-between",
-          "bg-black text-white",
-          "p-[10px]",
-          "rounded-[4px]"
+          "glassmorph",
+          "px-[18px] py-[12px]",
+          "rounded-[18px]"
         )}
       >
         {children}
@@ -160,16 +154,11 @@ Menu.Item = ({
               ? `${height}px`
               : "auto",
             overflow: "hidden",
+            marginBottom: "8px",
           }}
           ref={subListContainerRef}
         >
-          <div
-            style={{
-              marginTop: "10px",
-            }}
-          >
-            {subList}
-          </div>
+          {subList}
         </div>
       )}
     </Dropdown.Item>

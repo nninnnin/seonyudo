@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import React from "react";
+import { motion } from "motion/react";
 
 const Dropdown = () => {};
 
@@ -29,12 +30,16 @@ Dropdown.Item = ({
   onClick: () => void;
 }) => {
   return (
-    <li
-      className={clsx("w-full", className)}
+    <motion.li
+      className={clsx(
+        "w-full",
+        "text-[16px] text-white tracking-[-0.408px] leading-[134%] font-bold",
+        className
+      )}
       onClick={onClick}
     >
       {children}
-    </li>
+    </motion.li>
   );
 };
 

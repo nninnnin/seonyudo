@@ -3,14 +3,11 @@ import React, {
   ForwardedRef,
   forwardRef,
 } from "react";
-import { useRouter } from "next/navigation";
 
 export const PAGE_HEADER_POSITION_TOP = 16;
 
 const Logo = forwardRef(
   (props, ref: ForwardedRef<HTMLDivElement>) => {
-    const router = useRouter();
-
     return (
       <div
         ref={ref}
@@ -22,7 +19,7 @@ const Logo = forwardRef(
         style={{
           top: `${PAGE_HEADER_POSITION_TOP}px`,
         }}
-        onClick={() => router.push("/")}
+        onClick={() => (location.href = "/")}
       >
         UNSEENING
       </div>
