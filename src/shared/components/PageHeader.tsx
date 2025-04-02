@@ -45,7 +45,7 @@ const PageHeader = () => {
         <Menu.List>
           <Menu.Item
             subList={
-              <Menu.List className="gap-0">
+              <Menu.List className="!gap-0">
                 {subItems.map((subItem) => {
                   const handleClick = () => {
                     router.push(subItem.href);
@@ -56,7 +56,7 @@ const PageHeader = () => {
                     <Menu.Item
                       key={subItem.label}
                       onClick={handleClick}
-                      className="mb-0"
+                      className="!mb-0"
                     >
                       {subItem.label}
                     </Menu.Item>
