@@ -1,10 +1,20 @@
-import useSlicedIndex from "@/features/chat/hooks/useSliceIndex";
 import { groupBy, isEqual } from "lodash";
 import { useEffect, useRef, useState } from "react";
+
+import useSlicedIndex, {
+  DEFAULT_SLICE_INDEX,
+} from "@/features/chat/hooks/useSliceIndex";
 
 type ItemWithOrder<Item> = Item & {
   order: number;
 };
+
+type ItemWithAnimateFlag<Item> = Item & {
+  animateBubble: boolean;
+  animateDelay: number;
+};
+
+const LOADING_TIMEOUT = 500;
 
 const useSlicedItems = <Item,>(
   list: ItemWithOrder<Item>[] | undefined
@@ -16,18 +26,21 @@ const useSlicedItems = <Item,>(
   const [isLoading, setIsLoading] = useState(false);
   const [isEnding, setIsEnding] = useState(false);
 
-  const { sliceIndex, scrollContainerRef } =
-    useSlicedIndex({
-      preventUpdate: isLoading,
-      onUpdateSlice: (callback: () => void) => {
-        setIsLoading(true);
+  const {
+    sliceIndex,
+    scrollContainerRef,
+    resetSliceIndex,
+  } = useSlicedIndex({
+    preventUpdate: isLoading,
+    onUpdateSlice: (callback: () => void) => {
+      setIsLoading(true);
 
-        setTimeout(() => {
-          setIsLoading(false);
-          callback();
-        }, 2000);
-      },
-    });
+      setTimeout(() => {
+        setIsLoading(false);
+        callback();
+      }, LOADING_TIMEOUT);
+    },
+  });
 
   const [slicedList, setSlicedList] = useState<Record<
     number,
@@ -63,22 +76,53 @@ const useSlicedItems = <Item,>(
     if (!isListChanged) return;
 
     initializeSlicedList(list);
+    resetSliceIndex();
     listMemo.current = list;
   }, [list]);
 
-  return {
-    slicedItems: slicedList
+  const slicedItems = (
+    slicedList
       ? Object.values(slicedList).reduce(
           (acc, cur) => {
             if (cur[0].order <= sliceIndex) {
-              acc.push(...cur);
+              const isLast =
+                sliceIndex === cur[0].order;
+
+              acc.push(
+                ...cur.map((item, itemIndex) => {
+                  if (
+                    sliceIndex === DEFAULT_SLICE_INDEX
+                  ) {
+                    return {
+                      ...item,
+                      animateBubble: false,
+                      animateDelay: 0,
+                    };
+                  }
+
+                  return {
+                    ...item,
+                    animateBubble: isLast,
+                    animateDelay: isLast
+                      ? 0.5 * itemIndex
+                      : 0,
+                  };
+                })
+              );
             }
 
             return acc;
           },
-          [] as (Item & { order: number })[]
+          []
         )
-      : [],
+      : ([] as ItemWithAnimateFlag<
+          ItemWithOrder<Item>
+        >[])
+  ) as ItemWithAnimateFlag<ItemWithOrder<Item>>[];
+
+  return {
+    sliceIndex,
+    slicedItems,
     scrollContainerRef,
     isLoading,
     isEnding,

@@ -9,6 +9,8 @@ import {
   useSearchParams,
 } from "next/navigation";
 
+export const STICKY_NAVIATION_HEIGHT = 46;
+
 const Navigation = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -26,15 +28,17 @@ const Navigation = () => {
   }
 
   return (
-    <div className="relative w-full h-[46px]">
+    <div
+      className={`sticky top-[0px] w-full h-[${STICKY_NAVIATION_HEIGHT}px] z-[1000]`}
+    >
       <Dropdown.Container
         className={clsx(
-          "absolute top-0 left-0 z-[10]",
+          "relative top-0 left-0 z-[10]",
           "h-[30px] overflow-hidden",
           "gap-[4px]",
           "border-none rounded-[18px]"
         )}
-        height={"46px"}
+        height={`${STICKY_NAVIATION_HEIGHT}px`}
       >
         <Dropdown.SelectedItem
           className="glassmorph rounded-[18px]"

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+export const DEFAULT_SLICE_INDEX = 2;
+
 const useSlicedIndex = ({
   preventUpdate,
   onUpdateSlice,
@@ -22,7 +24,9 @@ const useSlicedIndex = ({
 
   const direction = useRef<"up" | "down">("up");
 
-  const [sliceIndex, setSliceIndex] = useState(1);
+  const [sliceIndex, setSliceIndex] = useState(
+    DEFAULT_SLICE_INDEX
+  );
 
   useEffect(() => {
     preventUpdateRef.current = preventUpdate;
@@ -53,6 +57,13 @@ const useSlicedIndex = ({
     });
 
     document.addEventListener("touchend", (e) => {
+      if (
+        (e.target as HTMLElement).id ===
+        "language-toggler"
+      ) {
+        return;
+      }
+
       const isScrollable = scrollContainerRef.current
         ? scrollContainerRef.current.scrollHeight >
           scrollContainerRef.current.clientHeight
@@ -96,9 +107,15 @@ const useSlicedIndex = ({
     );
   }, []);
 
+  const resetSliceIndex = () => {
+    setSliceIndex(DEFAULT_SLICE_INDEX);
+    isAtBottomRef.current = false;
+  };
+
   return {
     sliceIndex,
     scrollContainerRef,
+    resetSliceIndex,
   };
 };
 

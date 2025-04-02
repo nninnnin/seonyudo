@@ -3,6 +3,7 @@ import React, {
   ForwardedRef,
   forwardRef,
 } from "react";
+import { motion } from "motion/react";
 
 import ChatBackground from "@/features/chat/components/ChatBackground";
 
@@ -46,6 +47,8 @@ Chat.Item = ({
   contents,
   type,
   image,
+  animate,
+  animateDelay = 0,
 }: {
   uid: string;
   contents: string;
@@ -54,16 +57,40 @@ Chat.Item = ({
     name: string;
     path: string;
   };
+  animate?: boolean;
+  animateDelay?: number;
 }) => {
   return (
-    <li id={`chat-item=${uid}`}>
+    <motion.li
+      id={`chat-item=${uid}`}
+      initial={
+        animate
+          ? {
+              opacity: 0,
+              y: 20,
+            }
+          : {}
+      }
+      animate={
+        animate
+          ? {
+              opacity: 1,
+              y: 0,
+            }
+          : {}
+      }
+      transition={{
+        duration: 0.3,
+        delay: animate ? animateDelay : 1,
+      }}
+    >
       <>
         {image && (
           <img className="mb-[1em]" src={image.path} />
         )}
       </>
       <Chat.Bubble type={type}>{contents}</Chat.Bubble>
-    </li>
+    </motion.li>
   );
 };
 
@@ -82,8 +109,8 @@ Chat.Bubble = ({
         "font-medium text-[16px] leading-[134%] tracking-[-0.41px]",
         type === "question" && "bg-white",
         type === "answer" &&
-          "bg-black bg-opacity-30 backdrop-blur-[30px] text-white ml-auto"
-        // "animate-chat-bubble" // TODO: 스크롤링 이후 추가되도록
+          "bg-black bg-opacity-30 backdrop-blur-[30px] text-white ml-auto",
+        "select-none"
       )}
     >
       {children}
@@ -94,7 +121,8 @@ Chat.Bubble = ({
 Chat.Loading = () => {
   return (
     <div className="pb-[0.5em] text-center text-[2em] fixed bottom-0 left-1/2 -translate-x-1/2">
-      <div className="animate-bounce">🥹</div>
+      {/* <div className="animate-bounce">🥹</div> */}
+      <div className="animate-bounce"></div>
     </div>
   );
 };
@@ -102,7 +130,7 @@ Chat.Loading = () => {
 Chat.Ending = () => {
   return (
     <div className="pb-[1em] text-center text-white text-[1.2em] font-bold fixed bottom-0 left-1/2 -translate-x-1/2">
-      마지막입니다!
+      {/* 마지막입니다! */}
     </div>
   );
 };

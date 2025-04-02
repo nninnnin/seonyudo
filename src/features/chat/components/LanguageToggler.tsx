@@ -14,6 +14,7 @@ const LanguageToggler = () => {
 
   return (
     <div
+      id="language-toggler"
       className={clsx(
         "flex gap-[16px]",
         "text-white font-bold",

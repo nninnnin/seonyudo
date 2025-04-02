@@ -4,7 +4,10 @@ import clsx from "clsx";
 import { last } from "lodash";
 import { format } from "date-fns";
 import { useStore } from "zustand";
-import React, { useEffect } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import { redirect } from "next/navigation";
 
 import {
@@ -17,8 +20,11 @@ import useIntroductionSubject from "@/views/about/hooks/useIntroductionSubject";
 import useIntroductions from "@/views/about/hooks/useIntroductions";
 import { IntroductionSubjects } from "@/views/about/constants";
 import useSlicedItems from "@/features/chat/hooks/useSlicedItems";
-import Navigation from "@/views/about/components/Navigation";
+import Navigation, {
+  STICKY_NAVIATION_HEIGHT,
+} from "@/views/about/components/Navigation";
 import { languageStore } from "@/shared/store/language";
+import { DEFAULT_SLICE_INDEX } from "@/features/chat/hooks/useSliceIndex";
 
 const AboutChat = () => {
   const { pageHeaderHeight } = usePageHeaderHeight();
@@ -40,6 +46,7 @@ const AboutChat = () => {
   );
 
   const {
+    sliceIndex,
     slicedItems: slicedIntroductions,
     scrollContainerRef,
     isLoading,
@@ -54,6 +61,9 @@ const AboutChat = () => {
   );
 
   useEffect(() => {
+    if (sliceIndex === DEFAULT_SLICE_INDEX) return;
+    if (isEnding) return;
+
     setTimeout(() => {
       const lastQuestionElement =
         document.getElementById(
@@ -72,12 +82,18 @@ const AboutChat = () => {
         scrollContainerRef.current?.scrollTo({
           top:
             lastQuestionElement.offsetTop -
-            pageHeaderHeight,
+            pageHeaderHeight -
+            STICKY_NAVIATION_HEIGHT -
+            20,
           behavior: "smooth",
         });
       }
     }, 200);
-  }, [slicedIntroductions.length]);
+  }, [
+    sliceIndex,
+    slicedIntroductions.length,
+    isEnding,
+  ]);
 
   if (!slicedIntroductions) {
     return <></>;
@@ -96,6 +112,7 @@ const AboutChat = () => {
       <h1
         className={clsx(
           "w-full",
+          "sticky top-[-40px] z-[1000]",
           "text-white text-[12px] font-bold leading-[22px] text-center"
         )}
       >
@@ -120,6 +137,8 @@ const AboutChat = () => {
             type={isQuestion ? "question" : "answer"}
             contents={introduction.contentsText}
             image={imageSource}
+            animate={introduction.animateBubble}
+            animateDelay={introduction.animateDelay}
           />
         );
       })}
