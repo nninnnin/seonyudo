@@ -10,7 +10,18 @@ export const createFacadePillar = (
   const width = window.innerWidth / FACADE_SLICES;
   div.style.width = width + "px";
 
-  // set css variable
+  const percent = Math.min(
+    Math.floor((index / FACADE_SLICES) * 10) / 10,
+    1
+  );
+
+  const percentValue = Math.floor(percent * 100);
+
+  div.style.setProperty(
+    "--background-position-start",
+    percentValue + "%"
+  );
+
   div.style.setProperty(
     "--left-px",
     (index * width).toString() + "px"
@@ -64,6 +75,7 @@ export const removeFacades = () => {
   const facades = container.querySelectorAll(
     ".facade-pillar"
   );
+
   facades.forEach((pillar) => {
     pillar.remove();
   });

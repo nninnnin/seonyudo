@@ -5,18 +5,25 @@
 @keyframes flowRight {
   0% {
     left: var(--left-px);
+    background-position: var(
+      --background-position-start,
+      0%
+    );
   }
   100% {
     left: calc(var(--left-px) + 120vw);
+    background-position: 100%;
   }
 }
 
 .facade-pillar {
   background: linear-gradient(
     270deg,
-    #3f9ef1 -10%,
-    #00064a 100%
+    #3f9ef1 50%,
+    #00064a 80%
   );
+  background-size: 250%;
+
   height: 100%;
 
   position: absolute;
