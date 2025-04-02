@@ -1,1 +1,1 @@
-export const FACADE_SLICES = 6;
+export const FACADE_SLICES = 9;
