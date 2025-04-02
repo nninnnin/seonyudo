@@ -11,6 +11,7 @@ import {
 } from "react";
 
 import { menuStore } from "@/shared/store/menu";
+import Image from "next/image";
 
 const Menu = () => {};
 
@@ -146,10 +147,22 @@ Menu.Item = ({
 
         {subList && (
           <button>
-            {openSubList ? (
-              <img src="/icons/minus.svg" />
+            {openSubList && height !== null ? (
+              <Image
+                width={16}
+                height={16}
+                alt="minus"
+                src="/icons/minus.svg"
+                priority
+              />
             ) : (
-              <img src="/icons/plus.svg" />
+              <Image
+                width={16}
+                height={16}
+                alt="plus"
+                src="/icons/plus.svg"
+                priority
+              />
             )}
           </button>
         )}
