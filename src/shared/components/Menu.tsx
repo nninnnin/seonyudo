@@ -146,7 +146,11 @@ Menu.Item = ({
 
         {subList && (
           <button>
-            {openSubList ? "닫기" : "열기"}
+            {openSubList ? (
+              <img src="/icons/minus.svg" />
+            ) : (
+              <img src="/icons/plus.svg" />
+            )}
           </button>
         )}
       </div>

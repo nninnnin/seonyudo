@@ -35,9 +35,6 @@ const Navigation = () => {
           "border-none rounded-[18px]"
         )}
         height={"46px"}
-        onChange={(selectedItem) => {
-          console.log(selectedItem);
-        }}
       >
         <Dropdown.SelectedItem
           className="glassmorph rounded-[18px]"
@@ -45,8 +42,8 @@ const Navigation = () => {
             width: "20px",
             height: "20px",
             source: {
-              open: "/icons/plus.svg",
-              close: "/icons/minus.svg",
+              open: "/icons/caret--top.svg",
+              close: "/icons/caret--bottom.svg",
             },
           }}
           defaultValue={{
