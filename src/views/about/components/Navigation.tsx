@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Dropdown from "@/shared/components/Dropdown";
 import clsx from "clsx";
 import { INTRODUCTION_SUBJECTS } from "@/views/about/constants/index";
 import {
   redirect,
-  usePathname,
   useRouter,
   useSearchParams,
 } from "next/navigation";
@@ -13,12 +12,8 @@ import {
 const Navigation = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  console.log(pathname);
 
   const subjectName = searchParams.get("subject");
-
-  console.log(INTRODUCTION_SUBJECTS);
 
   const selectedSubject = INTRODUCTION_SUBJECTS.find(
     (subject) => {

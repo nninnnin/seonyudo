@@ -1,14 +1,18 @@
 import useSlicedIndex from "@/features/chat/hooks/useSliceIndex";
-import { groupBy } from "lodash";
-import { useEffect, useState } from "react";
+import { groupBy, isEqual } from "lodash";
+import { useEffect, useRef, useState } from "react";
+
+type ItemWithOrder<Item> = Item & {
+  order: number;
+};
 
 const useSlicedItems = <Item,>(
-  list:
-    | (Item & {
-        order: number;
-      })[]
-    | undefined
+  list: ItemWithOrder<Item>[] | undefined
 ) => {
+  const listMemo = useRef<
+    null | ItemWithOrder<Item>[]
+  >(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isEnding, setIsEnding] = useState(false);
 
@@ -27,7 +31,7 @@ const useSlicedItems = <Item,>(
 
   const [slicedList, setSlicedList] = useState<Record<
     number,
-    (Item & { order: number })[]
+    ItemWithOrder<Item>[]
   > | null>(null);
 
   useEffect(() => {
@@ -40,13 +44,26 @@ const useSlicedItems = <Item,>(
     }
   }, [sliceIndex, slicedList]);
 
+  // Initialize slicedList
+  const initializeSlicedList = (
+    list: ItemWithOrder<Item>[]
+  ) => {
+    const listGroupByOrder = groupBy(list, "order");
+    setSlicedList(listGroupByOrder);
+  };
+
   useEffect(() => {
-    if (slicedList !== null) return;
     if (!list) return;
 
-    const listGroupByOrder = groupBy(list, "order");
+    const isListChanged = !isEqual(
+      list,
+      listMemo.current
+    );
 
-    setSlicedList(listGroupByOrder);
+    if (!isListChanged) return;
+
+    initializeSlicedList(list);
+    listMemo.current = list;
   }, [list]);
 
   return {
