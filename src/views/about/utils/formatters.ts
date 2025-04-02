@@ -19,43 +19,47 @@ import {
   FormattedIntroductionItem,
   IntroductionQueryData,
 } from "@/views/about/types";
+import { Languages } from "@/shared/store/language";
 
-export const formatIntroductions = (
-  introductions: IntroductionQueryData
-): FormattedIntroductionItem => {
-  return pipe(
-    introductions,
-    pluckList,
-    mapListItems(flattenListItem),
-    mapListItems((item: any) =>
-      mapObjectProps(
-        item,
-        ["contentsType"],
-        extractCategoryValues({
-          language: "KO",
-          multiple: false,
-        })
-      )
-    ),
-    mapListItems(
-      extractStringValues(["contentsText"], "KO")
-    ),
-    mapListItems((item: any) => {
-      if (
-        !item.ideaImage ||
-        item.ideaImage.length === 0
-      ) {
-        return item;
-      }
+export const formatIntroductions = curry(
+  (
+    language: Languages,
+    introductions: IntroductionQueryData
+  ): FormattedIntroductionItem => {
+    return pipe(
+      introductions,
+      pluckList,
+      mapListItems(flattenListItem),
+      mapListItems((item: any) =>
+        mapObjectProps(
+          item,
+          ["contentsType"],
+          extractCategoryValues({
+            language,
+            multiple: false,
+          })
+        )
+      ),
+      mapListItems(
+        extractStringValues(["contentsText"], language)
+      ),
+      mapListItems((item: any) => {
+        if (
+          !item.ideaImage ||
+          item.ideaImage.length === 0
+        ) {
+          return item;
+        }
 
-      return mapObjectProps(
-        item,
-        ["ideaImage"],
-        extractImageMedia
-      );
-    })
-  );
-};
+        return mapObjectProps(
+          item,
+          ["ideaImage"],
+          extractImageMedia
+        );
+      })
+    );
+  }
+);
 
 export const extractImageMedia = (
   medias: MediaInterface[]

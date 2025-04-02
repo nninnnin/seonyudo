@@ -1,8 +1,9 @@
 "use client";
 
 import clsx from "clsx";
-import { format } from "date-fns";
 import { last } from "lodash";
+import { format } from "date-fns";
+import { useStore } from "zustand";
 import React, { useEffect } from "react";
 import { redirect } from "next/navigation";
 
@@ -17,6 +18,7 @@ import useIntroductions from "@/views/about/hooks/useIntroductions";
 import { IntroductionSubjects } from "@/views/about/constants";
 import useSlicedItems from "@/features/chat/hooks/useSlicedItems";
 import Navigation from "@/views/about/components/Navigation";
+import { languageStore } from "@/shared/store/language";
 
 const AboutChat = () => {
   const { pageHeaderHeight } = usePageHeaderHeight();
@@ -30,8 +32,11 @@ const AboutChat = () => {
     redirect("/");
   }
 
+  const { language } = useStore(languageStore);
+
   const { data: introductions } = useIntroductions(
-    subject as IntroductionSubjects
+    subject as IntroductionSubjects,
+    language
   );
 
   const {

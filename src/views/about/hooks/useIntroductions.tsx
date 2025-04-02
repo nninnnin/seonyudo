@@ -17,13 +17,15 @@ import {
   formatIntroductions,
   sortIntroductions,
 } from "@/views/about/utils/formatters";
+import { Languages } from "@/shared/store/language";
 
 const token = process.env.MEMEX_TOKEN ?? "";
 const memexFetcher = createMemexFetcher(token);
 const PROJECT_ID = "e2f62c45";
 
 const useIntroductions = (
-  subject: IntroductionSubjects
+  subject: IntroductionSubjects,
+  language: Languages
 ) => {
   const MODEL_KEY = INTRODUCTION_MODEL_KEYS[subject];
 
@@ -48,7 +50,7 @@ const useIntroductions = (
     select: (data): FormattedIntroductionItem[] => {
       return pipe(
         data,
-        formatIntroductions,
+        formatIntroductions(language),
         sortIntroductions
       );
     },

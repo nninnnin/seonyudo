@@ -1,9 +1,10 @@
-import ChatBackground from "@/features/chat/components/ChatBackground";
 import clsx from "clsx";
 import React, {
   ForwardedRef,
   forwardRef,
 } from "react";
+
+import ChatBackground from "@/features/chat/components/ChatBackground";
 
 const Chat = () => {};
 
@@ -24,7 +25,7 @@ Chat.Container = forwardRef(
       <ul
         className={clsx(
           "chat-container",
-          "overflow-auto",
+          "overflow-auto overscroll-auto",
           "flex flex-col gap-[1em]",
           "p-[1em]",
           className
