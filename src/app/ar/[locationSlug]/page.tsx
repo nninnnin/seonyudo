@@ -18,7 +18,6 @@ const ArContentsPage = () => {
   return (
     <div
       className={clsx(
-        "bg-violet-100",
         "w-[100vw] h-[100dvh]",
         "flex justify-center items-center",
         "font-medium text-lg"

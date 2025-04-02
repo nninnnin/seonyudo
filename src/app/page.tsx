@@ -34,7 +34,9 @@ export default function Home() {
     >
       <PageHeader />
 
-      <Facade />
+      <Facade
+        imageSource={"/images/statue-bg--4.png"}
+      />
 
       <Button
         className={clsx(

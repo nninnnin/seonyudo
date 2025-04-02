@@ -1,6 +1,9 @@
 import { FACADE_SLICES } from "@/views/home/constants/facade";
 
-export const createFacadePillar = (index: number) => {
+export const createFacadePillar = (
+  index: number,
+  imageSource: string
+) => {
   const div = document.createElement("div");
   div.classList.add("facade-pillar");
 
@@ -15,6 +18,10 @@ export const createFacadePillar = (index: number) => {
 
   const background = document.createElement("div");
   background.classList.add("facade-pillar-bg");
+  background.style.setProperty(
+    "background-image",
+    `url("${imageSource}")`
+  );
   background.style.setProperty("width", "100%");
   background.style.setProperty("height", "100%");
 
@@ -33,12 +40,16 @@ export const createFacadePillar = (index: number) => {
 };
 
 export const initializeFacades = (
-  container: HTMLDivElement
+  container: HTMLDivElement,
+  imageSource: string
 ) => {
   for (let i = 0; i < FACADE_SLICES + 1; i++) {
-    const facadePillar = createFacadePillar(i);
+    const facadePillar = createFacadePillar(
+      i,
+      imageSource
+    );
 
-    addObserver(facadePillar);
+    addObserver(facadePillar, imageSource);
 
     container.appendChild(facadePillar);
   }
@@ -58,21 +69,29 @@ export const removeFacades = () => {
   });
 };
 
-export const addFacadePillar = () => {
+export const addFacadePillar = (
+  imageSource: string
+) => {
   const container = document.getElementById(
     "facade-container"
   ) as HTMLDivElement;
   if (!container) return;
 
-  const facadePillar = createFacadePillar(0);
+  const facadePillar = createFacadePillar(
+    0,
+    imageSource
+  );
 
-  addObserver(facadePillar);
+  addObserver(facadePillar, imageSource);
 
   // append at the first child
   container.prepend(facadePillar);
 };
 
-const addObserver = (target: HTMLDivElement) => {
+const addObserver = (
+  target: HTMLDivElement,
+  imageSource: string
+) => {
   const observer = new IntersectionObserver(
     (entries) => {
       const entry = entries[0];
@@ -82,7 +101,7 @@ const addObserver = (target: HTMLDivElement) => {
         !!entry.rootBounds
       ) {
         entry.target.remove();
-        addFacadePillar();
+        addFacadePillar(imageSource);
       }
     }
   );

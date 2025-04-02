@@ -12,14 +12,18 @@ import {
 import "./facade.css";
 import { FACADE_SLICES } from "@/views/home/constants/facade";
 
-const Facade = () => {
+const Facade = ({
+  imageSource,
+}: {
+  imageSource: string;
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const facadeContainer = containerRef.current;
     if (!facadeContainer) return;
 
-    initializeFacades(facadeContainer);
+    initializeFacades(facadeContainer, imageSource);
 
     document.addEventListener(
       "visibilitychange",
@@ -27,7 +31,10 @@ const Facade = () => {
         if (document.hidden) {
           removeFacades();
         } else {
-          initializeFacades(facadeContainer);
+          initializeFacades(
+            facadeContainer,
+            imageSource
+          );
         }
       }
     );

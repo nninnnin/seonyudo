@@ -67,7 +67,7 @@ const LocationProximityProvider = ({
           acc: Record<LocationName, boolean>,
           cur: LocationFormatted & { nearBy: boolean }
         ) => {
-          acc[cur.name] = cur.nearBy;
+          acc[cur.name.KO ?? ""] = cur.nearBy;
           return acc;
         },
         {}

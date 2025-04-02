@@ -9,6 +9,7 @@ import { LocationSlugs } from "@/features/location/types/location";
 import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
 import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
 import Button from "@/shared/components/Button";
+import Facade from "@/views/home/components/Facade";
 
 const LocationDetails = ({
   locationSlug,
@@ -23,7 +24,6 @@ const LocationDetails = ({
     <div
       className={clsx(
         "w-full h-full",
-        "bg-violet-300",
         "flex flex-col justify-center items-center",
         "gap-[16px]",
         "p-[10px]",
@@ -31,44 +31,43 @@ const LocationDetails = ({
         "text-white"
       )}
     >
+      <Facade imageSource="/images/whale.png" />
+
       <div
         className={clsx(
-          "w-full min-h-[20vh]",
+          "w-[300px] min-h-[20vh]",
           "flex flex-col justify-center items-center",
           "gap-[4px]",
-          "text-center"
+          "text-center break-keep",
+          "text-[16px] font-bold leading-[134%]"
         )}
       >
         <h1 className="text-[5em] leading-[1.2em] font-extrabold">
           Whale
         </h1>
 
-        <p>
-          바다와 구름이 떠도든 무엇이든 문의해주세요{" "}
-          <br />
-          꽃이 오면 봄이 간다 가을 겨울 봄 여름
-          예술경영
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Tempora, modi.
-        </p>
+        <p>{location.description.KO}</p>
+        <p>{location.description.EN}</p>
       </div>
 
-      <LocationProximityProvider>
-        <div
-          className={clsx(
-            "fixed left-1/2 -translate-x-1/2 bottom-[48px]",
-            "flex flex-col items-center gap-[12px]"
-          )}
-        >
+      <div
+        className={clsx(
+          "fixed left-1/2 -translate-x-1/2 bottom-[48px]",
+          "flex flex-col items-center gap-[12px]"
+        )}
+      >
+        <div className="body4 text-center">
+          <p>{location.name.KO}에서</p>
+          <p>At {location.name.EN}</p>
+        </div>
+
+        <LocationProximityProvider>
           <LocationDetails.ArTriggerButton
             locationSlug={location?.slug}
           />
           <LocationDetails.ViewIdeasButton />
-        </div>
-      </LocationProximityProvider>
+        </LocationProximityProvider>
+      </div>
     </div>
   );
 };

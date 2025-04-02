@@ -8,6 +8,7 @@ export interface Location {
     latitude: string;
     longitude: string;
     description: LanguageMap;
+    placeDescription: LanguageMap;
     arContentsUrl: LanguageMap;
     slug: LocationSlugs;
   };
@@ -16,10 +17,11 @@ export interface Location {
 export interface LocationFormatted {
   uid: string;
   order: number;
-  name: string;
+  name: LanguageMap;
   latitude: string;
   longitude: string;
-  description: string;
+  description: LanguageMap;
+  placeDescription: LanguageMap;
   arContentsUrl: string;
   slug: LocationSlugs;
 }

@@ -30,9 +30,11 @@ const Locations = () => {
         return (
           <Locations.Item
             key={location.uid}
-            onClick={handleItemClick(location.name)}
+            onClick={handleItemClick(
+              location.name.KO ?? ""
+            )}
           >
-            {location.name}
+            {location.name.KO}
           </Locations.Item>
         );
       })}

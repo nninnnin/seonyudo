@@ -13,13 +13,7 @@ export const formatLocations = (
   return pipe(
     result,
     pluckList,
-    mapListItems(flattenListItem),
-    mapListItems(
-      extractStringValues(
-        ["name", "description"],
-        "KO"
-      )
-    )
+    mapListItems(flattenListItem)
   );
 };
 

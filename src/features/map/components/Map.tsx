@@ -16,7 +16,7 @@ const Map = () => {
   useAddMarkers(
     mapInstance,
     locations.map((loc) => ({
-      name: loc.name,
+      name: loc.name.KO ?? "",
       coords: {
         lat: parseCoordString(loc.latitude),
         lng: parseCoordString(loc.longitude),
