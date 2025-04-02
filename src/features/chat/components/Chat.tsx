@@ -77,7 +77,8 @@ Chat.Bubble = ({
     <div
       className={clsx(
         "w-[270px] ",
-        "p-[1em] rounded-xl",
+        "p-[16px] py-[12px] rounded-xl",
+        "font-medium text-[16px] leading-[134%] tracking-[-0.41px]",
         type === "question" && "bg-white",
         type === "answer" &&
           "bg-black bg-opacity-30 backdrop-blur-[30px] text-white ml-auto"

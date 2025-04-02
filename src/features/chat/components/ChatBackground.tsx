@@ -2,7 +2,7 @@
 
 import React from "react";
 import clsx from "clsx";
-import { map, pipe, range, toArray } from "@fxts/core";
+import { pipe } from "@fxts/core";
 
 import { FACADE_SLICES } from "@/views/home/constants/facade";
 
@@ -12,6 +12,9 @@ const ChatBackground = () => {
     { from: -10, to: 16.97 },
     { from: -10, to: 30.72 },
     { from: -10, to: 47.12 },
+    { from: -10, to: 60 },
+    { from: -10, to: 72 },
+    { from: -10, to: 88 },
     { from: -10, to: 100 },
     { from: -10, to: 100 },
   ];

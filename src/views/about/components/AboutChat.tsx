@@ -16,6 +16,7 @@ import useIntroductionSubject from "@/views/about/hooks/useIntroductionSubject";
 import useIntroductions from "@/views/about/hooks/useIntroductions";
 import { IntroductionSubjects } from "@/views/about/constants";
 import useSlicedItems from "@/features/chat/hooks/useSlicedItems";
+import Navigation from "@/views/about/components/Navigation";
 
 const AboutChat = () => {
   const { pageHeaderHeight } = usePageHeaderHeight();
@@ -95,6 +96,8 @@ const AboutChat = () => {
       >
         (오늘) 오후 {currentTime}
       </h1>
+
+      <Navigation />
 
       {slicedIntroductions.map((introduction) => {
         const isQuestion =

@@ -2,15 +2,14 @@
 
 import clsx from "clsx";
 import React from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import { useStore } from "zustand";
 import {
   useRef,
   useState,
   useLayoutEffect,
 } from "react";
-import { useStore } from "zustand";
 
-import Dropdown from "@/shared/components/Dropdown";
 import { menuStore } from "@/shared/store/menu";
 
 const Menu = () => {};
@@ -53,7 +52,7 @@ Menu.Container = ({
           key="menu-container"
           className={clsx(
             "w-[100vw] h-[100dvh]",
-            "fixed top-0 left-0 z-[10]",
+            "fixed top-0 left-0 z-[9000]",
             className
           )}
         >
@@ -74,15 +73,14 @@ Menu.List = ({
   className?: string;
 }) => {
   return (
-    <Dropdown.Container
+    <div
       className={clsx(
         "flex flex-col gap-[8px]",
         className
       )}
-      showItems={false}
     >
       {children}
-    </Dropdown.Container>
+    </div>
   );
 };
 
@@ -133,13 +131,14 @@ Menu.Item = ({
       : () => toggleSubList();
 
   return (
-    <Dropdown.Item onClick={handleClick}>
+    <div onClick={handleClick}>
       <div
         className={clsx(
           "flex justify-between",
           "glassmorph",
           "px-[18px] py-[12px]",
           "rounded-[18px]",
+          "text-[16px] font-bold leading-[134%] tracking-[-0.408px]",
           className
         )}
       >
@@ -168,7 +167,7 @@ Menu.Item = ({
           {subList}
         </div>
       )}
-    </Dropdown.Item>
+    </div>
   );
 };
 

@@ -1,45 +1,226 @@
 import clsx from "clsx";
-import React from "react";
+import React, {
+  createContext,
+  MouseEvent,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { motion } from "motion/react";
+import { Pixel } from "@/shared/types";
 
 const Dropdown = () => {};
 
+type SelectedItem = {
+  name: string;
+  value: string | null;
+} | null;
+
+const DropdownContext = createContext<{
+  selectedItem: SelectedItem;
+  isOpen: boolean;
+  height: Pixel;
+}>({
+  selectedItem: null,
+  isOpen: false,
+  height: "0px",
+});
+
 Dropdown.Container = ({
   children,
-  showItems,
+  height,
   className = "",
+  onChange = () => {},
 }: {
   children: React.ReactNode;
-  showItems: boolean;
+  height: Pixel;
   className?: string;
+  onChange?: (item: SelectedItem) => void;
 }) => {
+  const [selectedItem, setSelectedItem] =
+    useState<SelectedItem>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+  useLayoutEffect(() => {
+    const dropdownItems =
+      dropdownRef.current?.querySelectorAll("li");
+
+    dropdownItems?.forEach((item) => {
+      item.style.setProperty("height", height);
+      item.style.setProperty("min-height", height);
+      item.style.setProperty("max-height", height);
+    });
+  }, []);
+
   return (
-    <ul className={clsx("w-full", className)}>
-      {children}
-    </ul>
+    <DropdownContext.Provider
+      value={{
+        selectedItem,
+        isOpen,
+        height,
+      }}
+    >
+      <ul
+        ref={dropdownRef}
+        className={clsx(
+          "w-full",
+          "border-[1px] border-solid border-gray-200",
+          "overflow-hidden",
+          "flex flex-col",
+          "relative",
+          className
+        )}
+        style={{ height: isOpen ? "auto" : height }}
+        onClick={(e: MouseEvent) => {
+          const target = e.target as HTMLElement & {
+            name: string;
+            value: string;
+          };
+
+          if (target.id === "dropdown-indicator") {
+            setIsOpen((prev) => !prev);
+          }
+
+          if (target.tagName === "LI") {
+            if (isOpen) {
+              const selectedItem = {
+                name: target.dataset.name ?? "",
+                value: target.value,
+              };
+
+              if (target.onclick) {
+                // @ts-ignore
+                target.onclick(e);
+              }
+
+              setSelectedItem(selectedItem);
+              onChange(selectedItem);
+              setIsOpen(false);
+            } else {
+              setIsOpen(true);
+            }
+          }
+        }}
+      >
+        {children}
+      </ul>
+    </DropdownContext.Provider>
+  );
+};
+
+Dropdown.SelectedItem = ({
+  className = "",
+  indicator,
+  defaultValue,
+}: {
+  className?: string;
+  indicator: {
+    width: string;
+    height: string;
+    source: {
+      open: string;
+      close: string;
+    };
+  };
+  defaultValue?: {
+    name: string;
+    value: string | null;
+  };
+}) => {
+  const { selectedItem } = useContext(DropdownContext);
+
+  const name =
+    selectedItem?.name ??
+    defaultValue?.name ??
+    "선택해주세요";
+
+  const value =
+    selectedItem?.value ?? defaultValue?.value ?? null;
+
+  return (
+    <div className="relative">
+      <Dropdown.Item
+        className={className}
+        name={name}
+        value={value}
+      />
+      <Dropdown.Indicator
+        width={indicator.width}
+        height={indicator.height}
+        source={indicator.source}
+      />
+    </div>
   );
 };
 
 Dropdown.Item = ({
   className = "",
-  children,
-  onClick,
+  name,
+  value,
+  onClick = () => {},
+  subList,
 }: {
   className?: string;
-  children: React.ReactNode;
-  onClick: () => void;
+  name: string;
+  value: string | null;
+  onClick?: () => void;
+  subList?: React.ReactNode;
 }) => {
+  const { height } = useContext(DropdownContext);
+
   return (
     <motion.li
       className={clsx(
         "w-full",
-        "text-[16px] text-white tracking-[-0.408px] leading-[134%] font-bold",
+        "text-[16px] tracking-[-0.408px] leading-[134%] font-bold",
+        "flex justify-center items-center",
+        "relative",
         className
       )}
       onClick={onClick}
+      data-name={name}
+      value={value ?? undefined}
+      style={{
+        height,
+      }}
     >
-      {children}
+      {name}
+
+      <div style={{}}>{subList}</div>
     </motion.li>
+  );
+};
+
+Dropdown.Indicator = ({
+  width,
+  height,
+  source,
+}: {
+  width: string;
+  height: string;
+  source: {
+    open: string;
+    close: string;
+  };
+}) => {
+  const { isOpen } = useContext(DropdownContext);
+
+  return (
+    <img
+      id="dropdown-indicator"
+      className={clsx(
+        "absolute top-1/2 right-[16px] -translate-y-1/2"
+      )}
+      src={isOpen ? source.close : source.open}
+      style={{
+        width,
+        height,
+      }}
+    />
   );
 };
 

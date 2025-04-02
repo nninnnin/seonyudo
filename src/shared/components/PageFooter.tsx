@@ -1,14 +1,19 @@
 import clsx from "clsx";
 import React from "react";
+import { useStore } from "zustand";
+import { usePathname } from "next/navigation";
 
 import LanguageToggler from "@/features/chat/components/LanguageToggler";
-import { useStore } from "zustand";
 import {
   Languages,
   languageStore,
 } from "@/shared/store/language";
 
 const PageFooter = () => {
+  const pathname = usePathname();
+
+  const isHomePage = pathname === "/";
+
   return (
     <div
       className={clsx(
@@ -19,7 +24,11 @@ const PageFooter = () => {
         "text-white text-[20px] font-bold leading-[134%]"
       )}
     >
-      <PageFooter.선유동화 />
+      {isHomePage ? (
+        <PageFooter.선유동화 />
+      ) : (
+        <div></div>
+      )}
       <LanguageToggler />
     </div>
   );
