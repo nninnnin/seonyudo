@@ -7,11 +7,15 @@ import useMapboxgl from "@/features/map/hooks/useMapboxgl";
 import useLocations from "@/features/location/hooks/useLocations";
 import useAddMarkers from "@/features/map/hooks/useAddMarkers";
 import { parseCoordString } from "@/features/map/utils/index";
+import { useArCompletionStore } from "@/features/ar/store";
 
 const Map = () => {
   const { mapInstance, mapContainerRef } =
     useMapboxgl();
+
   const { locations } = useLocations();
+  const { arCompletedLocations } =
+    useArCompletionStore();
 
   useAddMarkers(
     mapInstance,
@@ -22,6 +26,9 @@ const Map = () => {
         lng: parseCoordString(loc.longitude),
       },
       slug: loc.slug,
+      arCompleted: arCompletedLocations.includes(
+        loc.name.KO!
+      ),
     }))
   );
 

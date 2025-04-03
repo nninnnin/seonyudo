@@ -22,3 +22,8 @@
 
   white-space: nowrap;
 }
+
+.marker--ar-completed {
+  border-color: red;
+  background-color: #fff;
+}

@@ -7,8 +7,15 @@ import dynamic from "next/dynamic";
 
 import { capturedPictureStore } from "@/features/capture/store";
 import Button from "@/shared/components/Button";
-import { useRouter } from "next/navigation";
+import {
+  useRouter,
+  redirect,
+  useParams,
+} from "next/navigation";
 import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
+import { useArCompletionStore } from "@/features/ar/store";
+import useLocation from "@/features/location/hooks/useLocation";
+import { LocationSlugs } from "@/features/location/types/location";
 
 const CapturedImageCard = dynamic(
   () =>
@@ -21,8 +28,21 @@ const CapturedImageCard = dynamic(
 );
 
 const SharePage = () => {
+  const params = useParams();
+  const locationSlug = params["locationSlug"];
+
+  if (!locationSlug) {
+    redirect("/");
+  }
+
   const router = useRouter();
   const { openLoadingOverlay } = useLoadingOverlay();
+  const { addArCompletedLocations } =
+    useArCompletionStore();
+
+  const { location } = useLocation(
+    locationSlug as LocationSlugs
+  );
 
   const { selectedCardIndex, capturedPictures } =
     useStore(capturedPictureStore);
@@ -85,6 +105,8 @@ const SharePage = () => {
   };
 
   const handleDoneClick = () => {
+    addArCompletedLocations(location!.name.KO!);
+
     openLoadingOverlay("지도를 불러오는 중입니다..");
 
     router.push("/map");

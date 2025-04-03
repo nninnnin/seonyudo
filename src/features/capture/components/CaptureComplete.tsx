@@ -6,8 +6,13 @@ import { useRouter } from "next/navigation";
 
 import Button from "@/shared/components/Button";
 import { capturedPictureStore } from "@/features/capture/store";
+import { LocationSlugs } from "@/features/location/types/location";
 
-const CaptureComplete = () => {
+const CaptureComplete = ({
+  locationSlug,
+}: {
+  locationSlug: LocationSlugs;
+}) => {
   const router = useRouter();
 
   const { capturedPictures } = useStore(
@@ -55,7 +60,9 @@ const CaptureComplete = () => {
 
       <Button
         iconSource="/icons/thumbsup.svg"
-        onClick={() => router.push("/ar/share")}
+        onClick={() =>
+          router.push(`/ar/share/${locationSlug}`)
+        }
       >
         Okay
       </Button>

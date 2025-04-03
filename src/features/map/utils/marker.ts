@@ -32,6 +32,19 @@ export const addMarker = curry(
   }
 );
 
+export const addCompletionStyles = curry(
+  (isArCompleted: boolean, marker: Marker) => {
+    marker
+      .getElement()
+      .classList.toggle(
+        "marker--ar-completed",
+        isArCompleted
+      );
+
+    return marker;
+  }
+);
+
 export const addMarkerClickHandler = curry(
   (handler: () => void, marker: Marker) => {
     marker

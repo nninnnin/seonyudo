@@ -73,7 +73,11 @@ const ArPage = () => {
 
       <CapturedThumbnails />
 
-      {isCapturingCompleted && <CaptureComplete />}
+      {isCapturingCompleted && (
+        <CaptureComplete
+          locationSlug={locationSlug as LocationSlugs}
+        />
+      )}
     </>
   );
 };

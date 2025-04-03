@@ -10,6 +10,7 @@ import {
   createMarker,
   setMarkerCoords,
   addMarkerClickHandler,
+  addCompletionStyles,
 } from "@/features/map/utils/marker";
 import { useOverlay } from "@toss/use-overlay";
 import LocationDetailsToast from "@/features/location/components/LocationDetailsToast";
@@ -19,7 +20,9 @@ type Location = {
   name: string;
   coords: { lat: number; lng: number };
   slug: LocationSlugs;
+  arCompleted: boolean;
 };
+
 type Locations = Location[];
 
 const useAddMarkers = (
@@ -59,9 +62,8 @@ const useAddMarkers = (
     locations: Locations
   ) => {
     locations.forEach((location) => {
-      const { name, coords } = location;
+      const { name, coords, arCompleted } = location;
 
-      // check if the location is already added
       const hasAlreadyAdded = map._markers.find(
         (marker) => {
           return isEqual(
@@ -79,6 +81,7 @@ const useAddMarkers = (
         addMarkerClickHandler(
           handleClickMarker(location)
         ),
+        addCompletionStyles(arCompleted),
         addMarker(map)
       );
     });
