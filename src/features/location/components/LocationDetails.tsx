@@ -31,7 +31,11 @@ const LocationDetails = ({
         "text-white"
       )}
     >
-      <Facade imageSource="/images/whale.png" />
+      <Facade
+        imageSource={
+          location.arImage.path ?? "/images/whale.png"
+        }
+      />
 
       <div
         className={clsx(
@@ -43,7 +47,7 @@ const LocationDetails = ({
         )}
       >
         <h1 className="text-[5em] leading-[1.2em] font-extrabold">
-          Whale
+          {location.arTitle}
         </h1>
 
         <p>{location.description.KO}</p>

@@ -15,7 +15,10 @@ export const createFacadePillar = (
     1
   );
 
-  const percentValue = Math.floor(percent * 100);
+  const percentValue = Math.min(
+    Math.floor(percent * 100),
+    100
+  );
 
   div.style.setProperty(
     "--background-position-start",

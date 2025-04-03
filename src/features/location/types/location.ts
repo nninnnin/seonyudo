@@ -1,4 +1,7 @@
-import { LanguageMap } from "@/shared/types/memex";
+import {
+  LanguageMap,
+  MediaInterface,
+} from "@/shared/types/memex";
 
 export interface Location {
   uid: string;
@@ -7,8 +10,10 @@ export interface Location {
     name: LanguageMap;
     latitude: string;
     longitude: string;
-    description: LanguageMap;
     placeDescription: LanguageMap;
+    arTitle: LanguageMap;
+    arImage: MediaInterface;
+    description: LanguageMap;
     arContentsUrl: LanguageMap;
     slug: LocationSlugs;
   };
@@ -20,6 +25,11 @@ export interface LocationFormatted {
   name: LanguageMap;
   latitude: string;
   longitude: string;
+  arTitle: string;
+  arImage: {
+    name: string;
+    path: string;
+  };
   description: LanguageMap;
   placeDescription: LanguageMap;
   arContentsUrl: string;
