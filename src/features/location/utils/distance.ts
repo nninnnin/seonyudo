@@ -1,14 +1,21 @@
+import {
+  mapListItems,
+  pipe,
+} from "@rebel9/memex-fetcher";
 import { curry } from "@fxts/core";
 import { getDistance } from "geolib";
+import { merge, zipWith } from "lodash";
 
 import { LocationFormatted } from "@/features/location/types/location";
 import { parseCoordString } from "@/features/map/utils";
 import { ADJACENT_STANDARD_IN_METER } from "@/features/location/constants";
-import { merge, zipWith } from "lodash";
 
 export const getLocationCoords = (
   location: LocationFormatted
-) => {
+): {
+  latitude: number;
+  longitude: number;
+} => {
   const { latitude, longitude } = location;
 
   return {
@@ -46,3 +53,64 @@ export const getProximity = (distance: number) => {
 export const zipWithMerge = curry((arr1, arr2) => {
   return zipWith(arr1, arr2, merge);
 });
+
+export const getLocationProximity = (
+  locations: LocationFormatted[],
+  currentCoords: Coords
+) => {
+  return pipe(
+    locations,
+    mapListItems(getLocationCoords),
+    mapListItems(
+      getDistanceBetweenCoords(currentCoords)
+    ),
+    mapListItems(getProximity),
+    zipWithMerge(locations)
+  );
+};
+
+const withDistance = curry(
+  (
+    currentCoords: Coords,
+    location: LocationFormatted
+  ) => {
+    return {
+      ...location,
+      distance: getDistanceBetweenCoords(
+        currentCoords,
+        getLocationCoords(location)
+      ),
+    };
+  }
+);
+
+const reduceMinimumDistant = (
+  locations: (LocationFormatted & {
+    distance: number;
+  })[]
+) => {
+  console.log("this must be a problem", locations);
+
+  if (locations.length === 0) {
+    return null;
+  }
+
+  return locations.reduce((prev, cur) => {
+    if (prev.distance < cur.distance) {
+      return prev;
+    }
+
+    return cur;
+  });
+};
+
+export const getMostProximateLocation = (
+  currentCoords: Coords,
+  locations: LocationFormatted[]
+): LocationFormatted => {
+  return pipe(
+    locations,
+    mapListItems(withDistance(currentCoords)),
+    reduceMinimumDistant
+  );
+};

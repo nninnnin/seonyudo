@@ -16,11 +16,16 @@ const useWatchPosition = (
       maximumAge: 0,
     };
 
-    navigator.geolocation.watchPosition(
-      callbacks.onSuccess,
-      callbacks.onError,
-      options
-    );
+    const watchId =
+      navigator.geolocation.watchPosition(
+        callbacks.onSuccess,
+        callbacks.onError,
+        options
+      );
+
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
   }, deps);
 };
 

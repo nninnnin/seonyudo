@@ -4,9 +4,11 @@ import React from "react";
 
 const Toast = ({
   children,
+  className = "",
   close,
 }: {
   children: React.ReactNode;
+  className?: string;
   close: () => void;
 }) => {
   return (
@@ -20,7 +22,8 @@ const Toast = ({
         "w-[calc(100vw-32px)] min-h-[260px]",
         "flex flex-col justify-between",
         "py-[12px] px-[14px]",
-        "glassmorph"
+        "glassmorph",
+        className
       )}
     >
       <button

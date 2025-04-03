@@ -13,6 +13,7 @@ export interface Location {
     placeDescription: LanguageMap;
     arTitle: LanguageMap;
     arImage: MediaInterface;
+    arThumbnail: MediaInterface;
     description: LanguageMap;
     arContentsUrl: LanguageMap;
     slug: LocationSlugs;
@@ -27,6 +28,10 @@ export interface LocationFormatted {
   longitude: string;
   arTitle: string;
   arImage: {
+    name: string;
+    path: string;
+  };
+  arThumbnail: {
     name: string;
     path: string;
   };

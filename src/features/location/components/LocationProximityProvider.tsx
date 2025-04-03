@@ -8,16 +8,7 @@ import {
 } from "@/features/location/types/location";
 import useWatchPosition from "@/features/location/hooks/useWatchPosition";
 import useLocations from "@/features/location/hooks/useLocations";
-import {
-  mapListItems,
-  pipe,
-} from "@rebel9/memex-fetcher";
-import {
-  getDistanceBetweenCoords,
-  getLocationCoords,
-  getProximity,
-  zipWithMerge,
-} from "@/features/location/utils/distance";
+import { getLocationProximity } from "@/features/location/utils/distance";
 
 const defaultValue: Record<
   LocationName,
@@ -51,15 +42,8 @@ const LocationProximityProvider = ({
     if (!currentCoords) return;
     if (!locations) return;
 
-    const locationsWithProximity = pipe(
-      locations,
-      mapListItems(getLocationCoords),
-      mapListItems(
-        getDistanceBetweenCoords(currentCoords)
-      ),
-      mapListItems(getProximity),
-      zipWithMerge(locations)
-    );
+    const locationsWithProximity =
+      getLocationProximity(locations, currentCoords);
 
     setLocationProxmity(
       locationsWithProximity.reduce(

@@ -1,21 +1,22 @@
 "use client";
 
 import clsx from "clsx";
-import React, { useState } from "react";
-import { useStore } from "zustand";
-import dynamic from "next/dynamic";
-
-import { capturedPictureStore } from "@/features/capture/store";
-import Button from "@/shared/components/Button";
 import {
   useRouter,
   redirect,
   useParams,
 } from "next/navigation";
-import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
+import React, { useState } from "react";
+import { useStore } from "zustand";
+import dynamic from "next/dynamic";
+
+import { capturedPictureStore } from "@/features/capture/store";
 import { useArCompletionStore } from "@/features/ar/store";
 import useLocation from "@/features/location/hooks/useLocation";
 import { LocationSlugs } from "@/features/location/types/location";
+import { recommendationToastStore } from "@/features/map/hooks/useLocationRecommendation";
+import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
+import Button from "@/shared/components/Button";
 
 const CapturedImageCard = dynamic(
   () =>
@@ -39,6 +40,9 @@ const SharePage = () => {
   const { openLoadingOverlay } = useLoadingOverlay();
   const { addArCompletedLocations } =
     useArCompletionStore();
+  const { setHasSeen } = useStore(
+    recommendationToastStore
+  );
 
   const { location } = useLocation(
     locationSlug as LocationSlugs
@@ -105,6 +109,7 @@ const SharePage = () => {
   };
 
   const handleDoneClick = () => {
+    setHasSeen(false);
     addArCompletedLocations(location!.name.KO!);
 
     openLoadingOverlay("지도를 불러오는 중입니다..");

@@ -8,6 +8,7 @@ import useLocations from "@/features/location/hooks/useLocations";
 import useAddMarkers from "@/features/map/hooks/useAddMarkers";
 import { parseCoordString } from "@/features/map/utils/index";
 import { useArCompletionStore } from "@/features/ar/store";
+import useLocationRecommendation from "@/features/map/hooks/useLocationRecommendation";
 
 const Map = () => {
   const { mapInstance, mapContainerRef } =
@@ -31,6 +32,8 @@ const Map = () => {
       ),
     }))
   );
+
+  useLocationRecommendation();
 
   return (
     <div

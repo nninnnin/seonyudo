@@ -22,7 +22,7 @@ export const formatLocations = (
     mapListItems((item: unknown) =>
       mapObjectProps(
         item,
-        ["arImage"],
+        ["arImage", "arThumbnail"],
         (value: MediaInterface[]) => {
           const media = value[0];
 
