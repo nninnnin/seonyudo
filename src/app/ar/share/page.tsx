@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { capturedPictureStore } from "@/features/capture/store";
 import Button from "@/shared/components/Button";
 import { useRouter } from "next/navigation";
+import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 
 const CapturedImageCard = dynamic(
   () =>
@@ -21,6 +22,7 @@ const CapturedImageCard = dynamic(
 
 const SharePage = () => {
   const router = useRouter();
+  const { openLoadingOverlay } = useLoadingOverlay();
 
   const { selectedCardIndex, capturedPictures } =
     useStore(capturedPictureStore);
@@ -82,6 +84,12 @@ const SharePage = () => {
       });
   };
 
+  const handleDoneClick = () => {
+    openLoadingOverlay("지도를 불러오는 중입니다..");
+
+    router.push("/map");
+  };
+
   return (
     <div
       className={clsx(
@@ -101,7 +109,11 @@ const SharePage = () => {
         >
           Try Again
         </Button>
-        <Button iconSource="/icons/check--white.svg">
+
+        <Button
+          iconSource="/icons/check--white.svg"
+          onClick={handleDoneClick}
+        >
           Done
         </Button>
       </div>
