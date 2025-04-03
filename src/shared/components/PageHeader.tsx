@@ -6,7 +6,10 @@ import { useRouter } from "next/navigation";
 
 import Menu from "@/shared/components/Menu";
 import Logo from "@/shared/components/Logo";
-import { IntroductionSubjects } from "@/views/about/constants";
+import {
+  INTRODUCTION_SUBJECTS,
+  IntroductionSubjects,
+} from "@/views/about/constants";
 import { menuStore } from "@/shared/store/menu";
 import useElementHeight from "@/shared/hooks/useElementHeight";
 
@@ -16,25 +19,6 @@ const PageHeader = () => {
 
   const { setElementRef } =
     useElementHeight("page-header");
-
-  const subItems = [
-    {
-      label: "프로젝트 소개",
-      href: `/about?subject=${IntroductionSubjects.Project}`,
-    },
-    {
-      label: "작품 소개",
-      href: `/about?subject=${IntroductionSubjects.Work}`,
-    },
-    {
-      label: "시민 아이디어 갤러리",
-      href: `/about?subject=${IntroductionSubjects.Ideas}`,
-    },
-    {
-      label: "선유도공원 소개",
-      href: `/about?subject=${IntroductionSubjects.Seonyudo}`,
-    },
-  ];
 
   return (
     <>
@@ -46,35 +30,30 @@ const PageHeader = () => {
           <Menu.Item
             subList={
               <Menu.List className="!gap-0">
-                {subItems.map((subItem) => {
-                  const handleClick = () => {
-                    router.push(subItem.href);
-                    setVisibility(false);
-                  };
+                {INTRODUCTION_SUBJECTS.map(
+                  (subject) => {
+                    const handleClick = () => {
+                      router.push(subject.href);
+                      setVisibility(false);
+                    };
 
-                  return (
-                    <Menu.Item
-                      key={subItem.label}
-                      onClick={handleClick}
-                      className="!mb-0"
-                    >
-                      {subItem.label}
-                    </Menu.Item>
-                  );
-                })}
+                    return (
+                      <Menu.Item
+                        key={subject.label}
+                        onClick={handleClick}
+                        className="!mb-0"
+                      >
+                        {subject.label}
+                      </Menu.Item>
+                    );
+                  }
+                )}
               </Menu.List>
             }
           >
             소개
           </Menu.Item>
-          <Menu.Item
-            onClick={() => {
-              router.push("/guide");
-              setVisibility(false);
-            }}
-          >
-            체험 안내 유의사항
-          </Menu.Item>
+
           <Menu.Item
             onClick={() => {
               router.push("/map");
