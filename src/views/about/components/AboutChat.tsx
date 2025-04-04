@@ -70,7 +70,7 @@ const AboutChat = () => {
         return (
           <Chat.Item
             uid={introduction.uid}
-            key={introduction.contentsText}
+            key={introduction.uid}
             type={isQuestion ? "question" : "answer"}
             contents={introduction.contentsText}
             image={imageSource}
