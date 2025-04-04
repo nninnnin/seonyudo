@@ -77,7 +77,7 @@ const LocationDetails = ({
           <p>{location.description.EN}</p>
         </div>
 
-        <div className="body4 text-center">
+        <div className="text-center body4">
           <p>{location.name.KO}에서</p>
           <p>At {location.name.EN}</p>
         </div>
@@ -116,7 +116,7 @@ LocationDetails.ArTriggerButton = ({
   return (
     <Button
       className={clsx(
-        "w-[130px]",
+        "!w-[130px]",
         "!bg-black !bg-opacity-20 backdrop-blur-[7.5px]",
         "*:!text-[#f0ff82]"
       )}

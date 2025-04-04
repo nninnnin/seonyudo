@@ -24,6 +24,7 @@ import {
 } from "@/features/capture/store";
 import CaptureComplete from "@/features/capture/components/CaptureComplete";
 import Button from "@/shared/components/Button";
+import ArLoading from "@/features/ar/components/Loading";
 
 const ArPage = () => {
   const params = useParams();
@@ -102,7 +103,10 @@ ArPage.ArContents = ({
   useArContentsMessages({
     handleARLoaded: () => {
       console.log("AR 로딩 완료!");
-      setShowArContents(true);
+
+      setTimeout(() => {
+        setShowArContents(true);
+      }, 1000);
     },
     handleCapturedImage: (capturedImage) => {
       console.log("캡쳐된 이미지: ", capturedImage);
@@ -126,18 +130,7 @@ ArPage.ArContents = ({
         />
       )}
 
-      {!showArContents && (
-        <div
-          className={clsx(
-            "bg-[violet] text-white text-2xl",
-            "w-[100vw] h-[100dvh]",
-            "fixed top-0 left-0 z-[9999]",
-            "flex justify-center items-center"
-          )}
-        >
-          로딩중..
-        </div>
-      )}
+      {!showArContents && <ArLoading />}
 
       {useMemo(
         () => (

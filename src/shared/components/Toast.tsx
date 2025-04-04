@@ -15,7 +15,10 @@ const Toast = ({
     <motion.div
       key="toast"
       initial={{ x: 100, opacity: 0 }}
-      animate={{ x: "-50%", opacity: 1 }}
+      animate={{
+        x: "-50%",
+        opacity: 1,
+      }}
       exit={{ x: 100, opacity: 0 }}
       className={clsx(
         "fixed bottom-[16px] left-1/2 -translate-x-1/2 z-[5000]",

@@ -40,8 +40,7 @@ const Map = () => {
       id="map-container"
       className={clsx(
         "w-full h-full",
-        "relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-        "bg-blue-100"
+        "relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       )}
       ref={mapContainerRef}
     ></div>

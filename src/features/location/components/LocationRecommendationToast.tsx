@@ -31,9 +31,11 @@ const LocationRecommendationToast = ({
         "min-h-[219px] h-[219px]",
         "flex flex-col gap-[8px]",
         "text-[14px] font-bold leading-[134%]",
-        "transition-all duration-300 ease-in-out",
+        "transition-transform duration-300 ease-in-out",
         detailsToastVisible &&
-          "!translate-y-[-10%] blur-[1px] scale-90 pointer-events-none z-[4000]"
+          clsx(
+            "!translate-y-[-10%] blur-[1px] scale-90 pointer-events-none !z-[4000]"
+          )
       )}
       close={close}
     >
@@ -48,7 +50,7 @@ const LocationRecommendationToast = ({
         <br />
       </p>
 
-      <div className="flex justfiy-center items-start">
+      <div className="flex items-start justfiy-center">
         <p className="w-[162px] break-keep">
           {location.name.KO}
           <br />

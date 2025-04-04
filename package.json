@@ -18,6 +18,7 @@
     "@toss/use-overlay": "^1.4.2",
     "@types/chroma-js": "^3.1.1",
     "@types/lodash": "^4.17.15",
+    "@types/react-lottie": "^1.2.10",
     "chroma-js": "^3.1.2",
     "clsx": "^2.1.1",
     "css-loader": "^7.1.2",
@@ -31,6 +32,7 @@
     "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-lottie": "^1.2.10",
     "react-query": "link:@types/@tanstack/react-query",
     "uuid": "^11.1.0",
     "zustand": "^5.0.3"
