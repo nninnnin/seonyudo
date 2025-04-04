@@ -29,11 +29,16 @@ const Navigation = () => {
 
   return (
     <div
-      className={`sticky top-[0px] w-full h-[${STICKY_NAVIATION_HEIGHT}px] z-[1000]`}
+      className={clsx(
+        "sticky top-[0px] w-full z-[1000]"
+      )}
+      style={{
+        paddingTop: `${STICKY_NAVIATION_HEIGHT}px`,
+      }}
     >
       <Dropdown.Container
         className={clsx(
-          "relative top-0 left-0 z-[10]",
+          "!absolute top-0 left-0 z-[10]",
           "h-[30px] overflow-hidden",
           "gap-[4px]",
           "border-none rounded-[18px]"
