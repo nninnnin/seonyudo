@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { AnimatePresence, motion } from "motion/react";
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import localFont from "next/font/local";
@@ -16,6 +17,7 @@ import { LocationProximityContext } from "@/features/location/components/Locatio
 import Button from "@/shared/components/Button";
 import Facade from "@/views/home/components/Facade";
 import PageHeader from "@/shared/components/PageHeader";
+import { useOverlay } from "@toss/use-overlay";
 
 const LocationDetails = ({
   locationSlug,
@@ -131,10 +133,79 @@ LocationDetails.ArTriggerButton = ({
 };
 
 LocationDetails.ViewIdeasButton = () => {
+  const overlay = useOverlay();
+
   return (
     <Button
       className="!bg-black !bg-opacity-20 backdrop-blur-[7.5px] text-white"
-      onClick={() => {}}
+      onClick={() => {
+        overlay.open(({ close, isOpen }) => {
+          return (
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  className={clsx(
+                    "fixed bottom-0 left-0 z-[9999]",
+                    "w-full h-[100dvh]",
+                    "home-background-gradient",
+                    "pt-[40px]"
+                  )}
+                  initial={{
+                    translateY: "100%",
+                  }}
+                  animate={{
+                    translateY: 0,
+                  }}
+                  exit={{
+                    translateY: "100%",
+                  }}
+                  transition={{
+                    duration: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                >
+                  <button
+                    className={clsx(
+                      "absolute right-0 top-0 bg-white",
+                      "rounded-[18px] p-[10px]"
+                    )}
+                    onClick={() => close()}
+                  >
+                    닫기
+                  </button>
+
+                  <div
+                    className={clsx(
+                      "w-[250px] text-center text-white",
+                      "mx-auto"
+                    )}
+                  >
+                    <h1 className="font-extrabold text-[25px] mb-[19px] tracking-[-0.408px]">
+                      시민 아이디어 스케치 소개
+                    </h1>
+
+                    <p>
+                      Lorem ipsum dolor sit amet,
+                      consectetur adipisicing elit.
+                      Ullam eum omnis ipsam fugiat
+                      fugit porro impedit minima cum!
+                      Alias cumque quas facere magni
+                      doloribus ex laudantium
+                      repudiandae dolore voluptate
+                      impedit magnam error quaerat
+                      architecto debitis officia sint
+                      nemo, provident labore quod
+                      sapiente quos porro! Aliquam ea
+                      accusantium officia optio
+                      voluptatem.
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          );
+        });
+      }}
     >
       View Ideas
     </Button>
