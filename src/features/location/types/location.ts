@@ -26,7 +26,7 @@ export interface LocationFormatted {
   name: LanguageMap;
   latitude: string;
   longitude: string;
-  arTitle: string;
+  arTitle: LanguageMap;
   arImage: {
     name: string;
     path: string;

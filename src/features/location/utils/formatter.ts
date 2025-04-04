@@ -1,7 +1,6 @@
 import { LocationFormatted } from "@/features/location/types/location";
 import { MediaInterface } from "@/shared/types/memex";
 import {
-  extractStringValues,
   flattenListItem,
   mapListItems,
   mapObjectProps,
@@ -16,9 +15,6 @@ export const formatLocations = (
     result,
     pluckList,
     mapListItems(flattenListItem),
-    mapListItems(
-      extractStringValues(["arTitle"], "KO")
-    ),
     mapListItems((item: unknown) =>
       mapObjectProps(
         item,

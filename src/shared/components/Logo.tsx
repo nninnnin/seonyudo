@@ -19,7 +19,10 @@ const Logo = forwardRef(
         style={{
           top: `${PAGE_HEADER_POSITION_TOP}px`,
         }}
-        onClick={() => (location.href = "/")}
+        onClick={(e) => {
+          e.stopPropagation();
+          location.href = "/";
+        }}
       >
         UNSEENING
       </div>

@@ -27,7 +27,10 @@ Menu.Toggler = () => {
         "rounded-[16px]",
         "select-none"
       )}
-      onClick={() => toggleVisibility()}
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleVisibility();
+      }}
     >
       <img
         className="w-[20px] h-[21px]"
@@ -56,6 +59,9 @@ Menu.Container = ({
             "fixed top-0 left-0 z-[9000]",
             className
           )}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           <div className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-40"></div>
 

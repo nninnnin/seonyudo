@@ -16,11 +16,18 @@
   }
 }
 
+.facade-container {
+  --gradient-color--left: #4378a6;
+  --gradient-color--right: #000fb3;
+}
+
 .facade-pillar {
+  transition: background 0.5s ease-in-out;
+
   background: linear-gradient(
     270deg,
-    #3f9ef1 50%,
-    #00064a 80%
+    var(--gradient-color--left, #4378a6) 48%,
+    var(--gradient-color--right, #000fb3) 70%
   );
   background-size: 250%;
 
@@ -29,7 +36,6 @@
   position: absolute;
 
   animation: flowRight 10s linear forwards;
-  transform: translateX(2px);
 }
 
 @keyframes flowBackgroundLeft {

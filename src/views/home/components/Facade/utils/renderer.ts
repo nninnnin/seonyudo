@@ -8,7 +8,7 @@ export const createFacadePillar = (
   div.classList.add("facade-pillar");
 
   const width = window.innerWidth / FACADE_SLICES;
-  div.style.width = width + "px";
+  div.style.width = width + 2 + "px";
 
   const percent = Math.min(
     Math.floor((index / FACADE_SLICES) * 10) / 10,

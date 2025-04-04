@@ -29,7 +29,10 @@ const Button = ({
         "rounded-[30px]",
         className
       )}
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
     >
       {iconSource && (
         <Image
@@ -46,7 +49,8 @@ const Button = ({
           "px-[8px] button-typo",
           theme === "black" && "text-white",
           theme === "white" && "text-black",
-          disabled && "text-gray-100"
+          disabled && "text-gray-100",
+          "whitespace-nowrap"
         )}
       >
         {children}
