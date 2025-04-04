@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Toast from "@/shared/components/Toast";
 import Button from "@/shared/components/Button";
 import { LocationSlugs } from "@/features/location/types/location";
+import { create, useStore } from "zustand";
+
+export const detailsToastStore = create<{
+  isVisible: boolean;
+  setDetailsToastVisible: (isVisible: boolean) => void;
+}>((set) => ({
+  isVisible: false,
+  setDetailsToastVisible: (isVisible: boolean) =>
+    set({ isVisible }),
+}));
 
 const LocationDetailsToast = ({
   location,
@@ -24,8 +34,21 @@ const LocationDetailsToast = ({
 }) => {
   const router = useRouter();
 
+  const { setDetailsToastVisible } = useStore(
+    detailsToastStore
+  );
+
+  useEffect(() => {
+    setDetailsToastVisible(true);
+  }, []);
+
   return (
-    <Toast close={close}>
+    <Toast
+      close={() => {
+        close();
+        setDetailsToastVisible(false);
+      }}
+    >
       <div className="flex flex-col gap-[20px]">
         <h1 className="body2">
           <span>{location.name.KO}</span>
@@ -41,12 +64,12 @@ const LocationDetailsToast = ({
       </div>
 
       <Button
-        iconSource="/icons/magic.svg"
+        iconSource="/icons/twinkle--white.svg"
         onClick={() =>
           router.push(`/ar/${location.slug}`)
         }
       >
-        View Details
+        Open AR
       </Button>
     </Toast>
   );

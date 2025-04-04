@@ -1,7 +1,9 @@
 import clsx from "clsx";
 import React from "react";
+import { useStore } from "zustand";
 
 import Toast from "@/shared/components/Toast";
+import { detailsToastStore } from "@/features/location/components/LocationDetailsToast";
 
 const LocationRecommendationToast = ({
   close,
@@ -19,12 +21,19 @@ const LocationRecommendationToast = ({
     };
   };
 }) => {
+  const { isVisible: detailsToastVisible } = useStore(
+    detailsToastStore
+  );
+
   return (
     <Toast
       className={clsx(
         "min-h-[219px] h-[219px]",
         "flex flex-col gap-[8px]",
-        "text-[14px] font-bold leading-[134%]"
+        "text-[14px] font-bold leading-[134%]",
+        "transition-all duration-300 ease-in-out",
+        detailsToastVisible &&
+          "!translate-y-[-10%] blur-[1px] scale-90 pointer-events-none z-[4000]"
       )}
       close={close}
     >

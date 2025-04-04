@@ -26,15 +26,8 @@ const useLocationRecommendation = () => {
   const { arCompletedLocations } =
     useArCompletionStore();
 
-  console.log(
-    "AR 완료된 위치들",
-    arCompletedLocations
-  );
-
-  // 1. 모든 로케이션에서 AR 완료된 위치를 필터링
   const { locations: allLocations } = useLocations();
 
-  // 2. 필터링 된 위치들 중 가장 가까운 것을 판단
   const filteredLocations = allLocations.filter(
     (location) =>
       !arCompletedLocations.includes(location.name.KO!)
@@ -100,8 +93,6 @@ const useLocationRecommendation = () => {
     },
     [filteredLocations, hasSeen]
   );
-
-  return {};
 };
 
 export default useLocationRecommendation;

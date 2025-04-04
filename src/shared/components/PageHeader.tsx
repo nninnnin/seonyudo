@@ -6,16 +6,16 @@ import { useRouter } from "next/navigation";
 
 import Menu from "@/shared/components/Menu";
 import Logo from "@/shared/components/Logo";
-import {
-  INTRODUCTION_SUBJECTS,
-  IntroductionSubjects,
-} from "@/views/about/constants";
+import { INTRODUCTION_SUBJECTS } from "@/views/about/constants";
 import { menuStore } from "@/shared/store/menu";
 import useElementHeight from "@/shared/hooks/useElementHeight";
+import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 
 const PageHeader = () => {
   const router = useRouter();
   const { setVisibility } = useStore(menuStore);
+
+  const { openLoadingOverlay } = useLoadingOverlay();
 
   const { setElementRef } =
     useElementHeight("page-header");
@@ -56,6 +56,10 @@ const PageHeader = () => {
 
           <Menu.Item
             onClick={() => {
+              openLoadingOverlay(
+                "지도를 불러오는 중입니다.."
+              );
+
               router.push("/map");
               setVisibility(false);
             }}
