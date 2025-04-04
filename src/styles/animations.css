@@ -1,11 +1,15 @@
 @keyframes bubble {
   0% {
     opacity: 0;
-    transform: translateY(20%);
+    transform: scale(0.95) translateY(3%);
+  }
+  40% {
+    opacity: 0.4;
+    transform: scale(1.07) translateY(2%);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
   }
 }
 

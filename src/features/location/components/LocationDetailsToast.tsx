@@ -5,6 +5,7 @@ import Toast from "@/shared/components/Toast";
 import Button from "@/shared/components/Button";
 import { LocationSlugs } from "@/features/location/types/location";
 import { create, useStore } from "zustand";
+import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 
 export const detailsToastStore = create<{
   isVisible: boolean;
@@ -40,7 +41,13 @@ const LocationDetailsToast = ({
 
   useEffect(() => {
     setDetailsToastVisible(true);
+
+    return () => {
+      setDetailsToastVisible(false);
+    };
   }, []);
+
+  const { openLoadingOverlay } = useLoadingOverlay();
 
   return (
     <Toast
@@ -65,9 +72,10 @@ const LocationDetailsToast = ({
 
       <Button
         iconSource="/icons/twinkle--white.svg"
-        onClick={() =>
-          router.push(`/ar/${location.slug}`)
-        }
+        onClick={() => {
+          openLoadingOverlay("");
+          router.push(`/ar/${location.slug}`);
+        }}
       >
         Open AR
       </Button>

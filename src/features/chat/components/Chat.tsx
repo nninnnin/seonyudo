@@ -2,8 +2,10 @@ import clsx from "clsx";
 import React, {
   ForwardedRef,
   forwardRef,
+  useEffect,
+  useRef,
 } from "react";
-import { motion } from "motion/react";
+import { motion, useAnimate } from "motion/react";
 
 import ChatBackground from "@/features/chat/components/ChatBackground";
 
@@ -47,8 +49,6 @@ Chat.Item = ({
   contents,
   type,
   image,
-  animate,
-  animateDelay = 0,
 }: {
   uid: string;
   contents: string;
@@ -57,38 +57,13 @@ Chat.Item = ({
     name: string;
     path: string;
   };
-  animate?: boolean;
-  animateDelay?: number;
 }) => {
   return (
-    <motion.li
-      id={`chat-item=${uid}`}
-      initial={
-        animate
-          ? {
-              opacity: 0,
-              y: 20,
-            }
-          : {}
-      }
-      animate={
-        animate
-          ? {
-              opacity: 1,
-              y: 0,
-            }
-          : {}
-      }
-      transition={{
-        duration: 0.3,
-        delay: animate ? animateDelay : 1,
-      }}
-    >
-      <>
-        {image && (
-          <img className="mb-[1em]" src={image.path} />
-        )}
-      </>
+    <motion.li id={`chat-item=${uid}`}>
+      {image && (
+        <img className="mb-[1em]" src={image.path} />
+      )}
+
       <Chat.Bubble type={type}>{contents}</Chat.Bubble>
     </motion.li>
   );
@@ -101,8 +76,37 @@ Chat.Bubble = ({
   children: React.ReactNode;
   type: "question" | "answer";
 }) => {
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const itemElement = itemRef.current;
+
+    if (!itemElement) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+
+        if (
+          entry.isIntersecting &&
+          entry.intersectionRatio === 1
+        ) {
+          entry.target.classList.add(
+            "animate-chat-bubble"
+          );
+        }
+      },
+      {
+        threshold: 1,
+      }
+    );
+
+    observer.observe(itemElement);
+  }, []);
+
   return (
     <div
+      ref={itemRef}
       className={clsx(
         "w-[270px] ",
         "p-[16px] py-[12px] rounded-xl",
@@ -110,7 +114,8 @@ Chat.Bubble = ({
         type === "question" && "bg-white",
         type === "answer" &&
           "bg-black bg-opacity-30 backdrop-blur-[30px] text-white ml-auto",
-        "select-none"
+        "select-none",
+        "opacity-0"
       )}
     >
       {children}
