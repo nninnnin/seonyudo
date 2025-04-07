@@ -35,3 +35,11 @@ body {
     )
   );
 }
+
+.loading-background-gradient {
+  background: linear-gradient(
+    270deg,
+    #3f9ef1 -10%,
+    #00064a 100%
+  );
+}

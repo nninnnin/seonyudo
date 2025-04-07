@@ -10,6 +10,7 @@ const Logo = dynamic(
   () => import("@/shared/components/Logo"),
   {
     ssr: false,
+    loading: () => <LogoSkeleton />,
   }
 );
 
@@ -17,6 +18,7 @@ import { INTRODUCTION_SUBJECTS } from "@/views/about/constants";
 import { menuStore } from "@/shared/store/menu";
 import useElementHeight from "@/shared/hooks/useElementHeight";
 import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
+import { LogoSkeleton } from "@/shared/components/Logo";
 
 const PageHeader = () => {
   const router = useRouter();

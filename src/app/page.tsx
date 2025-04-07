@@ -14,6 +14,9 @@ const Facade = dynamic(
   () => import("@/views/home/components/Facade"),
   {
     ssr: false,
+    loading: () => (
+      <div className="w-full h-full loading-background-gradient"></div>
+    ),
   }
 );
 
@@ -29,7 +32,8 @@ export default function Home() {
     <div
       className={clsx(
         "w-[100vw] h-[100dvh]",
-        "flex flex-col justify-center items-center"
+        "flex flex-col justify-center items-center",
+        "loading-background-gradient"
       )}
     >
       <PageHeader />

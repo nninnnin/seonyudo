@@ -32,4 +32,18 @@ const Logo = forwardRef(
   }
 );
 
+export const LogoSkeleton = () => {
+  return (
+    <div
+      className={clsx(
+        "fixed top-[16px] left-[16px] z-[9999]",
+        "w-[113px] h-[27px]",
+        "logo-typo"
+      )}
+    >
+      UNSEENING
+    </div>
+  );
+};
+
 export default Logo;

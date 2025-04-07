@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useOverlay } from "@toss/use-overlay";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import localFont from "next/font/local";
@@ -16,9 +16,18 @@ import { LocationSlugs } from "@/features/location/types/location";
 import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
 import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
 import Button from "@/shared/components/Button";
-import Facade from "@/views/home/components/Facade";
+const Facade = dynamic(
+  () => import("@/views/home/components/Facade"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-[100vw] h-[100dvh] loading-background-gradient"></div>
+    ),
+  }
+);
 import PageHeader from "@/shared/components/PageHeader";
 import LocationIdeas from "@/features/location/components/LocationIdeas";
+import dynamic from "next/dynamic";
 
 const LocationDetails = ({
   locationSlug,
@@ -37,7 +46,8 @@ const LocationDetails = ({
         "gap-[16px]",
         "p-[10px]",
         "relative",
-        "text-white"
+        "text-white",
+        "loading-background-gradient"
       )}
     >
       <PageHeader />
@@ -54,7 +64,8 @@ const LocationDetails = ({
           "flex flex-col justify-center items-center",
           "gap-[32px]",
           "text-center break-keep",
-          "text-[16px] font-bold leading-[134%]"
+          "text-[16px] font-bold leading-[134%]",
+          "absolute z-[10]"
         )}
       >
         <div

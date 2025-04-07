@@ -16,7 +16,8 @@ import Image from "next/image";
 const Menu = () => {};
 
 Menu.Toggler = () => {
-  const { toggleVisibility } = useStore(menuStore);
+  const { visibility, toggleVisibility } =
+    useStore(menuStore);
 
   return (
     <div
@@ -34,7 +35,11 @@ Menu.Toggler = () => {
     >
       <img
         className="w-[20px] h-[21px]"
-        src="/icons/menu.svg"
+        src={
+          visibility
+            ? "/icons/close.svg"
+            : "/icons/menu.svg"
+        }
       />
     </div>
   );
@@ -56,7 +61,7 @@ Menu.Container = ({
           key="menu-container"
           className={clsx(
             "w-[100vw] h-[100dvh]",
-            "fixed top-0 left-0 z-[9000]",
+            "fixed top-0 left-0 z-[6000]",
             className
           )}
           onClick={(e) => {

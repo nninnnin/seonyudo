@@ -105,10 +105,14 @@ const Facade = ({
       id="facade-container"
       ref={containerRef}
       className={clsx(
-        "absolute top-0 left-0 z-[-1]",
+        "absolute top-0 left-0 z-[0]",
         "h-full",
         "overflow-x-hidden"
       )}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
       style={{
         width: `calc(100vw + ${facadePillarWidth}px)`,
         transform: `translateX(${-facadePillarWidth}px)`,
