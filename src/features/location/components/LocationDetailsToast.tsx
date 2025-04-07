@@ -53,7 +53,7 @@ const LocationDetailsToast = ({
           <span>{location.name.EN}</span>
         </h1>
 
-        <div className="flex gap-[8px]">
+        <div className="flex justify-between gap-[8px]">
           <p className="body3">
             <span>{location.description.KO}</span>
             <br />

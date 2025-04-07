@@ -50,7 +50,7 @@ const LocationRecommendationToast = ({
         <br />
       </p>
 
-      <div className="flex items-start justfiy-center">
+      <div className="flex items-start justfiy-between gap-[8px]">
         <p className="w-[162px] break-keep">
           {location.name.KO}
           <br />
