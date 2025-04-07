@@ -69,9 +69,9 @@ const useLocationRecommendation = () => {
                       },
                       thumbnail: {
                         name: 가장가까운거점
-                          .arThumbnail.name,
+                          .locationThumbnail.name,
                         path: 가장가까운거점
-                          .arThumbnail.path,
+                          .locationThumbnail.path,
                       },
                     }}
                   />

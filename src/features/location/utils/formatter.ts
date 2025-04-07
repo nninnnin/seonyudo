@@ -18,7 +18,7 @@ export const formatLocations = (
     mapListItems((item: unknown) =>
       mapObjectProps(
         item,
-        ["arImage", "arThumbnail"],
+        ["arImage", "locationThumbnail"],
         (value: MediaInterface[]) => {
           const media = value[0];
 
