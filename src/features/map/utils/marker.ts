@@ -73,10 +73,7 @@ export const addCompletionStyles = curry(
   (isArCompleted: boolean, marker: Marker) => {
     marker
       .getElement()
-      .classList.toggle(
-        "marker--ar-completed",
-        isArCompleted
-      );
+      .classList.toggle("completed", isArCompleted);
 
     return marker;
   }

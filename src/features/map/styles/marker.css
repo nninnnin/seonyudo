@@ -4,24 +4,27 @@
 
 /* Location type Marker */
 .marker.location {
-  background-color: black;
-  border: 3px solid white;
+  background-image: url("/icons/map/flower--transparent.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
 
-  width: 10px;
-  height: 10px;
+  width: 37px;
+  height: 36px;
+}
+
+.marker.location.completed {
+  background-image: url("/icons/map/flower--colored.svg");
 }
 
 .marker-label.location {
-  background-color: white;
-  color: black;
-
   padding: 5px;
   padding-top: 1px;
   padding-bottom: 1px;
   border-radius: 5px;
 
   position: absolute;
-  top: 10px;
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
 
@@ -34,6 +37,9 @@
   height: 8px;
   background-color: black;
   border-radius: 50%;
+
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .marker-label.decorative {
@@ -47,7 +53,36 @@
   white-space: nowrap;
 }
 
-.marker--ar-completed {
-  border-color: red;
-  background-color: #fff;
+.show {
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+span {
+  transition: font-size 0.2s ease,
+    line-height 0.2s ease;
+}
+
+.marker {
+  transition: background-size 0.2s ease;
+}
+
+.marker-label {
+  transition: top 0.2s ease;
+}
+
+.label--smaller {
+  background-size: 80% !important;
+}
+
+.label--smaller .marker-label {
+  top: 34px !important;
+}
+
+.label--smaller * {
+  line-height: 8px !important;
+}
+
+.label--smaller span {
+  font-size: 8px !important;
 }
