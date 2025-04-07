@@ -14,42 +14,24 @@ import {
 } from "@/features/map/utils/marker";
 import { useOverlay } from "@toss/use-overlay";
 import LocationDetailsToast from "@/features/location/components/LocationDetailsToast";
-import { LocationSlugs } from "@/features/location/types/location";
-
-type Location = {
-  name: string;
-  coords: { lat: number; lng: number };
-  slug: LocationSlugs;
-  arCompleted: boolean;
-};
-
-type Locations = Location[];
+import { LocationFormatted } from "@/features/location/types/location";
+import { useArCompletionStore } from "@/features/ar/store";
 
 const useAddMarkers = (
   map: Map | null,
-  locations: Locations
+  locations: LocationFormatted[]
 ) => {
   const overlay = useOverlay();
 
   const handleClickMarker =
-    (location: Location) => () => {
+    (location: LocationFormatted) => () => {
       overlay.open(({ close, isOpen }) => {
         return (
           <AnimatePresence>
             {isOpen && (
               <LocationDetailsToast
                 close={close}
-                location={{
-                  name: {
-                    KO: location.name,
-                    EN: location.name,
-                  },
-                  description: {
-                    KO: "설명",
-                    EN: "Description",
-                  },
-                  slug: location.slug,
-                }}
+                location={location}
               />
             )}
           </AnimatePresence>
@@ -57,26 +39,39 @@ const useAddMarkers = (
       });
     };
 
+  const { arCompletedLocations } =
+    useArCompletionStore();
+
   const addMarkers = (
     map: Map,
-    locations: Locations
+    locations: LocationFormatted[]
   ) => {
     locations.forEach((location) => {
-      const { name, coords, arCompleted } = location;
+      const { name, latitude, longitude } = location;
+
+      console.log(latitude, longitude);
+
+      const coords = {
+        lat: Number(latitude),
+        lng: Number(longitude),
+      };
 
       const hasAlreadyAdded = map._markers.find(
         (marker) => {
           return isEqual(
             { ...marker._lngLat },
-            location.coords
+            coords
           );
         }
       );
 
       if (hasAlreadyAdded) return;
 
+      const arCompleted =
+        arCompletedLocations.includes(name.KO!);
+
       pipe(
-        createMarker(name),
+        createMarker(name.KO!),
         setMarkerCoords(coords),
         addMarkerClickHandler(
           handleClickMarker(location)

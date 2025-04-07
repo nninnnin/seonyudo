@@ -25,16 +25,15 @@ const Toast = ({
         "w-[calc(100vw-32px)] min-h-[260px]",
         "flex flex-col justify-between",
         "py-[12px] px-[14px]",
-        "glassmorph",
+        "glassmorph rounded-[16px]",
         className
       )}
     >
       <button
         className={clsx(
-          "bg-white text-black w-fit",
-          "py-[10px] px-[16px]",
+          "py-[15px] px-[21px]",
           "rounded-[16px]",
-          "absolute top-[12px] right-[14px]"
+          "absolute top-[0px] right-[0px]"
         )}
         onClick={() => close()}
       >
@@ -48,7 +47,7 @@ const Toast = ({
             y1="0"
             x2="100"
             y2="100"
-            stroke="black"
+            stroke="white"
             strokeWidth={14}
             strokeLinecap="round"
           ></line>
@@ -58,7 +57,7 @@ const Toast = ({
             y1="0"
             x2="0"
             y2="100"
-            stroke="black"
+            stroke="white"
             strokeWidth={14}
             strokeLinecap="round"
           ></line>

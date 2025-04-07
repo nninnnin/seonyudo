@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 import Toast from "@/shared/components/Toast";
 import Button from "@/shared/components/Button";
-import { LocationSlugs } from "@/features/location/types/location";
+import { LocationFormatted } from "@/features/location/types/location";
 import { create, useStore } from "zustand";
 import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 
@@ -20,17 +20,7 @@ const LocationDetailsToast = ({
   location,
   close,
 }: {
-  location: {
-    name: {
-      KO: string;
-      EN: string;
-    };
-    description: {
-      KO: string;
-      EN: string;
-    };
-    slug: LocationSlugs;
-  };
+  location: LocationFormatted;
   close: () => void;
 }) => {
   const router = useRouter();
@@ -60,14 +50,23 @@ const LocationDetailsToast = ({
         <h1 className="body2">
           <span>{location.name.KO}</span>
           <br />
-          <span>{location.name.KO}</span>
+          <span>{location.name.EN}</span>
         </h1>
 
-        <p className="body3">
-          <span>{location.description.KO}</span>
-          <br />
-          <span>{location.description.EN}</span>
-        </p>
+        <div className="flex gap-[8px]">
+          <p className="body3">
+            <span>{location.description.KO}</span>
+            <br />
+            <span>{location.description.EN}</span>
+          </p>
+
+          <img
+            src={location.locationThumbnail.path}
+            alt={location.locationThumbnail.name}
+            width={109}
+            height={109}
+          />
+        </div>
       </div>
 
       <Button
