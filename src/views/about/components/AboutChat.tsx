@@ -57,7 +57,7 @@ const AboutChat = ({
     >
       <h1
         className={clsx(
-          "w-full",
+          "w-fit mx-auto",
           "sticky top-[-40px] z-[1000]",
           "text-white text-[12px] font-bold leading-[22px] text-center"
         )}
