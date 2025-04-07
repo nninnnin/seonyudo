@@ -49,8 +49,6 @@ const useAddMarkers = (
     locations.forEach((location) => {
       const { name, latitude, longitude } = location;
 
-      console.log(latitude, longitude);
-
       const coords = {
         lat: Number(latitude),
         lng: Number(longitude),

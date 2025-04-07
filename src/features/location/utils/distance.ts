@@ -89,8 +89,6 @@ const reduceMinimumDistant = (
     distance: number;
   })[]
 ) => {
-  console.log("this must be a problem", locations);
-
   if (locations.length === 0) {
     return null;
   }

@@ -51,8 +51,6 @@ const useLocationRecommendation = () => {
 
         if (!가장가까운거점) return;
 
-        console.log(가장가까운거점);
-
         setHasSeen(true);
 
         const openRecommendationToast = () =>

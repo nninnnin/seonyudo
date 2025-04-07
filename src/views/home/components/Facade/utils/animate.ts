@@ -26,7 +26,6 @@ const setGradientColors = (
   const currentColors = colors.shift();
 
   if (!currentColors) {
-    console.log("end");
     clearTimeout(timeoutId);
     callback();
 
