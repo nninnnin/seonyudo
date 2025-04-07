@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-
 import mapboxgl, { Map } from "mapbox-gl";
+
 import { 지도_시작점 } from "@/features/map/constants";
 
 const mapSettings = {
-  center: 지도_시작점.한남동,
+  center: 지도_시작점.선유도,
   zoom: 16,
 };
 
@@ -26,6 +26,16 @@ const useMapboxgl = () => {
 
     // Map settings: Disable double click zoom
     mapInstance.doubleClickZoom.disable();
+
+    const geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true,
+      },
+      trackUserLocation: true,
+      showUserHeading: true,
+    });
+
+    mapInstance.addControl(geolocate, "bottom-left");
 
     setMapInstance(mapInstance);
 

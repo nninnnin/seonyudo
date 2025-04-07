@@ -5,6 +5,7 @@
 @import "./theme.css";
 @import "./animations.css";
 @import "mapbox-gl/dist/mapbox-gl.css";
+@import "./map.css";
 
 * {
   box-sizing: border-box;
