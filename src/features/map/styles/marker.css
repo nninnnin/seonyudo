@@ -1,4 +1,9 @@
-.marker {
+.marker-label {
+  text-align: center;
+}
+
+/* Location type Marker */
+.marker.location {
   background-color: black;
   border: 3px solid white;
 
@@ -6,7 +11,7 @@
   height: 10px;
 }
 
-.marker-label {
+.marker-label.location {
   background-color: white;
   color: black;
 
@@ -14,6 +19,25 @@
   padding-top: 1px;
   padding-bottom: 1px;
   border-radius: 5px;
+
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  white-space: nowrap;
+}
+
+/* Decorative type Marker */
+.marker.decorative {
+  width: 8px;
+  height: 8px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.marker-label.decorative {
+  color: black;
 
   position: absolute;
   top: 10px;

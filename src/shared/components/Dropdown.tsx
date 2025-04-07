@@ -21,10 +21,12 @@ const DropdownContext = createContext<{
   selectedItem: SelectedItem;
   isOpen: boolean;
   height: Pixel;
+  disabled?: boolean;
 }>({
   selectedItem: null,
   isOpen: false,
   height: "0px",
+  disabled: false,
 });
 
 Dropdown.Container = ({
@@ -32,11 +34,13 @@ Dropdown.Container = ({
   height,
   className = "",
   onChange = () => {},
+  disabled = false,
 }: {
   children: React.ReactNode;
   height: Pixel;
   className?: string;
   onChange?: (item: SelectedItem) => void;
+  disabled?: boolean;
 }) => {
   const [selectedItem, setSelectedItem] =
     useState<SelectedItem>(null);
@@ -62,6 +66,7 @@ Dropdown.Container = ({
         selectedItem,
         isOpen,
         height,
+        disabled,
       }}
     >
       <ul
@@ -76,6 +81,11 @@ Dropdown.Container = ({
         )}
         style={{ height: isOpen ? "auto" : height }}
         onClick={(e: MouseEvent) => {
+          if (disabled) {
+            e.stopPropagation();
+            return;
+          }
+
           const target = e.target as HTMLElement & {
             name: string;
             value: string;
@@ -131,7 +141,9 @@ Dropdown.SelectedItem = ({
     value: string | null;
   };
 }) => {
-  const { selectedItem } = useContext(DropdownContext);
+  const { selectedItem, disabled } = useContext(
+    DropdownContext
+  );
 
   const name =
     selectedItem?.name ??
@@ -148,11 +160,14 @@ Dropdown.SelectedItem = ({
         name={name}
         value={value}
       />
-      <Dropdown.Indicator
-        width={indicator.width}
-        height={indicator.height}
-        source={indicator.source}
-      />
+
+      {!disabled && (
+        <Dropdown.Indicator
+          width={indicator.width}
+          height={indicator.height}
+          source={indicator.source}
+        />
+      )}
     </div>
   );
 };

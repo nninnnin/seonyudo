@@ -3,9 +3,16 @@
 import React from "react";
 import { useStore } from "zustand";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import Menu from "@/shared/components/Menu";
-import Logo from "@/shared/components/Logo";
+const Logo = dynamic(
+  () => import("@/shared/components/Logo"),
+  {
+    ssr: false,
+  }
+);
+
 import { INTRODUCTION_SUBJECTS } from "@/views/about/constants";
 import { menuStore } from "@/shared/store/menu";
 import useElementHeight from "@/shared/hooks/useElementHeight";

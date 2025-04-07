@@ -22,6 +22,8 @@ const useMapboxgl = () => {
       ...mapSettings,
       container:
         mapContainerRef.current as HTMLDivElement,
+      style:
+        "mapbox://styles/practice-r9/cm96hcc5v007r01r9dz9ubdve",
     });
 
     // Map settings: Disable double click zoom

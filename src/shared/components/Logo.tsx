@@ -3,12 +3,13 @@ import React, {
   ForwardedRef,
   forwardRef,
 } from "react";
+import { createPortal } from "react-dom";
 
 export const PAGE_HEADER_POSITION_TOP = 16;
 
 const Logo = forwardRef(
   (props, ref: ForwardedRef<HTMLDivElement>) => {
-    return (
+    return createPortal(
       <div
         ref={ref}
         className={clsx(
@@ -25,7 +26,8 @@ const Logo = forwardRef(
         }}
       >
         UNSEENING
-      </div>
+      </div>,
+      document.body
     );
   }
 );

@@ -1,8 +1,9 @@
-import { useEffect } from "react";
 import { Map } from "mapbox-gl";
-import { pipe } from "@rebel9/memex-fetcher";
 import { isEqual } from "lodash";
+import { useEffect } from "react";
 import { AnimatePresence } from "motion/react";
+import { pipe } from "@rebel9/memex-fetcher";
+import { useOverlay } from "@toss/use-overlay";
 
 import "../styles/marker.css";
 import {
@@ -12,10 +13,10 @@ import {
   addMarkerClickHandler,
   addCompletionStyles,
 } from "@/features/map/utils/marker";
-import { useOverlay } from "@toss/use-overlay";
 import LocationDetailsToast from "@/features/location/components/LocationDetailsToast";
 import { LocationFormatted } from "@/features/location/types/location";
 import { useArCompletionStore } from "@/features/ar/store";
+import { DECORATIVE_LOCATIONS } from "@/features/map/constants";
 
 const useAddMarkers = (
   map: Map | null,
@@ -42,7 +43,7 @@ const useAddMarkers = (
   const { arCompletedLocations } =
     useArCompletionStore();
 
-  const addMarkers = (
+  const addLocationMarkers = (
     map: Map,
     locations: LocationFormatted[]
   ) => {
@@ -69,7 +70,7 @@ const useAddMarkers = (
         arCompletedLocations.includes(name.KO!);
 
       pipe(
-        createMarker(name.KO!),
+        createMarker(name, "location"),
         setMarkerCoords(coords),
         addMarkerClickHandler(
           handleClickMarker(location)
@@ -80,11 +81,34 @@ const useAddMarkers = (
     });
   };
 
+  const addDecorativeMarkers = (
+    map: Map,
+    decoratives: {
+      label: string;
+      coords: { lat: number; lng: number };
+    }[]
+  ) => {
+    decoratives.forEach(({ label, coords }) => {
+      pipe(
+        createMarker(
+          {
+            KO: label,
+          },
+          "decorative"
+        ),
+        setMarkerCoords(coords),
+        addMarkerClickHandler(() => {}),
+        addMarker(map)
+      );
+    });
+  };
+
   useEffect(() => {
     if (!map) return;
     if (!locations || !locations.length) return;
 
-    addMarkers(map, locations);
+    addLocationMarkers(map, locations);
+    addDecorativeMarkers(map, DECORATIVE_LOCATIONS);
   }, [map, locations]);
 };
 

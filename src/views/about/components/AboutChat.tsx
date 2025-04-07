@@ -16,28 +16,37 @@ import { IntroductionSubjects } from "@/views/about/constants";
 import Navigation from "@/views/about/components/Navigation";
 import { languageStore } from "@/shared/store/language";
 
-const AboutChat = () => {
+const AboutChat = ({
+  chatSubject,
+  disableNavigation = false,
+}: {
+  chatSubject?: IntroductionSubjects;
+  disableNavigation?: boolean;
+}) => {
   const { pageHeaderHeight } = usePageHeaderHeight();
   const { subject } = useIntroductionSubject();
 
+  const introductionSubject =
+    chatSubject || (subject as IntroductionSubjects);
+
   const isSubjectValid = Object.values(
     IntroductionSubjects
-  ).includes(subject as IntroductionSubjects);
+  ).includes(
+    introductionSubject as IntroductionSubjects
+  );
 
-  if (!subject || !isSubjectValid) {
+  if (!introductionSubject || !isSubjectValid) {
     redirect("/");
   }
 
   const { language } = useStore(languageStore);
 
   const { data: introductions } = useIntroductions(
-    subject as IntroductionSubjects,
+    introductionSubject as IntroductionSubjects,
     language
   );
 
   const currentTime = format(new Date(), "a h:mm");
-
-  if (!introductions) return <></>;
 
   return (
     <Chat.Container
@@ -56,9 +65,12 @@ const AboutChat = () => {
         (오늘) 오후 {currentTime}
       </h1>
 
-      <Navigation />
+      <Navigation
+        introductionSubject={introductionSubject}
+        disabled={disableNavigation}
+      />
 
-      {introductions.map((introduction) => {
+      {introductions?.map((introduction) => {
         const isQuestion =
           introduction.contentsType.id ===
           ContentsTypeId.Question;

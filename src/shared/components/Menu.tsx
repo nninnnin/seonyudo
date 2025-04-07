@@ -21,7 +21,7 @@ Menu.Toggler = () => {
   return (
     <div
       className={clsx(
-        "fixed top-[16px] right-[16px] z-[9999]",
+        "fixed top-[16px] right-[16px] z-[7000]",
         "bg-white",
         "px-[11px] pt-[5px] pb-[4px]",
         "rounded-[16px]",

@@ -41,6 +41,14 @@
   line-height: 134%; /* 16.08px */
 }
 
+.body5 {
+  font-family: Pretendard;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 134%; /* 13.4px */
+}
+
 .glassmorph {
   background-color: rgba(0, 0, 0, 0.15) !important;
   backdrop-filter: blur(10px);

@@ -1,20 +1,57 @@
 import { Map, Marker } from "mapbox-gl";
 
 import { curry } from "@fxts/core";
+import { LanguageMap } from "@/shared/types/memex";
 
-export const createMarker = (name: string) => {
+type MarkerType = "location" | "decorative";
+
+export const createMarker = (
+  name: LanguageMap,
+  markerType: MarkerType
+) => {
+  const textClass =
+    markerType === "location" ? "body4" : "body5";
+
   const markerElement = document.createElement("div");
-  markerElement.className = "marker";
+  markerElement.classList.add(
+    "marker",
+    markerType,
+    textClass
+  );
 
   const markerLabel = document.createElement("div");
-  markerLabel.className = "marker-label";
-  markerLabel.textContent = name;
+  markerLabel.classList.add(
+    "marker-label",
+    markerType,
+    textClass
+  );
+
+  const labelContents = createLocationLabel(name);
+
+  markerLabel.appendChild(labelContents);
 
   markerElement.appendChild(markerLabel);
 
   return new Marker({
     element: markerElement,
   });
+};
+
+const createLocationLabel = (name: LanguageMap) => {
+  const labelContents = document.createElement("div");
+  const labelKorean = document.createElement("span");
+  const labelEnglish = document.createElement("span");
+
+  labelKorean.innerHTML = name.KO!;
+  labelEnglish.innerHTML = name.EN ?? "";
+
+  labelContents.appendChild(labelKorean);
+  labelContents.appendChild(
+    document.createElement("br")
+  );
+  labelContents.appendChild(labelEnglish);
+
+  return labelContents;
 };
 
 export const setMarkerCoords = curry(

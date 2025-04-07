@@ -2,7 +2,10 @@ import React from "react";
 
 import Dropdown from "@/shared/components/Dropdown";
 import clsx from "clsx";
-import { INTRODUCTION_SUBJECTS } from "@/views/about/constants/index";
+import {
+  INTRODUCTION_SUBJECTS,
+  IntroductionSubjects,
+} from "@/views/about/constants/index";
 import {
   redirect,
   useRouter,
@@ -11,11 +14,18 @@ import {
 
 export const STICKY_NAVIATION_HEIGHT = 46;
 
-const Navigation = () => {
+const Navigation = ({
+  introductionSubject,
+  disabled = false,
+}: {
+  introductionSubject?: IntroductionSubjects;
+  disabled?: boolean;
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const subjectName = searchParams.get("subject");
+  const subjectName =
+    introductionSubject || searchParams.get("subject");
 
   const selectedSubject = INTRODUCTION_SUBJECTS.find(
     (subject) => {
@@ -44,6 +54,7 @@ const Navigation = () => {
           "border-none rounded-[18px]"
         )}
         height={`${STICKY_NAVIATION_HEIGHT}px`}
+        disabled={disabled}
       >
         <Dropdown.SelectedItem
           className="glassmorph rounded-[18px]"
