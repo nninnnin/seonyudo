@@ -135,6 +135,18 @@ ArPage.ArContents = ({
     ? isArLoaded && isGifLoaded
     : isArLoaded;
 
+  useEffect(() => {
+    if (showArContents) {
+      const iframe = document.getElementById(
+        "ar-contents-frame"
+      ) as HTMLIFrameElement;
+
+      if (iframe) {
+        iframe.style.visibility = "visible";
+      }
+    }
+  }, [showArContents]);
+
   return (
     <>
       {showArContents && showDialog && (
@@ -148,15 +160,19 @@ ArPage.ArContents = ({
 
       {!showArContents && <ArLoading />}
 
-      {useMemo(
-        () => (
-          <ArContentsIframe
-            src={arContentsUrl}
-            visibility={showArContents}
-          />
-        ),
-        [arContentsUrl, showArContents]
-      )}
+      <iframe
+        id="ar-contents-frame"
+        allow="camera; microphone; geolocation; accelerometer; gyroscope; magnetometer; xr-spatial-tracking; web-share"
+        src={arContentsUrl}
+        style={{
+          width: "100vw",
+          height: "100dvh",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          visibility: "hidden",
+        }}
+      ></iframe>
     </>
   );
 };
