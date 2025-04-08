@@ -148,10 +148,17 @@ ArPage.ArContents = ({
 
       {!showArContents && <ArLoading />}
 
-      <ArContentsIframe
-        src={arContentsUrl}
-        visibility={showArContents}
-      />
+      <div
+        style={{
+          opacity: showArContents ? 1 : 0,
+          transition: "opacity 0.5s ease-in-out",
+        }}
+      >
+        <ArContentsIframe
+          src={arContentsUrl}
+          visibility={true}
+        />
+      </div>
     </>
   );
 };
