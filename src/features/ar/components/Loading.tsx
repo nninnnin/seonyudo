@@ -1,9 +1,7 @@
 import clsx from "clsx";
 import React from "react";
-import Lottie from "react-lottie";
 import localFont from "next/font/local";
 
-import animationData from "../assets/animation/wave.json";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 

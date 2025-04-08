@@ -9,6 +9,8 @@ import PageHeader from "@/shared/components/PageHeader";
 import Button from "@/shared/components/Button";
 import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 import PageFooter from "@/shared/components/PageFooter";
+import { useStore } from "zustand";
+import { introStore } from "@/views/intro/store/intro";
 
 const Facade = dynamic(
   () => import("@/views/home/components/Facade"),
@@ -27,6 +29,14 @@ export default function Home() {
   useEffect(() => {
     router.prefetch("/map");
   }, [router]);
+
+  const { isIntroWatched } = useStore(introStore);
+
+  useEffect(() => {
+    if (!isIntroWatched) {
+      router.replace("/intro");
+    }
+  }, [isIntroWatched]);
 
   return (
     <div

@@ -60,19 +60,43 @@ const WelcomeDialog = () => {
     <Overlay>
       <div
         className={clsx(
-          "bg-black text-white",
-          "w-[200px] h-[200px]",
+          "welcome-dialog-container",
+          "bg-white",
+          "p-[20px] rounded-[8px]",
           "flex flex-col justify-center items-center",
-          "gap-[10px]"
+          "gap-[20px]"
         )}
       >
-        <p>어서오세요!</p>
+        <p
+          className={clsx(
+            "w-[236px]",
+            "text-[12px] font-[700] leading-[150%]",
+            "break-keep"
+          )}
+        >
+          <span>
+            〈Unseeing: 선유동화〉에서 선유도공원
+            곳곳에 숨겨 놓은 동화 같은 풍경을 AR로
+            경험해 보세요!
+          </span>
+
+          <br />
+
+          <span className="text-[11px] font-normal">
+            Explore hidden fairytale scenes in Seonyudo
+            Park with AR in Unseeing: Seonyu Donghwa.
+          </span>
+        </p>
 
         <button
-          className="bg-white text-black p-[10px]"
+          className={clsx(
+            "w-[240px] py-[12px] rounded-[8px]",
+            "bg-black text-white p-[10px]",
+            "text-center text-[18px] font-[700] leading-[150%] tracking-[-0.198px]"
+          )}
           onClick={handleClick}
         >
-          들어가기
+          시작하기
         </button>
       </div>
     </Overlay>
