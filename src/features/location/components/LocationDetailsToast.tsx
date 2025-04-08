@@ -55,9 +55,9 @@ const LocationDetailsToast = ({
 
         <div className="flex justify-between gap-[8px]">
           <p className="body3">
-            <span>{location.description.KO}</span>
+            <span>{location.placeDescription.KO}</span>
             <br />
-            <span>{location.description.EN}</span>
+            <span>{location.placeDescription.EN}</span>
           </p>
 
           <img
