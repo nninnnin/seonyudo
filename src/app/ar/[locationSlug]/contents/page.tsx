@@ -88,8 +88,17 @@ ArPage.ArContents = ({
 }: {
   arContentsUrl: string;
 }) => {
-  const [showArContents, setShowArContents] =
-    useState(false);
+  const params = useParams();
+  const locationSlug = params["locationSlug"];
+  const isTransitionGarden = (
+    locationSlug as string
+  ).includes("transitiongarden");
+
+  const [isArLoaded, setIsArLoaded] = useState(false);
+
+  const [isGifLoaded, setIsGifLoaded] = useState(
+    !isTransitionGarden
+  );
 
   const [showDialog, setShowDialog] = useState(true);
   const close = () => setShowDialog(false);
@@ -105,7 +114,7 @@ ArPage.ArContents = ({
       console.log("AR 로딩 완료!");
 
       setTimeout(() => {
-        setShowArContents(true);
+        setIsArLoaded(true);
       }, 1000);
     },
     handleCapturedImage: (capturedImage) => {
@@ -113,11 +122,18 @@ ArPage.ArContents = ({
 
       addCapturedPicture(blobToUrl(capturedImage));
     },
+    handleGifLoaded: () => {
+      setIsGifLoaded(true);
+    },
   });
 
   useEffect(() => {
     resetCapturedPictures();
   }, []);
+
+  const showArContents = isTransitionGarden
+    ? isArLoaded && isGifLoaded
+    : isArLoaded;
 
   return (
     <>
