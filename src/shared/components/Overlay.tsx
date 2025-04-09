@@ -12,7 +12,7 @@ const Overlay = ({
         "fixed top-0 left-0 z-[5000]",
         "w-[100vw] h-[100dvh]",
         "flex justify-center items-center",
-        "bg-black bg-opacity-60"
+        "bg-black bg-opacity-80"
       )}
     >
       {children}

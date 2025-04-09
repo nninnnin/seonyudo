@@ -6,6 +6,7 @@ import { AnimatePresence } from "motion/react";
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import localFont from "next/font/local";
+import dynamic from "next/dynamic";
 
 const mushFont = localFont({
   src: "../fonts/MushyScript-Yoghurt.woff",
@@ -27,7 +28,6 @@ const Facade = dynamic(
 );
 import PageHeader from "@/shared/components/PageHeader";
 import LocationIdeas from "@/features/location/components/LocationIdeas";
-import dynamic from "next/dynamic";
 
 const LocationDetails = ({
   locationSlug,
@@ -57,6 +57,14 @@ const LocationDetails = ({
           location.arImage.path ?? "/images/whale.png"
         }
       />
+
+      <div
+        className={clsx(
+          "w-[100vw] h-[100dvh]",
+          "absolute top-0 left-0",
+          "bg-[black] bg-opacity-30"
+        )}
+      ></div>
 
       <div
         className={clsx(
