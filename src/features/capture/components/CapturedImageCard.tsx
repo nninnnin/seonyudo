@@ -152,6 +152,7 @@ const CapturedImageCard = ({
         className={clsx(
           "w-full h-full bg-white",
           "rounded-[18px]",
+          "object-cover",
           "transition duration-500 ease-in-out",
           "shadow-xl"
         )}
