@@ -25,6 +25,7 @@ import {
 import CaptureComplete from "@/features/capture/components/CaptureComplete";
 import Button from "@/shared/components/Button";
 import ArLoading from "@/features/ar/components/Loading";
+import { LanguageMap } from "@/shared/types/memex";
 
 const ArPage = () => {
   const params = useParams();
@@ -69,6 +70,7 @@ const ArPage = () => {
       {hasArContents === true && (
         <ArPage.ArContents
           arContentsUrl={location!.arContentsUrl}
+          guideMessage={location!.guideMessage}
         />
       )}
 
@@ -85,8 +87,10 @@ const ArPage = () => {
 
 ArPage.ArContents = ({
   arContentsUrl,
+  guideMessage,
 }: {
   arContentsUrl: string;
+  guideMessage: LanguageMap;
 }) => {
   const params = useParams();
   const locationSlug = params["locationSlug"];
@@ -143,6 +147,7 @@ ArPage.ArContents = ({
             showCaptureButton();
             close();
           }}
+          guideMessage={guideMessage}
         />
       )}
 
@@ -196,15 +201,17 @@ ArPage.NoArContents = () => {
 
 ArPage.ArGuide = ({
   close,
+  guideMessage,
 }: {
   close: () => void;
+  guideMessage: LanguageMap;
 }) => {
   return (
     <Overlay>
       <div
         className={clsx(
           "flex flex-col items-center justify-between",
-          "p-[45px]",
+          "pb-[48px] pt-[120px]",
           "gap-[10px]",
           "w-full h-full",
           "bg-black bg-opacity-50"
@@ -212,12 +219,27 @@ ArPage.ArGuide = ({
       >
         <div
           className={clsx(
+            "w-[300px]",
             "flex flex-col items-center",
-            "body1 text-center text-white"
+            "body1 text-center text-white",
+            "break-keep"
           )}
         >
-          <h2>가이드 메시지가 출력될 자리입니다</h2>
-          <h2>Lorem ipsum dolor sit amet elit.</h2>
+          <h2
+            dangerouslySetInnerHTML={{
+              __html: replaceNewlineAsBreak(
+                guideMessage.KO!
+              ),
+            }}
+          ></h2>
+
+          <h2
+            dangerouslySetInnerHTML={{
+              __html: replaceNewlineAsBreak(
+                guideMessage.EN!
+              ),
+            }}
+          ></h2>
         </div>
 
         <div className="flex flex-col items-center gap-[20px]">
@@ -255,6 +277,10 @@ ArPage.ArGuide = ({
       </div>
     </Overlay>
   );
+};
+
+const replaceNewlineAsBreak = (str: string) => {
+  return str.replaceAll("\n", "<br/>") ?? "";
 };
 
 export default ArPage;

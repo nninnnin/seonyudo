@@ -17,6 +17,7 @@ export interface Location {
     description: LanguageMap;
     arContentsUrl: LanguageMap;
     slug: LocationSlugs;
+    guideMessage: LanguageMap;
   };
 }
 
@@ -39,6 +40,7 @@ export interface LocationFormatted {
   placeDescription: LanguageMap;
   arContentsUrl: string;
   slug: LocationSlugs;
+  guideMessage: LanguageMap;
 }
 
 export type LocationName =
