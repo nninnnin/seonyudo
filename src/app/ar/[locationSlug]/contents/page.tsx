@@ -228,7 +228,13 @@ ArPage.ArGuide = ({
 
           <Button
             iconSource="/icons/thumbsup.svg"
-            onClick={() => close()}
+            onClick={() => {
+              window.postMessage({
+                type: "ar-guide-closed",
+              });
+
+              close();
+            }}
           >
             Okay
           </Button>
