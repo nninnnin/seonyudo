@@ -1,11 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import { redirect, useParams } from "next/navigation";
 import {
   useArContents,
@@ -26,6 +22,7 @@ import CaptureComplete from "@/features/capture/components/CaptureComplete";
 import Button from "@/shared/components/Button";
 import ArLoading from "@/features/ar/components/Loading";
 import { LanguageMap } from "@/shared/types/memex";
+import SoundToggler from "@/features/sound/components/SoundToggler";
 
 const ArPage = () => {
   const params = useParams();
@@ -74,6 +71,7 @@ const ArPage = () => {
         />
       )}
 
+      <SoundToggler />
       <CapturedThumbnails />
 
       {isCapturingCompleted && (
