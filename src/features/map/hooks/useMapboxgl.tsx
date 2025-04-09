@@ -3,8 +3,13 @@ import mapboxgl, { Map } from "mapbox-gl";
 
 import { 지도_시작점 } from "@/features/map/constants";
 
+const mapCenter =
+  process.env.IS_DEV === "1"
+    ? 지도_시작점.한남동
+    : 지도_시작점.선유도;
+
 const mapSettings = {
-  center: 지도_시작점.선유도,
+  center: mapCenter,
   zoom: 16,
 };
 

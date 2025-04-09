@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   env: {
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
     MEMEX_TOKEN: process.env.MEMEX_TOKEN,
+    IS_DEV: process.env.IS_DEV,
   },
   devIndicators: {
     appIsrStatus: false,
