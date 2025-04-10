@@ -161,13 +161,13 @@ const SharePage = () => {
     <div
       className={clsx(
         "w-full h-full",
-        "home-background-gradient"
+        "sharing-background-gradient"
       )}
     >
       <div
         className={clsx(
           "flex justify-between items-center",
-          "pt-[16px] px-[12px]"
+          "pt-[3dvh] px-[3dvh]"
         )}
       >
         <Button
@@ -189,7 +189,7 @@ const SharePage = () => {
         className={clsx(
           "w-full",
           "body1 text-center text-white",
-          "fixed top-1/2 left-1/2 -translate-x-1/2 translate-y-[calc(-50%-236px)]"
+          "fixed top-1/2 left-1/2 -translate-x-1/2 translate-y-[calc(45%-256px)]"
         )}
       >
         <span>사진을 저장하고 공유하세요</span>
@@ -200,7 +200,7 @@ const SharePage = () => {
       <div
         className={clsx(
           "w-[240px] h-[360px]",
-          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%]",
           "flex gap-[30px]"
         )}
       >
@@ -225,7 +225,7 @@ const SharePage = () => {
           "w-full",
           "flex items-center justify-center",
           "gap-[16px]",
-          "pb-[48px]",
+          "pb-[5dvh]",
           isSharing && "pointer-events-none"
         )}
       >
