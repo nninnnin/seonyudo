@@ -11,6 +11,8 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
+import { useStore } from "zustand";
+import { languageStore } from "@/shared/store/language";
 
 export const STICKY_NAVIATION_HEIGHT = 46;
 
@@ -21,6 +23,8 @@ const Navigation = ({
   introductionSubject?: IntroductionSubjects;
   disabled?: boolean;
 }) => {
+  const { language } = useStore(languageStore);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -67,7 +71,10 @@ const Navigation = ({
             },
           }}
           defaultValue={{
-            name: selectedSubject!.label,
+            name:
+              language === "EN"
+                ? selectedSubject.labelEn
+                : selectedSubject.label,
             value: null,
           }}
         />
@@ -80,7 +87,11 @@ const Navigation = ({
             <Dropdown.Item
               key={subject.label}
               className="glassmorph rounded-[18px]"
-              name={subject.label}
+              name={
+                language === "EN"
+                  ? subject.labelEn
+                  : subject.label
+              }
               value="abc"
               onClick={() => {
                 router.push(subject.href);
