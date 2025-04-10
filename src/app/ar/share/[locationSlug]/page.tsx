@@ -13,7 +13,10 @@ import dynamic from "next/dynamic";
 import { capturedPictureStore } from "@/features/capture/store";
 import { useArCompletionStore } from "@/features/ar/store";
 import useLocation from "@/features/location/hooks/useLocation";
-import { LocationSlugs } from "@/features/location/types/location";
+import {
+  LocationName,
+  LocationSlugs,
+} from "@/features/location/types/location";
 import { recommendationToastStore } from "@/features/map/hooks/useLocationRecommendation";
 import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 import Button from "@/shared/components/Button";
@@ -192,7 +195,46 @@ const SharePage = () => {
         <Button
           iconSource="/icons/download.svg"
           theme="white"
-          onClick={handleShareClick}
+          onClick={() => {
+            console.log(getMobileOS());
+
+            if (getMobileOS() === "iOS") {
+              handleShareClick();
+            }
+
+            if (getMobileOS() === "Android") {
+              console.log(selectedCardIndex);
+              const currentCard =
+                capturedPictures[selectedCardIndex];
+
+              const nameMapper: Record<
+                LocationSlugs | (string & {}),
+                LocationName
+              > = {
+                greencolumns: "녹색기둥의 정원",
+                purification: "수질정화원",
+                seonyujeong: "선유정",
+                seonyugyo: "선유도 전망대",
+                transitiongarden: "시간의 정원",
+                "test-greencolumns": "녹색기둥의 정원",
+                "test-purification": "수질정화원",
+                "test-seonyujeong": "선유정",
+                "test-seonyugyo": "선유도 전망대",
+                "test-transitiongarden": "시간의 정원",
+              };
+
+              const locationName =
+                nameMapper[
+                  locationSlug as LocationSlugs
+                ];
+
+              const filename = `선유도 ${
+                locationName ? `-${locationName}` : ""
+              }에서`;
+
+              downloadImage(currentCard.url, filename);
+            }
+          }}
         >
           Save
         </Button>
@@ -210,3 +252,34 @@ const SharePage = () => {
 };
 
 export default SharePage;
+
+function getMobileOS() {
+  const userAgent =
+    navigator.userAgent ||
+    navigator.vendor ||
+    window.opera;
+
+  // iOS detection
+  if (
+    /iPad|iPhone|iPod/.test(userAgent) &&
+    !window.MSStream
+  ) {
+    return "iOS";
+  }
+
+  // Android detection
+  if (/android/i.test(userAgent)) {
+    return "Android";
+  }
+
+  return "unknown";
+}
+
+function downloadImage(url: string, filename: string) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${filename}.png`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
