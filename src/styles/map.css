@@ -78,3 +78,11 @@
 .mapboxgl-ctrl-geolocate-waiting:after {
   animation: rotate 1s linear infinite;
 }
+
+.mapboxgl-user-location-dot:before {
+  display: none !important;
+}
+
+.mapboxgl-user-location-accuracy-circle {
+  display: none !important;
+}
