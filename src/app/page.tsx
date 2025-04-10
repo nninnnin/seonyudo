@@ -63,7 +63,6 @@ export default function Home() {
           );
           router.push("/map");
         }}
-        theme="white"
         iconSource="/icons/pin.svg"
       >
         Open the map
