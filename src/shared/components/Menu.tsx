@@ -24,6 +24,8 @@ Menu.Toggler = () => {
       className={clsx(
         "fixed top-[16px] right-[16px] z-[7000]",
         "bg-white",
+        "w-[42px] h-[30px]",
+        "flex justify-center items-center",
         "px-[11px] pt-[5px] pb-[4px]",
         "rounded-[16px]",
         "select-none"
@@ -33,14 +35,17 @@ Menu.Toggler = () => {
         toggleVisibility();
       }}
     >
-      <img
-        className="w-[20px] h-[21px]"
-        src={
-          visibility
-            ? "/icons/close.svg"
-            : "/icons/menu.svg"
-        }
-      />
+      {visibility ? (
+        <img
+          className="w-[12px] h-[12px]"
+          src="/icons/close.svg"
+        />
+      ) : (
+        <img
+          className="w-[20px] h-[21px]"
+          src="/icons/menu.svg"
+        />
+      )}
     </div>
   );
 };

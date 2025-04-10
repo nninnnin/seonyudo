@@ -2,7 +2,11 @@
 
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
-import { redirect, useParams } from "next/navigation";
+import {
+  redirect,
+  useParams,
+  useRouter,
+} from "next/navigation";
 import {
   useArContents,
   useArContentsMessages,
@@ -90,6 +94,8 @@ ArPage.ArContents = ({
   arContentsUrl: string;
   guideMessage: LanguageMap;
 }) => {
+  const router = useRouter();
+
   const params = useParams();
   const locationSlug = params["locationSlug"];
   const isTransitionGarden = (
@@ -162,6 +168,28 @@ ArPage.ArContents = ({
           src={arContentsUrl}
           visibility={true}
         />
+
+        {showArContents && (
+          <div
+            className={clsx(
+              "fixed top-[16px] right-[16px] z-[4000]",
+              "bg-white",
+              "w-[42px] h-[30px]",
+              "flex justify-center items-center",
+              "px-[11px] pt-[5px] pb-[4px]",
+              "rounded-[16px]",
+              "select-none"
+            )}
+            onClick={() => {
+              router.back();
+            }}
+          >
+            <img
+              className="w-[12px] h-[12px]"
+              src="/icons/close.svg"
+            />
+          </div>
+        )}
       </div>
     </>
   );

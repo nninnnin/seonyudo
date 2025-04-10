@@ -3,6 +3,7 @@ import React from "react";
 import { useStore } from "zustand";
 
 import { capturedPictureStore } from "@/features/capture/store";
+import { pipe, range, toArray } from "@fxts/core";
 
 const CapturedThumbnails = () => {
   const { capturedPictures } = useStore(
@@ -16,20 +17,34 @@ const CapturedThumbnails = () => {
         "fixed bottom-[50px] right-[24px]"
       )}
     >
-      {capturedPictures.map((pic) => {
+      {pipe(range(3), toArray).map((index) => {
+        const pic = capturedPictures[index];
+
         return (
-          <img
-            key={pic.id}
-            className={clsx(
-              "border-[1px] border-[1px solid white] rounded-[3px]",
-              "w-[24px] h-[24px] object-cover"
+          <div key={`thumb-item-${index}`}>
+            {pic ? (
+              <img
+                key={pic.id}
+                className={clsx(
+                  "border-[1px] border-[1px solid white] rounded-[3px]",
+                  "w-[24px] h-[24px] object-cover"
+                )}
+                src={pic.url}
+                alt="captured"
+              />
+            ) : (
+              <CapturedThumbnails.Skeleton />
             )}
-            src={pic.url}
-            alt="captured"
-          />
+          </div>
         );
       })}
     </div>
+  );
+};
+
+CapturedThumbnails.Skeleton = () => {
+  return (
+    <div className="w-[24px] h-[24px] border-[1px] border-[1px solid white] rounded-[3px]"></div>
   );
 };
 
