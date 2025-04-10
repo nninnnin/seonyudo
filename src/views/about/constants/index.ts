@@ -30,7 +30,7 @@ export const INTRODUCTION_SUBJECTS = [
     href: `/about?subject=${IntroductionSubjects.Work}`,
   },
   {
-    label: "시민 아이디어 갤러리",
+    label: "시민 아이디어 스케치",
     href: `/about?subject=${IntroductionSubjects.Ideas}`,
   },
   {
@@ -38,7 +38,7 @@ export const INTRODUCTION_SUBJECTS = [
     href: `/about?subject=${IntroductionSubjects.Seonyudo}`,
   },
   {
-    label: "체험 안내 유의사항",
+    label: "FAQ",
     href: `/about?subject=${IntroductionSubjects.Guide}`,
   },
 ];
