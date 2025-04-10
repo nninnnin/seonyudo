@@ -103,7 +103,7 @@ ArPage.ArContents = ({
   );
 
   const [showDialog, setShowDialog] = useState(true);
-  const close = () => setShowDialog(false);
+  const closeDialog = () => setShowDialog(false);
 
   const { ArContentsIframe, showCaptureButton } =
     useArContents();
@@ -130,6 +130,7 @@ ArPage.ArContents = ({
   });
 
   useEffect(() => {
+    setShowDialog(true);
     resetCapturedPictures();
   }, []);
 
@@ -143,7 +144,7 @@ ArPage.ArContents = ({
         <ArPage.ArGuide
           close={() => {
             showCaptureButton();
-            close();
+            closeDialog();
           }}
           guideMessage={guideMessage}
         />
