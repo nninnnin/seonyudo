@@ -73,7 +73,8 @@ const LocationDetails = ({
           "gap-[32px]",
           "text-center break-keep",
           "text-[16px] font-bold leading-[134%]",
-          "absolute z-[10]"
+          "absolute z-[10]",
+          "mb-[8dvh]"
         )}
       >
         <div
@@ -98,19 +99,19 @@ const LocationDetails = ({
           <p>{location.description.KO}</p>
           <p>{location.description.EN}</p>
         </div>
-
-        <div className="text-center body4">
-          <p>{location.name.KO}에서</p>
-          <p>At {location.name.EN}</p>
-        </div>
       </div>
 
       <div
         className={clsx(
-          "fixed left-1/2 -translate-x-1/2 bottom-[48px]",
+          "fixed left-1/2 -translate-x-1/2 bottom-[5dvh]",
           "flex flex-col items-center gap-[12px]"
         )}
       >
+        <div className="text-center body4">
+          <p>{location.name.KO}에서</p>
+          <p>At {location.name.EN}</p>
+        </div>
+
         <LocationProximityProvider>
           <div className="flex gap-[20px]">
             <LocationDetails.ViewIdeasButton />
