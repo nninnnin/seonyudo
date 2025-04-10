@@ -120,6 +120,32 @@ const SharePage = () => {
     router.push("/map");
   };
 
+  const handleSaveClick = () => {
+    const currentCard =
+      capturedPictures[selectedCardIndex];
+    const nameMapper: Record<
+      LocationSlugs | (string & {}),
+      LocationName
+    > = {
+      greencolumns: "녹색기둥의 정원",
+      purification: "수질정화원",
+      seonyujeong: "선유정",
+      seonyugyo: "선유도 전망대",
+      transitiongarden: "시간의 정원",
+      "test-greencolumns": "녹색기둥의 정원",
+      "test-purification": "수질정화원",
+      "test-seonyujeong": "선유정",
+      "test-seonyugyo": "선유도 전망대",
+      "test-transitiongarden": "시간의 정원",
+    };
+    const locationName =
+      nameMapper[locationSlug as LocationSlugs];
+    const filename = `선유도 ${
+      locationName ? `-${locationName}` : ""
+    }에서`;
+    downloadImage(currentCard.url, filename);
+  };
+
   return (
     <div
       className={clsx(
@@ -192,60 +218,36 @@ const SharePage = () => {
           isSharing && "pointer-events-none"
         )}
       >
-        <Button
-          iconSource="/icons/download.svg"
-          theme="white"
-          onClick={() => {
-            console.log(getMobileOS());
+        {getMobileOS() === "Android" && (
+          <>
+            <Button
+              iconSource="/icons/download.svg"
+              theme="white"
+              onClick={handleSaveClick}
+            >
+              Save
+            </Button>
+            <Button
+              iconSource="/icons/share.svg"
+              theme="white"
+              onClick={handleShareClick}
+            >
+              Share
+            </Button>
+          </>
+        )}
 
-            if (getMobileOS() === "iOS") {
-              handleShareClick();
-            }
-
-            if (getMobileOS() === "Android") {
-              console.log(selectedCardIndex);
-              const currentCard =
-                capturedPictures[selectedCardIndex];
-
-              const nameMapper: Record<
-                LocationSlugs | (string & {}),
-                LocationName
-              > = {
-                greencolumns: "녹색기둥의 정원",
-                purification: "수질정화원",
-                seonyujeong: "선유정",
-                seonyugyo: "선유도 전망대",
-                transitiongarden: "시간의 정원",
-                "test-greencolumns": "녹색기둥의 정원",
-                "test-purification": "수질정화원",
-                "test-seonyujeong": "선유정",
-                "test-seonyugyo": "선유도 전망대",
-                "test-transitiongarden": "시간의 정원",
-              };
-
-              const locationName =
-                nameMapper[
-                  locationSlug as LocationSlugs
-                ];
-
-              const filename = `선유도 ${
-                locationName ? `-${locationName}` : ""
-              }에서`;
-
-              downloadImage(currentCard.url, filename);
-            }
-          }}
-        >
-          Save
-        </Button>
-
-        <Button
-          iconSource="/icons/share.svg"
-          theme="white"
-          onClick={handleShareClick}
-        >
-          Share
-        </Button>
+        {getMobileOS() === "iOS" && (
+          <>
+            <Button
+              iconSource="/icons/share.svg"
+              theme="white"
+              onClick={handleShareClick}
+            >
+              Share & Share
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );
