@@ -52,6 +52,7 @@
 .glassmorph {
   background-color: rgba(0, 0, 0, 0.15) !important;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 
   color: var(--white, #fff) !important;
