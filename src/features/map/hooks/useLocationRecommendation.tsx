@@ -1,3 +1,5 @@
+"use client";
+
 import { create, useStore } from "zustand";
 import { AnimatePresence } from "motion/react";
 import { useOverlay } from "@toss/use-overlay";
@@ -23,7 +25,7 @@ const useLocationRecommendation = () => {
     recommendationToastStore
   );
 
-  const { arCompletedLocations } =
+  const { arCompletedLocations, helloByCompleted } =
     useArCompletionStore();
 
   const { locations: allLocations } = useLocations();
@@ -39,6 +41,7 @@ const useLocationRecommendation = () => {
         currentPosition: GeolocationPosition
       ) => {
         if (arCompletedLocations.length >= 5) return;
+        if (helloByCompleted) return;
 
         if (hasSeen) return;
 
@@ -91,7 +94,12 @@ const useLocationRecommendation = () => {
         );
       },
     },
-    [filteredLocations, hasSeen, arCompletedLocations]
+    [
+      filteredLocations,
+      hasSeen,
+      arCompletedLocations,
+      helloByCompleted,
+    ]
   );
 };
 

@@ -111,9 +111,20 @@ const SharePage = () => {
       });
   };
 
+  const {
+    setHelloByCompleted,
+    resetArCompletedLocations,
+  } = useArCompletionStore();
+
   const handleDoneClick = () => {
     setHasSeen(false);
     addArCompletedLocations(location!.name.KO!);
+
+    // @ts-ignore
+    if (location!.slug === "hellobye") {
+      setHelloByCompleted(true);
+      resetArCompletedLocations();
+    }
 
     openLoadingOverlay("지도를 불러오는 중입니다..");
 
@@ -244,7 +255,7 @@ const SharePage = () => {
               theme="white"
               onClick={handleShareClick}
             >
-              Share & Share
+              Save & Share
             </Button>
           </>
         )}

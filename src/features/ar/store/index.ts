@@ -12,17 +12,13 @@ export const useArCompletionStore = create<{
     location: LocationName
   ) => void;
   resetArCompletedLocations: () => void;
+  helloByCompleted: boolean;
+  setHelloByCompleted: (completed: boolean) => void;
+  resetHelloByCompleted: () => void;
 }>()(
   persist(
     (set, get) => ({
       arCompletedLocations: [],
-      // arCompletedLocations: [
-      //   "테스트_녹색기둥의 정원",
-      //   "테스트_선유교전망대",
-      //   "테스트_시간의정원",
-      //   "테스트_선유정",
-      //   "테스트_수질정화원",
-      // ],
       addArCompletedLocations: (location) =>
         set((state) => {
           const arCompletedLocations = [
@@ -39,6 +35,15 @@ export const useArCompletionStore = create<{
       resetArCompletedLocations: () =>
         set(() => ({
           arCompletedLocations: [],
+        })),
+      helloByCompleted: false,
+      setHelloByCompleted: (completed) =>
+        set(() => ({
+          helloByCompleted: completed,
+        })),
+      resetHelloByCompleted: () =>
+        set(() => ({
+          helloByCompleted: false,
         })),
     }),
     {
