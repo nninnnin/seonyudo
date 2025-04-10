@@ -3,6 +3,7 @@ import {
   FormattedImageMedia,
   MediaInterface,
   MemexListResult,
+  RelationInterface,
 } from "@/shared/types/memex";
 
 export type IntroductionItem = {
@@ -14,6 +15,8 @@ export type IntroductionItem = {
   };
   contentsType: CategoryInterface;
   ideaImage?: MediaInterface[];
+  relatedLocationName?: RelationInterface[];
+  relatedLocationSlug: string;
 };
 
 export enum ContentsTypeId {
@@ -34,12 +37,13 @@ type AnswerCategory = {
 type ContentsType = QuestionCategory | AnswerCategory;
 
 export type FormattedIntroductionItem = {
+  uid: string;
   contentsOrder: number;
   contentsSubOrder: number;
   contentsText: string;
   contentsType: ContentsType;
   ideaImage?: FormattedImageMedia[];
-  uid: string;
+  relatedLocationSlug: string;
 };
 
 export type IntroductionQueryData =

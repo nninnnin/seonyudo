@@ -4,7 +4,10 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { useStore } from "zustand";
 import React from "react";
-import { redirect } from "next/navigation";
+import {
+  redirect,
+  usePathname,
+} from "next/navigation";
 
 import { ContentsTypeId } from "@/views/about/types";
 import Chat from "@/features/chat/components/Chat";
@@ -15,6 +18,7 @@ import { IntroductionSubjects } from "@/views/about/constants";
 
 import Navigation from "@/views/about/components/Navigation";
 import { languageStore } from "@/shared/store/language";
+import { last } from "lodash";
 
 const AboutChat = ({
   chatSubject,
@@ -48,6 +52,11 @@ const AboutChat = ({
 
   const currentTime = format(new Date(), "a h:mm");
 
+  const pathname = usePathname();
+
+  const currentLocationSlug =
+    last(pathname.split("/")) ?? "";
+
   return (
     <Chat.Container
       style={{
@@ -78,6 +87,35 @@ const AboutChat = ({
         const imageSource = introduction.ideaImage
           ? introduction.ideaImage[0]
           : undefined;
+
+        if (
+          introduction.relatedLocationSlug &&
+          currentLocationSlug.includes(
+            introduction.relatedLocationSlug
+          )
+        ) {
+          setTimeout(() => {
+            const element = document.getElementById(
+              `chat-item=${introduction.uid}`
+            );
+
+            if (element) {
+              const chatContainer =
+                document.querySelector(
+                  ".chat-container"
+                ) as HTMLDivElement;
+
+              chatContainer.scrollTo({
+                top:
+                  element.offsetTop -
+                  pageHeaderHeight -
+                  46 -
+                  20,
+                behavior: "smooth",
+              });
+            }
+          }, 500);
+        }
 
         return (
           <Chat.Item
