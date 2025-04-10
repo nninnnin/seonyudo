@@ -19,12 +19,14 @@ import { menuStore } from "@/shared/store/menu";
 import useElementHeight from "@/shared/hooks/useElementHeight";
 import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 import { LogoSkeleton } from "@/shared/components/Logo";
+import { languageStore } from "@/shared/store/language";
 
 const PageHeader = () => {
   const router = useRouter();
   const { setVisibility } = useStore(menuStore);
-
   const { openLoadingOverlay } = useLoadingOverlay();
+
+  const { language } = useStore(languageStore);
 
   const { setElementRef } =
     useElementHeight("page-header");
@@ -52,7 +54,9 @@ const PageHeader = () => {
                         onClick={handleClick}
                         className="!mb-0"
                       >
-                        {subject.label}
+                        {language === "EN"
+                          ? subject.labelEn
+                          : subject.label}
                       </Menu.Item>
                     );
                   }
@@ -60,7 +64,9 @@ const PageHeader = () => {
               </Menu.List>
             }
           >
-            소개
+            {language === "EN"
+              ? "Introduction"
+              : "소개"}
           </Menu.Item>
 
           <Menu.Item
@@ -73,7 +79,7 @@ const PageHeader = () => {
               setVisibility(false);
             }}
           >
-            AR 지도
+            {language === "EN" ? "AR Map" : "AR 지도"}
           </Menu.Item>
         </Menu.List>
       </Menu.Container>
