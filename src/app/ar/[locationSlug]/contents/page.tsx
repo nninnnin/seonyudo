@@ -11,12 +11,12 @@ import {
   useArContents,
   useArContentsMessages,
 } from "@ar-framework/utils";
+import { useStore } from "zustand";
 
 import Overlay from "@/shared/components/Overlay";
 import useLocation from "@/features/location/hooks/useLocation";
 import { LocationSlugs } from "@/features/location/types/location";
 import CapturedThumbnails from "@/features/capture/components/CapturedThumbnails";
-import { useStore } from "zustand";
 import {
   blobToUrl,
   capturedPictureStore,
@@ -27,6 +27,8 @@ import Button from "@/shared/components/Button";
 import ArLoading from "@/features/ar/components/Loading";
 import { LanguageMap } from "@/shared/types/memex";
 import SoundToggler from "@/features/sound/components/SoundToggler";
+import { requestDeviceMotionPermission } from "@/features/permission/utils/deviceMotion";
+import { introStore } from "@/views/intro/store/intro";
 
 const ArPage = () => {
   const params = useParams();
@@ -233,6 +235,11 @@ ArPage.ArGuide = ({
   close: () => void;
   guideMessage: LanguageMap;
 }) => {
+  const router = useRouter();
+
+  const { setHasPermissionError } =
+    useStore(introStore);
+
   return (
     <Overlay>
       <div
@@ -284,7 +291,24 @@ ArPage.ArGuide = ({
 
           <Button
             iconSource="/icons/thumbsup.svg"
-            onClick={() => {
+            onClick={async () => {
+              const deviceMotionPermission =
+                await requestDeviceMotionPermission();
+
+              if (
+                deviceMotionPermission !== "granted"
+              ) {
+                const permission =
+                  await requestDeviceMotionPermission();
+
+                if (permission === "denied") {
+                  setHasPermissionError(true);
+                  router.push("/intro");
+
+                  return;
+                }
+              }
+
               const iframe =
                 document.querySelector("iframe");
 
