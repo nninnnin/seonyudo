@@ -29,6 +29,7 @@ import { LanguageMap } from "@/shared/types/memex";
 import SoundToggler from "@/features/sound/components/SoundToggler";
 import { requestDeviceMotionPermission } from "@/features/permission/utils/deviceMotion";
 import { introStore } from "@/views/intro/store/intro";
+import { replaceNewlineAsBreak } from "@/shared/utils";
 
 const ArPage = () => {
   const params = useParams();
@@ -328,10 +329,6 @@ ArPage.ArGuide = ({
       </div>
     </Overlay>
   );
-};
-
-export const replaceNewlineAsBreak = (str: string) => {
-  return str.replaceAll("\n", "<br/>") ?? "";
 };
 
 export default ArPage;

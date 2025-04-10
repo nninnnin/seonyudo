@@ -28,7 +28,7 @@ const Facade = dynamic(
 );
 import PageHeader from "@/shared/components/PageHeader";
 import LocationIdeas from "@/features/location/components/LocationIdeas";
-import { replaceNewlineAsBreak } from "@/app/ar/[locationSlug]/contents/page";
+import { replaceNewlineAsBreak } from "@/shared/utils";
 
 const LocationDetails = ({
   locationSlug,
