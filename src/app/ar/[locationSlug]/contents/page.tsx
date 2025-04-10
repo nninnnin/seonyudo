@@ -330,7 +330,7 @@ ArPage.ArGuide = ({
   );
 };
 
-const replaceNewlineAsBreak = (str: string) => {
+export const replaceNewlineAsBreak = (str: string) => {
   return str.replaceAll("\n", "<br/>") ?? "";
 };
 

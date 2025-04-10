@@ -28,6 +28,7 @@ const Facade = dynamic(
 );
 import PageHeader from "@/shared/components/PageHeader";
 import LocationIdeas from "@/features/location/components/LocationIdeas";
+import { replaceNewlineAsBreak } from "@/app/ar/[locationSlug]/contents/page";
 
 const LocationDetails = ({
   locationSlug,
@@ -85,8 +86,9 @@ const LocationDetails = ({
         >
           <h1
             className={clsx(
-              "text-[5em] leading-[1.2em] font-extrabold",
-              "leading-[49px] text-[55px] font-[430]",
+              "text-[15vw] leading-[1.2em] font-extrabold",
+              "leading-[13vw] text-[55px] font-[430]",
+              "w-[80vw] break-keep",
               mushFont.className
             )}
           >
@@ -96,15 +98,27 @@ const LocationDetails = ({
         </div>
 
         <div className="flex flex-col gap-[8px]">
-          <p>{location.description.KO}</p>
-          <p>{location.description.EN}</p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: replaceNewlineAsBreak(
+                location.description.KO ?? ""
+              ),
+            }}
+          ></p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: replaceNewlineAsBreak(
+                location.description.EN ?? ""
+              ),
+            }}
+          ></p>
         </div>
       </div>
 
       <div
         className={clsx(
           "fixed left-1/2 -translate-x-1/2 bottom-[5dvh]",
-          "flex flex-col items-center gap-[12px]"
+          "flex flex-col items-center gap-[20px]"
         )}
       >
         <div className="text-center body4">
