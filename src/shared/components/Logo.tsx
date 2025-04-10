@@ -25,7 +25,7 @@ const Logo = forwardRef(
           location.href = "/";
         }}
       >
-        UNSEENING
+        UNSEEING
       </div>,
       document.body
     );
@@ -41,7 +41,7 @@ export const LogoSkeleton = () => {
         "logo-typo"
       )}
     >
-      UNSEENING
+      UNSEEING
     </div>
   );
 };
