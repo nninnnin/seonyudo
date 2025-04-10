@@ -75,7 +75,7 @@ const LocationDetails = ({
           "text-center break-keep",
           "text-[16px] font-bold leading-[134%]",
           "absolute z-[10]",
-          "mb-[8dvh]"
+          "mb-[12dvh]"
         )}
       >
         <div
@@ -124,6 +124,13 @@ const LocationDetails = ({
         <div className="text-center body4">
           <p>{location.name.KO}에서</p>
           <p>At {location.name.EN}</p>
+
+          {location.slug.includes("seonyujeong") && (
+            <p>
+              All About Birds Website
+              <br />© Cornell Lab of Ornithology
+            </p>
+          )}
         </div>
 
         <LocationProximityProvider>
