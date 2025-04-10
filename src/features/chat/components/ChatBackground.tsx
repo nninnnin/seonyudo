@@ -23,7 +23,7 @@ const ChatBackground = () => {
     <div
       className={clsx(
         "absolute top-0 left-0 z-[-1]",
-        "w-full h-full",
+        "w-full h-[100dvh]",
         "flex"
       )}
     >
@@ -51,7 +51,7 @@ const Pillar = ({
 }) => {
   return (
     <div
-      className="h-full"
+      className="h-[100dvh]"
       style={{
         width:
           window.innerWidth / FACADE_SLICES + "px",

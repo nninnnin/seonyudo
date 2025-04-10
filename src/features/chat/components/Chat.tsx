@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import { motion, useAnimate } from "motion/react";
+import { motion } from "motion/react";
 
 import ChatBackground from "@/features/chat/components/ChatBackground";
 
