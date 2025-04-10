@@ -48,7 +48,7 @@ const Button = ({
         className={clsx(
           "px-[8px] button-typo",
           theme === "black" && "text-white",
-          theme === "white" && "text-black",
+          theme === "white" && "!text-black",
           disabled && "text-gray-100",
           "whitespace-nowrap"
         )}

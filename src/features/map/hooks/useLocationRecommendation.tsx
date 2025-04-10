@@ -38,6 +38,8 @@ const useLocationRecommendation = () => {
       onSuccess: (
         currentPosition: GeolocationPosition
       ) => {
+        if (arCompletedLocations.length >= 5) return;
+
         if (hasSeen) return;
 
         const { coords: currentCoords } =
@@ -89,7 +91,7 @@ const useLocationRecommendation = () => {
         );
       },
     },
-    [filteredLocations, hasSeen]
+    [filteredLocations, hasSeen, arCompletedLocations]
   );
 };
 

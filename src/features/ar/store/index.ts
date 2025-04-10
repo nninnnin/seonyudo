@@ -16,6 +16,13 @@ export const useArCompletionStore = create<{
   persist(
     (set, get) => ({
       arCompletedLocations: [],
+      // arCompletedLocations: [
+      //   "테스트_녹색기둥의 정원",
+      //   "테스트_선유교전망대",
+      //   "테스트_시간의정원",
+      //   "테스트_선유정",
+      //   "테스트_수질정화원",
+      // ],
       addArCompletedLocations: (location) =>
         set((state) => {
           const arCompletedLocations = [

@@ -8,6 +8,8 @@ import useLocations from "@/features/location/hooks/useLocations";
 import useAddMarkers from "@/features/map/hooks/useAddMarkers";
 import useLocationRecommendation from "@/features/map/hooks/useLocationRecommendation";
 
+import useArCompletion from "@/features/map/hooks/useArCompletion";
+
 const Map = () => {
   const { mapInstance, mapContainerRef } =
     useMapboxgl();
@@ -18,15 +20,19 @@ const Map = () => {
 
   useLocationRecommendation();
 
+  useArCompletion();
+
   return (
-    <div
-      id="map-container"
-      className={clsx(
-        "w-full h-full",
-        "relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-      )}
-      ref={mapContainerRef}
-    ></div>
+    <>
+      <div
+        id="map-container"
+        className={clsx(
+          "w-full h-full",
+          "relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        )}
+        ref={mapContainerRef}
+      ></div>
+    </>
   );
 };
 
