@@ -9,6 +9,7 @@ import useAddMarkers from "@/features/map/hooks/useAddMarkers";
 import useLocationRecommendation from "@/features/map/hooks/useLocationRecommendation";
 
 import useArCompletion from "@/features/map/hooks/useArCompletion";
+import useUserLocation from "@/features/map/hooks/useUserLocation";
 
 const Map = () => {
   const { mapInstance, mapContainerRef } =
@@ -21,6 +22,18 @@ const Map = () => {
   useLocationRecommendation();
 
   useArCompletion();
+
+  useUserLocation((position) => {
+    console.log("user position", position);
+
+    setTimeout(() => {
+      const myLocationButton = document.querySelector(
+        ".mapboxgl-ctrl-geolocate"
+      ) as HTMLButtonElement | null;
+
+      myLocationButton?.click();
+    }, 0);
+  });
 
   return (
     <>
