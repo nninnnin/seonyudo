@@ -40,7 +40,7 @@ const HelloByeToast = ({
           "absolute top-[50px] right-[14px]",
           "w-[109px] h-[109px] object-cover"
         )}
-        src="/images/whale.png"
+        src="/images/hellobye.png"
       />
 
       <Button
