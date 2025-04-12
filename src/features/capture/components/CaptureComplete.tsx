@@ -36,13 +36,15 @@ const CaptureComplete = ({
     >
       <p className="text-black text-center body1 break-keep">
         <span>
-          마음에드는 사진을 저장하고
+          마음에 드는 사진을 저장하고
           <br />
           공유해 보세요
         </span>
         <br />
         <span>
-          Save and share your favorite photos
+          Save and share
+          <br />
+          your favorite photos
         </span>
       </p>
 
