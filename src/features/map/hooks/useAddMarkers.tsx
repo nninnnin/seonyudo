@@ -55,16 +55,23 @@ const useAddMarkers = (
         lng: Number(longitude),
       };
 
-      const hasAlreadyAdded = map._markers.find(
+      const alreadyAddedMarker = map._markers.find(
         (marker) => {
-          return isEqual(
+          const isCoordsEqual = isEqual(
             { ...marker._lngLat },
             coords
           );
+
+          const isNameEqual =
+            marker.getElement().id === name.KO;
+
+          return isCoordsEqual && isNameEqual;
         }
       );
 
-      if (hasAlreadyAdded) return;
+      if (alreadyAddedMarker) {
+        alreadyAddedMarker.remove();
+      }
 
       const arCompleted =
         arCompletedLocations.includes(name.KO!);
@@ -103,13 +110,21 @@ const useAddMarkers = (
     });
   };
 
+  const removeAllMarkers = (map: Map) => {
+    map._markers.forEach((marker) => {
+      marker.remove();
+    });
+  };
+
   useEffect(() => {
     if (!map) return;
     if (!locations || !locations.length) return;
 
+    removeAllMarkers(map);
+
     addLocationMarkers(map, locations);
     addDecorativeMarkers(map, DECORATIVE_LOCATIONS);
-  }, [map, locations]);
+  }, [map, locations, arCompletedLocations]);
 };
 
 export default useAddMarkers;

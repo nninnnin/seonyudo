@@ -21,11 +21,10 @@ export const useArCompletionStore = create<{
       arCompletedLocations: [],
       addArCompletedLocations: (location) =>
         set((state) => {
+          const prev = get().arCompletedLocations;
+
           const arCompletedLocations = [
-            ...new Set([
-              ...state.arCompletedLocations,
-              location,
-            ]),
+            ...new Set([...prev, location]),
           ];
 
           return {
