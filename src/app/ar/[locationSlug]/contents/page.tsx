@@ -78,7 +78,7 @@ const ArPage = () => {
         />
       )}
 
-      <SoundToggler />
+      {!isCapturingCompleted && <SoundToggler />}
       <CapturedThumbnails />
 
       {isCapturingCompleted && (
@@ -143,9 +143,17 @@ ArPage.ArContents = ({
     resetCapturedPictures();
   }, []);
 
+  const { capturedPictures } = useStore(
+    capturedPictureStore
+  );
+
   const showArContents = isTransitionGarden
     ? isArLoaded && isGifLoaded
     : isArLoaded;
+
+  const isCapturingCompleted =
+    capturedPictures.length >=
+    NUMBER_OF_CAPTURED_PICTURES;
 
   return (
     <>
@@ -172,7 +180,7 @@ ArPage.ArContents = ({
           visibility={true}
         />
 
-        {showArContents && (
+        {showArContents && !isCapturingCompleted && (
           <div
             className={clsx(
               "fixed top-[16px] right-[16px] z-[4000]",
