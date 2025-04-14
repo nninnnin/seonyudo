@@ -2,7 +2,10 @@
 
 import React from "react";
 import { useStore } from "zustand";
-import { useRouter } from "next/navigation";
+import {
+  usePathname,
+  useRouter,
+} from "next/navigation";
 import dynamic from "next/dynamic";
 
 import Menu from "@/shared/components/Menu";
@@ -23,6 +26,8 @@ import { languageStore } from "@/shared/store/language";
 
 const PageHeader = () => {
   const router = useRouter();
+  const pathname = usePathname();
+
   const { setVisibility } = useStore(menuStore);
   const { openLoadingOverlay } = useLoadingOverlay();
 
@@ -71,9 +76,11 @@ const PageHeader = () => {
 
           <Menu.Item
             onClick={() => {
-              openLoadingOverlay(
-                "지도를 불러오는 중입니다.."
-              );
+              if (!pathname.includes("map")) {
+                openLoadingOverlay(
+                  "지도를 불러오는 중입니다.."
+                );
+              }
 
               router.push("/map");
               setVisibility(false);

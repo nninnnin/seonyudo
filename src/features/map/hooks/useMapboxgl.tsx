@@ -32,7 +32,7 @@ const useMapboxgl = () => {
         mapContainerRef.current as HTMLDivElement,
       style:
         "mapbox://styles/practice-r9/cm96hcc5v007r01r9dz9ubdve",
-      minZoom: DEFAULT_ZOOM,
+      minZoom: MIN_ZOOM,
     });
 
     // Map settings: Disable double click zoom
@@ -46,6 +46,7 @@ const useMapboxgl = () => {
       showUserHeading: true,
       fitBoundsOptions: {
         zoom: DEFAULT_ZOOM,
+        minZoom: DEFAULT_ZOOM,
       },
       showAccuracyCircle: false,
     });

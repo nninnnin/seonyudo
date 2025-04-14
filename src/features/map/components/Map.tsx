@@ -32,7 +32,7 @@ const Map = () => {
       ) as HTMLButtonElement | null;
 
       myLocationButton?.click();
-    }, 0);
+    }, 100);
   });
 
   return (
