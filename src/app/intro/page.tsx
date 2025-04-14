@@ -1,11 +1,12 @@
 "use client";
 
+import clsx from "clsx";
 import { useStore } from "zustand";
 import React, { useEffect } from "react";
 import { redirect } from "next/navigation";
 
 import { introStore } from "@/views/intro/store/intro";
-import ErrorDialog from "@/views/intro/components/ErrorDialog";
+import PermissionDeniedDialog from "@/views/intro/components/PermissionDeniedDialog";
 import WelcomeDialog from "@/views/intro/components/WelcomeDialog";
 import { isMobile } from "@/shared/utils/isMobile";
 import { isServer } from "@/shared/utils/isServer";
@@ -26,10 +27,25 @@ const IntroPage = () => {
     <div>
       {!hasPermissionError && <WelcomeDialog />}
       {hasPermissionError && (
-        <ErrorDialog>
-          <p>권한을 확인해주세요</p>
-          <p>브라우저를 완전히 끄고 다시 켜주세요.</p>
-        </ErrorDialog>
+        <PermissionDeniedDialog>
+          <p
+            className={clsx(
+              "w-[236px]",
+              "text-[12px] font-[700] leading-[150%]",
+              "break-keep"
+            )}
+          >
+            브라우저를 다시 실행한 후 위치 및 방향 정보
+            <br />
+            제공에 허용을 선택해 주세요.
+            <br />
+            <span className="text-[11px] font-normal">
+              Please restart your browser and allow
+              access to location and orientation
+              information.
+            </span>
+          </p>
+        </PermissionDeniedDialog>
       )}
     </div>
   );

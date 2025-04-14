@@ -1,8 +1,9 @@
-import Overlay from "@/shared/components/Overlay";
 import clsx from "clsx";
 import React from "react";
 
-const ErrorDialog = ({
+import Overlay from "@/shared/components/Overlay";
+
+const PermissionDeniedDialog = ({
   children,
 }: {
   children: React.ReactNode;
@@ -11,9 +12,11 @@ const ErrorDialog = ({
     <Overlay>
       <div
         className={clsx(
-          "bg-red-500 text-white w-[200px] h-[200px]",
+          "intro-dialog-container",
+          "bg-white",
+          "p-[20px] rounded-[8px]",
           "flex flex-col justify-center items-center",
-          "p-[10px]"
+          "gap-[20px]"
         )}
       >
         {children}
@@ -22,4 +25,4 @@ const ErrorDialog = ({
   );
 };
 
-export default ErrorDialog;
+export default PermissionDeniedDialog;

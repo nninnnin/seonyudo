@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { last } from "lodash";
 import { format } from "date-fns";
 import { useStore } from "zustand";
 import React from "react";
@@ -18,7 +19,6 @@ import { IntroductionSubjects } from "@/views/about/constants";
 
 import Navigation from "@/views/about/components/Navigation";
 import { languageStore } from "@/shared/store/language";
-import { last } from "lodash";
 
 const AboutChat = ({
   chatSubject,

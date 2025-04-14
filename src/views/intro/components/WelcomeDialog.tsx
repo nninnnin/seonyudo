@@ -60,7 +60,7 @@ const WelcomeDialog = () => {
     <Overlay>
       <div
         className={clsx(
-          "welcome-dialog-container",
+          "intro-dialog-container",
           "bg-white",
           "p-[20px] rounded-[8px]",
           "flex flex-col justify-center items-center",
