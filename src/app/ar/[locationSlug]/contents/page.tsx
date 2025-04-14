@@ -140,12 +140,16 @@ ArPage.ArContents = ({
     },
   });
 
+  const { stop } = useSound("/sounds/scape.mp3");
+
   useEffect(() => {
     setShowDialog(true);
     resetCapturedPictures();
-  }, []);
 
-  const { stop } = useSound("/sounds/scape.mp3");
+    return () => {
+      stop();
+    };
+  }, []);
 
   const { capturedPictures } = useStore(
     capturedPictureStore
