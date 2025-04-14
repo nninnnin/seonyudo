@@ -68,27 +68,38 @@ const ArPage = () => {
     NUMBER_OF_CAPTURED_PICTURES;
 
   return (
-    <>
+    <div
+      className={clsx("w-full h-full")}
+      style={{
+        background:
+          "linear-gradient(180deg, #E4E4DC 0%, #160D78 53.37%)",
+      }}
+    >
       {hasArContents === false && (
         <ArPage.NoArContents />
       )}
 
       {hasArContents === true && (
-        <ArPage.ArContents
-          arContentsUrl={location!.arContentsUrl}
-          guideMessage={location!.guideMessage}
-        />
-      )}
+        <>
+          <ArPage.ArContents
+            arContentsUrl={location!.arContentsUrl}
+            guideMessage={location!.guideMessage}
+          />
 
-      {!isCapturingCompleted && <SoundToggler />}
-      <CapturedThumbnails />
+          {!isCapturingCompleted && <SoundToggler />}
 
-      {isCapturingCompleted && (
-        <CaptureComplete
-          locationSlug={locationSlug as LocationSlugs}
-        />
+          <CapturedThumbnails />
+
+          {isCapturingCompleted && (
+            <CaptureComplete
+              locationSlug={
+                locationSlug as LocationSlugs
+              }
+            />
+          )}
+        </>
       )}
-    </>
+    </div>
   );
 };
 

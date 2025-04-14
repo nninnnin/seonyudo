@@ -10,6 +10,9 @@ const mushFont = localFont({
 });
 
 const Loading = () => {
+  const [showLoaders, setShowLoaders] =
+    React.useState(false);
+
   return createPortal(
     <div
       className={clsx(
@@ -27,9 +30,23 @@ const Loading = () => {
         height="128"
         src="/icons/loading/loader--top.svg"
         alt="ar-loader-top"
+        priority
+        className={clsx(
+          "transition-all duration-500",
+          showLoaders
+            ? "opacity-1 translate-y-0"
+            : "opacity-0 translate-y-[-20%]"
+        )}
+        onLoad={() => setShowLoaders(true)}
       />
 
-      <div className="flex flex-col items-center justify-center my-[25px]">
+      <div
+        className={clsx(
+          "flex flex-col items-center justify-center my-[25px]",
+          "transition-all duration-500",
+          showLoaders ? "opacity-1" : "opacity-0"
+        )}
+      >
         <div
           className={clsx(
             "flex flex-col items-center justify-center"
@@ -55,6 +72,14 @@ const Loading = () => {
         height="294"
         src="/icons/loading/loader--bottom.svg"
         alt="ar-loader-bottom"
+        priority
+        className={clsx(
+          "transition-all duration-500",
+          showLoaders
+            ? "opacity-1 translate-y-0"
+            : "opacity-0 translate-y-[20%]"
+        )}
+        onLoad={() => setShowLoaders(true)}
       />
     </div>,
     document.body
