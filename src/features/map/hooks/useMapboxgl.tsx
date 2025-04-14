@@ -3,6 +3,9 @@ import mapboxgl, { Map } from "mapbox-gl";
 
 import { 지도_시작점 } from "@/features/map/constants";
 
+const DEFAULT_ZOOM = 16;
+const MIN_ZOOM = 15;
+
 const mapCenter =
   process.env.IS_DEV === "1"
     ? 지도_시작점.한남동
@@ -10,10 +13,8 @@ const mapCenter =
 
 const mapSettings = {
   center: mapCenter,
-  zoom: 16,
+  zoom: DEFAULT_ZOOM,
 };
-
-const MIN_ZOOM = 15;
 
 const useMapboxgl = () => {
   const [mapInstance, setMapInstance] =
@@ -43,6 +44,9 @@ const useMapboxgl = () => {
       },
       trackUserLocation: true,
       showUserHeading: true,
+      fitBoundsOptions: {
+        zoom: DEFAULT_ZOOM,
+      },
     });
 
     mapInstance.addControl(geolocate, "bottom-left");
