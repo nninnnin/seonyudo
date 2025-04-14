@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import {
   redirect,
   useParams,
+  usePathname,
   useRouter,
 } from "next/navigation";
 import {
@@ -30,6 +31,7 @@ import SoundToggler from "@/features/sound/components/SoundToggler";
 import { requestDeviceMotionPermission } from "@/features/permission/utils/deviceMotion";
 import { introStore } from "@/views/intro/store/intro";
 import { replaceNewlineAsBreak } from "@/shared/utils";
+import useSound from "@/features/sound/hooks/useSound";
 
 const ArPage = () => {
   const params = useParams();
@@ -143,6 +145,8 @@ ArPage.ArContents = ({
     resetCapturedPictures();
   }, []);
 
+  const { stop } = useSound("/sounds/scape.mp3");
+
   const { capturedPictures } = useStore(
     capturedPictureStore
   );
@@ -193,6 +197,7 @@ ArPage.ArContents = ({
             )}
             onClick={() => {
               router.back();
+              stop();
             }}
           >
             <img
@@ -248,6 +253,15 @@ ArPage.ArGuide = ({
 
   const { setHasPermissionError } =
     useStore(introStore);
+
+  const { play: playSound } = useSound(
+    "/sounds/scape.mp3"
+  );
+
+  const pathname = usePathname();
+
+  const isSeonyuJeongContents =
+    pathname.includes("seonyujeong");
 
   return (
     <Overlay>
@@ -327,6 +341,10 @@ ArPage.ArGuide = ({
                 },
                 "*"
               );
+
+              if (isSeonyuJeongContents) {
+                playSound();
+              }
 
               close();
             }}

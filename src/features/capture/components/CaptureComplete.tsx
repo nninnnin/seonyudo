@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/shared/components/Button";
 import { capturedPictureStore } from "@/features/capture/store";
 import { LocationSlugs } from "@/features/location/types/location";
+import useSound from "@/features/sound/hooks/useSound";
 
 const CaptureComplete = ({
   locationSlug,
@@ -18,6 +19,8 @@ const CaptureComplete = ({
   const { capturedPictures } = useStore(
     capturedPictureStore
   );
+
+  const { stop } = useSound("/sounds/scape.mp3");
 
   return (
     <motion.div
@@ -62,9 +65,10 @@ const CaptureComplete = ({
 
       <Button
         iconSource="/icons/thumbsup.svg"
-        onClick={() =>
-          router.push(`/ar/share/${locationSlug}`)
-        }
+        onClick={() => {
+          stop();
+          router.push(`/ar/share/${locationSlug}`);
+        }}
       >
         Okay
       </Button>
