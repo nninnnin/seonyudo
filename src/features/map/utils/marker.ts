@@ -18,6 +18,7 @@ export const createMarker = (
     markerType,
     textClass
   );
+  markerElement.id = name.KO!;
 
   const markerLabel = document.createElement("div");
   markerLabel.classList.add(
@@ -29,12 +30,13 @@ export const createMarker = (
   const labelContents = createLocationLabel(name);
 
   markerLabel.appendChild(labelContents);
-
   markerElement.appendChild(markerLabel);
 
-  return new Marker({
+  const marker = new Marker({
     element: markerElement,
   });
+
+  return marker;
 };
 
 const createLocationLabel = (name: LanguageMap) => {
