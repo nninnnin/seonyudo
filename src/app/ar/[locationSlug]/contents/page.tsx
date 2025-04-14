@@ -268,7 +268,7 @@ ArPage.ArGuide = ({
     pathname.includes("seonyujeong");
 
   return (
-    <Overlay>
+    <Overlay className="!bg-opacity-50">
       <div
         className={clsx(
           "flex flex-col items-center justify-between",
