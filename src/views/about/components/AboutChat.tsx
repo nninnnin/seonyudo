@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { last } from "lodash";
 import { format } from "date-fns";
+import { ko, enUS } from "date-fns/locale";
 import { useStore } from "zustand";
 import React from "react";
 import {
@@ -50,7 +51,9 @@ const AboutChat = ({
     language
   );
 
-  const currentTime = format(new Date(), "a h:mm");
+  const currentTime = format(new Date(), "a h:mm", {
+    locale: language === "KO" ? ko : enUS,
+  });
 
   const pathname = usePathname();
 
@@ -64,20 +67,19 @@ const AboutChat = ({
         paddingTop: pageHeaderHeight,
       }}
     >
-      <h1
-        className={clsx(
-          "w-fit mx-auto",
-          "sticky top-[-40px] z-[1000]",
-          "text-white text-[12px] font-bold leading-[22px] text-center"
-        )}
-      >
-        (오늘) 오후 {currentTime}
-      </h1>
-
       <Navigation
         introductionSubject={introductionSubject}
         disabled={disableNavigation}
       />
+
+      <h1
+        className={clsx(
+          "w-fit mx-auto",
+          "text-white text-[12px] font-bold leading-[22px] text-center"
+        )}
+      >
+        (오늘) {currentTime}
+      </h1>
 
       {introductions?.map((introduction) => {
         const isQuestion =
