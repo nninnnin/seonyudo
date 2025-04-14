@@ -19,6 +19,7 @@ const HelloByeToast = ({
 
   return (
     <Toast
+      className="!min-h-[219px] !h-[219px]"
       close={() => {
         setHelloByCompleted(true);
         resetArCompletedLocations();
@@ -37,7 +38,7 @@ const HelloByeToast = ({
 
       <img
         className={clsx(
-          "absolute top-[50px] right-[14px]",
+          "absolute bottom-[12px] right-[14px]",
           "w-[109px] h-[109px] object-cover"
         )}
         src="/images/hellobye.png"
@@ -45,6 +46,7 @@ const HelloByeToast = ({
 
       <Button
         theme="white"
+        className="!w-[165px] !h-[38px] flex justify-center items-center"
         iconSource="/icons/camera--black.svg"
         onClick={() => {
           router.push("/ar/hellobye/contents");
