@@ -32,7 +32,7 @@ const useMapboxgl = () => {
         mapContainerRef.current as HTMLDivElement,
       style:
         "mapbox://styles/practice-r9/cm96hcc5v007r01r9dz9ubdve",
-      minZoom: MIN_ZOOM,
+      minZoom: DEFAULT_ZOOM,
     });
 
     // Map settings: Disable double click zoom
@@ -47,6 +47,7 @@ const useMapboxgl = () => {
       fitBoundsOptions: {
         zoom: DEFAULT_ZOOM,
       },
+      showAccuracyCircle: false,
     });
 
     mapInstance.addControl(geolocate, "bottom-left");

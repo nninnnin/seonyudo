@@ -70,7 +70,9 @@ const LocationDetailsToast = ({
       </div>
 
       <Button
-        iconSource="/icons/twinkle--white.svg"
+        theme="white"
+        className="w-[130px] h-[38px] mt-[13px]"
+        iconSource="/icons/twinkle.svg"
         onClick={() => {
           openLoadingOverlay("");
           router.push(`/ar/${location.slug}`);
