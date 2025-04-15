@@ -229,7 +229,7 @@ const SharePage = () => {
           isSharing && "pointer-events-none"
         )}
       >
-        {getMobileOS() === "Android" && (
+        {getMobileOS() === "Android" ? (
           <>
             <Button
               iconSource="/icons/download.svg"
@@ -246,9 +246,7 @@ const SharePage = () => {
               Share
             </Button>
           </>
-        )}
-
-        {getMobileOS() === "iOS" && (
+        ) : (
           <>
             <Button
               iconSource="/icons/share.svg"
