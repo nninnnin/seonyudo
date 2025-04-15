@@ -1,7 +1,11 @@
 "use client";
 
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   redirect,
   useParams,
@@ -117,8 +121,6 @@ ArPage.ArContents = ({
   const [showDialog, setShowDialog] = useState(true);
   const [showCaptureButton, setShowCaptureButton] =
     useState(false);
-  const [isCapturing, setIsCapturing] =
-    useState(false);
 
   const closeDialog = () => setShowDialog(false);
 
@@ -127,6 +129,8 @@ ArPage.ArContents = ({
 
   const { addCapturedPicture, resetCapturedPictures } =
     useStore(capturedPictureStore);
+
+  const isCapturingRef = useRef(false);
 
   useArContentsMessages({
     handleARLoaded: () => {
@@ -137,9 +141,10 @@ ArPage.ArContents = ({
       }, 1000);
     },
     handleCapturedImage: (capturedImage) => {
+      isCapturingRef.current = false;
+
       console.log("캡쳐된 이미지: ", capturedImage);
 
-      setIsCapturing(false);
       addCapturedPicture(blobToUrl(capturedImage));
     },
   });
@@ -165,8 +170,9 @@ ArPage.ArContents = ({
   };
 
   const handleCaptureClick = () => {
-    if (isCapturing) return;
-    setIsCapturing(true);
+    if (isCapturingRef.current) return;
+
+    isCapturingRef.current = true;
 
     triggerCapture();
   };
@@ -211,7 +217,7 @@ ArPage.ArContents = ({
         <ArPage.CaptureButton
           onClick={handleCaptureClick}
           hidden={!showCaptureButton}
-          disabled={isCapturing}
+          disabled={false}
         />
       </div>
     </>
