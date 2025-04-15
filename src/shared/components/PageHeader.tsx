@@ -5,10 +5,12 @@ import { useStore } from "zustand";
 import {
   usePathname,
   useRouter,
+  useSearchParams,
 } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import Menu from "@/shared/components/Menu";
+
 const Logo = dynamic(
   () => import("@/shared/components/Logo"),
   {
@@ -26,6 +28,7 @@ import { languageStore } from "@/shared/store/language";
 
 const PageHeader = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const { setVisibility } = useStore(menuStore);
@@ -36,11 +39,17 @@ const PageHeader = () => {
   const { setElementRef } =
     useElementHeight("page-header");
 
+  const isClickPrevented =
+    searchParams.get("aboutOnly") === "1";
+
   return (
     <>
-      <Logo ref={setElementRef} />
+      <Logo
+        ref={setElementRef}
+        preventClick={isClickPrevented}
+      />
 
-      <Menu.Toggler />
+      <Menu.Toggler preventClick={isClickPrevented} />
       <Menu.Container className="py-[80px] px-[16px]">
         <Menu.List>
           <Menu.Item

@@ -8,14 +8,22 @@ import { createPortal } from "react-dom";
 export const PAGE_HEADER_POSITION_TOP = 16;
 
 const Logo = forwardRef(
-  (props, ref: ForwardedRef<HTMLDivElement>) => {
+  (
+    {
+      preventClick = false,
+    }: {
+      preventClick?: boolean;
+    },
+    ref: ForwardedRef<HTMLDivElement>
+  ) => {
     return createPortal(
       <div
         ref={ref}
         className={clsx(
           "fixed",
           "left-[16px] z-[9999]",
-          "logo-typo"
+          "logo-typo",
+          preventClick && "pointer-events-none"
         )}
         style={{
           top: `${PAGE_HEADER_POSITION_TOP}px`,

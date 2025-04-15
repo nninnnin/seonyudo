@@ -3,6 +3,7 @@ import React, {
   createContext,
   MouseEvent,
   useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -19,11 +20,15 @@ type SelectedItem = {
 
 const DropdownContext = createContext<{
   selectedItem: SelectedItem;
+  setSelectedItem: React.Dispatch<
+    React.SetStateAction<SelectedItem>
+  >;
   isOpen: boolean;
   height: Pixel;
   disabled?: boolean;
 }>({
   selectedItem: null,
+  setSelectedItem: () => {},
   isOpen: false,
   height: "0px",
   disabled: false,
@@ -64,6 +69,7 @@ Dropdown.Container = ({
     <DropdownContext.Provider
       value={{
         selectedItem,
+        setSelectedItem,
         isOpen,
         height,
         disabled,
@@ -141,9 +147,8 @@ Dropdown.SelectedItem = ({
     value: string | null;
   };
 }) => {
-  const { selectedItem, disabled } = useContext(
-    DropdownContext
-  );
+  const { selectedItem, setSelectedItem, disabled } =
+    useContext(DropdownContext);
 
   const name =
     selectedItem?.name ??
@@ -152,6 +157,12 @@ Dropdown.SelectedItem = ({
 
   const value =
     selectedItem?.value ?? defaultValue?.value ?? null;
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedItem(defaultValue);
+    }
+  }, [defaultValue]);
 
   return (
     <div className="relative">

@@ -93,9 +93,15 @@ const Navigation = ({
                   : subject.label
               }
               value="abc"
-              onClick={() => {
-                router.push(subject.href);
-              }}
+              onClick={() =>
+                router.push(
+                  addSearchParam(
+                    subject.href,
+                    "aboutOnly",
+                    "1"
+                  )
+                )
+              }
             />
           );
         })}
@@ -105,3 +111,18 @@ const Navigation = ({
 };
 
 export default Navigation;
+
+const addSearchParam = (
+  pathOnlyUrl: string,
+  key: string,
+  value: string
+): string => {
+  const base = "https://example.com"; // temp
+  const url = new URL(pathOnlyUrl, base);
+
+  url.searchParams.set(key, value);
+
+  return (
+    url.pathname + "?" + url.searchParams.toString()
+  );
+};

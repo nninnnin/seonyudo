@@ -15,7 +15,11 @@ import Image from "next/image";
 
 const Menu = () => {};
 
-Menu.Toggler = () => {
+Menu.Toggler = ({
+  preventClick = false,
+}: {
+  preventClick?: boolean;
+}) => {
   const { visibility, toggleVisibility } =
     useStore(menuStore);
 
@@ -28,7 +32,8 @@ Menu.Toggler = () => {
         "flex justify-center items-center",
         "px-[11px] pt-[5px] pb-[4px]",
         "rounded-[16px]",
-        "select-none"
+        "select-none",
+        preventClick && "pointer-events-none"
       )}
       onClick={(e) => {
         e.stopPropagation();
