@@ -112,17 +112,7 @@ ArPage.ArContents = ({
 }) => {
   const router = useRouter();
 
-  const params = useParams();
-  const locationSlug = params["locationSlug"];
-  const isTransitionGarden = (
-    locationSlug as string
-  ).includes("transitiongarden");
-
   const [isArLoaded, setIsArLoaded] = useState(false);
-
-  const [isGifLoaded, setIsGifLoaded] = useState(
-    !isTransitionGarden
-  );
 
   const [showDialog, setShowDialog] = useState(true);
   const [showCaptureButton, setShowCaptureButton] =
@@ -151,9 +141,6 @@ ArPage.ArContents = ({
 
       setIsCapturing(false);
       addCapturedPicture(blobToUrl(capturedImage));
-    },
-    handleGifLoaded: () => {
-      setIsGifLoaded(true);
     },
   });
 
@@ -184,9 +171,7 @@ ArPage.ArContents = ({
     triggerCapture();
   };
 
-  const showArContents = isTransitionGarden
-    ? isArLoaded && isGifLoaded
-    : isArLoaded;
+  const showArContents = isArLoaded;
 
   const isCapturingCompleted =
     capturedPictures.length >=
