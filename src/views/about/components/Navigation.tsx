@@ -93,15 +93,25 @@ const Navigation = ({
                   : subject.label
               }
               value="abc"
-              onClick={() =>
-                router.push(
-                  addSearchParam(
-                    subject.href,
-                    "aboutOnly",
-                    "1"
-                  )
-                )
-              }
+              onClick={() => {
+                const hasAboutOnly =
+                  searchParams.get("aboutOnly") ===
+                  "1";
+
+                if (hasAboutOnly) {
+                  router.push(
+                    addSearchParam(
+                      subject.href,
+                      "aboutOnly",
+                      "1"
+                    )
+                  );
+
+                  return;
+                }
+
+                router.push(subject.href);
+              }}
             />
           );
         })}
