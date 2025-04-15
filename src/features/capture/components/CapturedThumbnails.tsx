@@ -14,7 +14,7 @@ const CapturedThumbnails = () => {
     <div
       className={clsx(
         "flex flex-row gap-[10px]",
-        "fixed bottom-[50px] right-[24px]"
+        "fixed bottom-[58px] right-[14px]"
       )}
     >
       {pipe(range(3), toArray).map((index) => {

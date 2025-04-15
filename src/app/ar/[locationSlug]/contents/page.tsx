@@ -125,9 +125,14 @@ ArPage.ArContents = ({
   );
 
   const [showDialog, setShowDialog] = useState(true);
+  const [showCaptureButton, setShowCaptureButton] =
+    useState(false);
+  const [isCapturing, setIsCapturing] =
+    useState(false);
+
   const closeDialog = () => setShowDialog(false);
 
-  const { ArContentsIframe, showCaptureButton } =
+  const { ArContentsIframe, triggerCapture } =
     useArContents();
 
   const { addCapturedPicture, resetCapturedPictures } =
@@ -144,6 +149,7 @@ ArPage.ArContents = ({
     handleCapturedImage: (capturedImage) => {
       console.log("캡쳐된 이미지: ", capturedImage);
 
+      setIsCapturing(false);
       addCapturedPicture(blobToUrl(capturedImage));
     },
     handleGifLoaded: () => {
@@ -166,6 +172,18 @@ ArPage.ArContents = ({
     capturedPictureStore
   );
 
+  const handleCloseClick = () => {
+    router.back();
+    stop();
+  };
+
+  const handleCaptureClick = () => {
+    if (isCapturing) return;
+    setIsCapturing(true);
+
+    triggerCapture();
+  };
+
   const showArContents = isTransitionGarden
     ? isArLoaded && isGifLoaded
     : isArLoaded;
@@ -179,8 +197,8 @@ ArPage.ArContents = ({
       {showArContents && showDialog && (
         <ArPage.ArGuide
           close={() => {
-            showCaptureButton();
             closeDialog();
+            setShowCaptureButton(true);
           }}
           guideMessage={guideMessage}
         />
@@ -200,27 +218,16 @@ ArPage.ArContents = ({
         />
 
         {showArContents && !isCapturingCompleted && (
-          <div
-            className={clsx(
-              "fixed top-[16px] right-[16px] z-[4000]",
-              "bg-white",
-              "w-[42px] h-[30px]",
-              "flex justify-center items-center",
-              "px-[11px] pt-[5px] pb-[4px]",
-              "rounded-[16px]",
-              "select-none"
-            )}
-            onClick={() => {
-              router.back();
-              stop();
-            }}
-          >
-            <img
-              className="w-[12px] h-[12px]"
-              src="/icons/close.svg"
-            />
-          </div>
+          <ArPage.CloseButton
+            onClick={handleCloseClick}
+          />
         )}
+
+        <ArPage.CaptureButton
+          onClick={handleCaptureClick}
+          hidden={!showCaptureButton}
+          disabled={isCapturing}
+        />
       </div>
     </>
   );
@@ -369,6 +376,56 @@ ArPage.ArGuide = ({
         </div>
       </div>
     </Overlay>
+  );
+};
+
+ArPage.CloseButton = ({
+  onClick,
+}: {
+  onClick: () => void;
+}) => {
+  return (
+    <div
+      className={clsx(
+        "fixed top-[16px] right-[16px] z-[4000]",
+        "bg-white",
+        "w-[42px] h-[30px]",
+        "flex justify-center items-center",
+        "px-[11px] pt-[5px] pb-[4px]",
+        "rounded-[16px]",
+        "select-none"
+      )}
+      onClick={onClick}
+    >
+      <img
+        className="w-[12px] h-[12px]"
+        src="/icons/close.svg"
+      />
+    </div>
+  );
+};
+
+ArPage.CaptureButton = ({
+  onClick,
+  disabled = false,
+  hidden = false,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+  hidden?: boolean;
+}) => {
+  return (
+    <div
+      className={clsx(
+        "bg-white rounded-full",
+        "w-[68px] h-[68px]",
+        "fixed bottom-[36px] left-1/2 -translate-x-1/2",
+        "select-none",
+        disabled && "bg-slate-200 pointer-events-none",
+        hidden && "hidden"
+      )}
+      onClick={onClick}
+    ></div>
   );
 };
 
