@@ -1,11 +1,13 @@
 "use client";
 
 import clsx from "clsx";
+import Lottie from "react-lottie";
 import React, {
   useEffect,
   useRef,
   useState,
 } from "react";
+
 import {
   redirect,
   useParams,
@@ -32,10 +34,9 @@ import Button from "@/shared/components/Button";
 import ArLoading from "@/features/ar/components/Loading";
 import { LanguageMap } from "@/shared/types/memex";
 import SoundToggler from "@/features/sound/components/SoundToggler";
-import { requestDeviceMotionPermission } from "@/features/permission/utils/deviceMotion";
-import { introStore } from "@/views/intro/store/intro";
 import { replaceNewlineAsBreak } from "@/shared/utils";
 import useSound from "@/features/sound/hooks/useSound";
+import captureSpinnerData from "@/features/ar/assets/animation/capture-spinner.json";
 
 const ArPage = () => {
   const params = useParams();
@@ -121,6 +122,8 @@ ArPage.ArContents = ({
   const [showDialog, setShowDialog] = useState(true);
   const [showCaptureButton, setShowCaptureButton] =
     useState(false);
+  const [showCaptureLoader, setShowCaptureLoader] =
+    useState(false);
 
   const closeDialog = () => setShowDialog(false);
 
@@ -142,6 +145,7 @@ ArPage.ArContents = ({
     },
     handleCapturedImage: (capturedImage) => {
       isCapturingRef.current = false;
+      setShowCaptureLoader(false);
 
       console.log("캡쳐된 이미지: ", capturedImage);
 
@@ -174,6 +178,16 @@ ArPage.ArContents = ({
 
     isCapturingRef.current = true;
 
+    document.body.classList.add("shutter");
+
+    setTimeout(() => {
+      setShowCaptureLoader(true);
+
+      setTimeout(() => {
+        document.body.classList.remove("shutter");
+      }, 0);
+    }, 600);
+
     triggerCapture();
   };
 
@@ -185,6 +199,28 @@ ArPage.ArContents = ({
 
   return (
     <>
+      <div
+        key="capture-loader"
+        className={clsx(
+          "w-[100vw] h-[100dvh] fixed top-0 left-0",
+          "bg-black bg-opacity-50",
+          "flex justify-center items-center",
+          "text-white font-bold",
+          showCaptureLoader
+            ? "z-[9999] opacity-100"
+            : "transition-all duration-300 z-[-1] opacity-0"
+        )}
+      >
+        <Lottie
+          width={100}
+          height={100}
+          options={{
+            animationData: captureSpinnerData,
+            autoplay: true,
+          }}
+        />
+      </div>
+
       {showArContents && showDialog && (
         <ArPage.ArGuide
           close={() => {
