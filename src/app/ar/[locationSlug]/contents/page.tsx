@@ -144,8 +144,8 @@ ArPage.ArContents = ({
       }, 1000);
     },
     handleCapturedImage: (capturedImage) => {
-      isCapturingRef.current = false;
       setShowCaptureLoader(false);
+      isCapturingRef.current = false;
 
       console.log("캡쳐된 이미지: ", capturedImage);
 
@@ -178,15 +178,12 @@ ArPage.ArContents = ({
 
     isCapturingRef.current = true;
 
+    setShowCaptureLoader(true);
     document.body.classList.add("shutter");
 
     setTimeout(() => {
-      setShowCaptureLoader(true);
-
-      setTimeout(() => {
-        document.body.classList.remove("shutter");
-      }, 0);
-    }, 600);
+      document.body.classList.remove("shutter");
+    }, 800);
 
     triggerCapture();
   };
@@ -208,7 +205,7 @@ ArPage.ArContents = ({
           "text-white font-bold",
           showCaptureLoader
             ? "z-[9999] opacity-100"
-            : "transition-all duration-300 z-[-1] opacity-0"
+            : "z-[-1] opacity-0"
         )}
       >
         <Lottie
