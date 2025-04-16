@@ -46,7 +46,7 @@ export interface LocationFormatted {
 export type LocationName =
   | "시간의 정원"
   | "수질정화원"
-  | "선유도 전망대"
+  | "선유교전망대"
   | "선유정"
   | "녹색기둥의 정원"
   | (string & {});

@@ -262,11 +262,6 @@ ArPage.ArGuide = ({
   close: () => void;
   guideMessage: LanguageMap;
 }) => {
-  const router = useRouter();
-
-  const { setHasPermissionError } =
-    useStore(introStore);
-
   const { play: playSound } = useSound(
     "/sounds/scape.mp3"
   );
@@ -328,23 +323,6 @@ ArPage.ArGuide = ({
           <Button
             iconSource="/icons/thumbsup.svg"
             onClick={async () => {
-              const deviceMotionPermission =
-                await requestDeviceMotionPermission();
-
-              if (
-                deviceMotionPermission !== "granted"
-              ) {
-                const permission =
-                  await requestDeviceMotionPermission();
-
-                if (permission === "denied") {
-                  setHasPermissionError(true);
-                  router.push("/intro");
-
-                  return;
-                }
-              }
-
               const iframe =
                 document.querySelector("iframe");
 

@@ -15,7 +15,7 @@ const defaultValue: Record<
   null | number
 > = {
   "녹색기둥의 정원": null,
-  "선유도 전망대": null,
+  선유교전망대: null,
   "시간의 정원": null,
   선유정: null,
   수질정화원: null,

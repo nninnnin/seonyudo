@@ -7,13 +7,17 @@ import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import localFont from "next/font/local";
 import dynamic from "next/dynamic";
+import { useStore } from "zustand";
 
 const mushFont = localFont({
   src: "../fonts/MushyScript-Yoghurt.woff",
 });
 
 import useLocation from "@/features/location/hooks/useLocation";
-import { LocationSlugs } from "@/features/location/types/location";
+import {
+  LocationName,
+  LocationSlugs,
+} from "@/features/location/types/location";
 import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
 import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
 import Button from "@/shared/components/Button";
@@ -29,6 +33,8 @@ const Facade = dynamic(
 import PageHeader from "@/shared/components/PageHeader";
 import LocationIdeas from "@/features/location/components/LocationIdeas";
 import { replaceNewlineAsBreak } from "@/shared/utils";
+import { requestDeviceMotionPermission } from "@/features/permission/utils/deviceMotion";
+import { introStore } from "@/views/intro/store/intro";
 
 const LocationDetails = ({
   locationSlug,
@@ -137,6 +143,9 @@ const LocationDetails = ({
           <div className="flex gap-[20px]">
             <LocationDetails.ViewIdeasButton />
             <LocationDetails.ArTriggerButton
+              locationName={
+                location.name.KO as LocationName
+              }
               locationSlug={location?.slug}
             />
           </div>
@@ -148,26 +157,53 @@ const LocationDetails = ({
 
 LocationDetails.ArTriggerButton = ({
   locationSlug,
+  locationName,
 }: {
   locationSlug: LocationSlugs;
+  locationName: LocationName;
 }) => {
   const router = useRouter();
+
+  const { setHasPermissionError } =
+    useStore(introStore);
 
   const locationProximity = useContext(
     LocationProximityContext
   );
+
+  const handleOpenButtonArClick = async () => {
+    const deviceMotionPermission =
+      await requestDeviceMotionPermission();
+
+    if (deviceMotionPermission !== "granted") {
+      const permission =
+        await requestDeviceMotionPermission();
+
+      if (permission === "denied") {
+        setHasPermissionError(true);
+        router.push("/intro");
+
+        return;
+      }
+    }
+
+    router.push(`/ar/${locationSlug}/contents`);
+  };
+
+  console.log("거점별 Proxmity: ", locationProximity);
 
   return (
     <Button
       className={clsx(
         "!w-[130px]",
         "!bg-black !bg-opacity-20 backdrop-blur-[7.5px]",
-        "*:!text-[#f0ff82]"
+        "*:!text-[#f0ff82]",
+        locationProximity[locationName]
+          ? ""
+          : "!bg-slate-300 !text-white pointer-events-none !bg-opacity-100"
       )}
       iconSource="/icons/twinkle--lime.svg"
-      onClick={() =>
-        router.push(`/ar/${locationSlug}/contents`)
-      }
+      onClick={handleOpenButtonArClick}
     >
       Open AR
     </Button>
