@@ -189,7 +189,7 @@ const SharePage = () => {
         className={clsx(
           "w-full",
           "body1 text-center text-white",
-          "fixed top-1/2 left-1/2 -translate-x-1/2 translate-y-[calc(45%-256px)]"
+          "fixed top-[13dvh] left-1/2 -translate-x-1/2"
         )}
       >
         <span>사진을 저장하고 공유하세요</span>
@@ -200,7 +200,7 @@ const SharePage = () => {
       <div
         className={clsx(
           "w-[240px] h-[360px]",
-          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%]",
+          "fixed top-[25dvh] left-1/2 -translate-x-1/2",
           "flex gap-[30px]"
         )}
       >

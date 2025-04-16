@@ -140,12 +140,15 @@ const CapturedImageCard = ({
   return (
     <div
       className={clsx(
-        "absolute top-0 left-0",
-        "w-[240px] h-[360px]"
+        "absolute top-[2dvh] left-1/2 -translate-x-1/2",
+        "h-[57dvh]"
       )}
       ref={containerRef}
       style={{
         zIndex: 1000 - cardIndex,
+        aspectRatio: `${
+          window.innerWidth / window.innerHeight
+        }`,
       }}
     >
       <img
