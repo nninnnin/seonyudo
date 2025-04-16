@@ -6,7 +6,7 @@ import {
   redirect,
   useParams,
 } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "zustand";
 import dynamic from "next/dynamic";
 
@@ -116,9 +116,15 @@ const SharePage = () => {
     resetArCompletedLocations,
   } = useArCompletionStore();
 
+  // 해당 페이지에 오기만 해도 거점 완료한 것으로 처리
+  useEffect(() => {
+    if (!location) return;
+
+    addArCompletedLocations(location!.name.KO!);
+  }, [location]);
+
   const handleDoneClick = () => {
     setHasSeen(false);
-    addArCompletedLocations(location!.name.KO!);
 
     // @ts-ignore
     if (location!.slug === "hellobye") {
