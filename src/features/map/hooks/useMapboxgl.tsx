@@ -42,7 +42,6 @@ const useMapboxgl = () => {
       positionOptions: {
         enableHighAccuracy: true,
       },
-      trackUserLocation: true,
       showUserHeading: true,
       fitBoundsOptions: {
         zoom: DEFAULT_ZOOM,
