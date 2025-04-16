@@ -170,19 +170,13 @@ const SharePage = () => {
           "pt-[3dvh] px-[3dvh]"
         )}
       >
-        <Button
-          iconSource="/icons/camera.svg"
+        <SharePage.BackButton
           onClick={handleBackClick}
-        >
-          Try Again
-        </Button>
+        />
 
-        <Button
-          iconSource="/icons/check--white.svg"
+        <SharePage.CloseButton
           onClick={handleDoneClick}
-        >
-          Done
-        </Button>
+        />
       </div>
 
       <h1
@@ -253,7 +247,7 @@ const SharePage = () => {
               theme="white"
               onClick={handleShareClick}
             >
-              Save & Share
+              Save / Share
             </Button>
           </>
         )}
@@ -263,6 +257,58 @@ const SharePage = () => {
 };
 
 export default SharePage;
+
+SharePage.BackButton = ({
+  onClick,
+}: {
+  onClick: () => void;
+}) => {
+  return (
+    <div
+      className={clsx(
+        "fixed top-[16px] left-[16px] z-[4000]",
+        "bg-white",
+        "w-[42px] h-[30px]",
+        "flex justify-center items-center",
+        "px-[11px] pt-[5px] pb-[4px]",
+        "rounded-[16px]",
+        "select-none"
+      )}
+      onClick={onClick}
+    >
+      <img
+        className="w-[16px] h-[16px]"
+        src="/icons/caret--left.svg"
+      />
+    </div>
+  );
+};
+
+SharePage.CloseButton = ({
+  onClick,
+}: {
+  onClick: () => void;
+}) => {
+  return (
+    <div
+      className={clsx(
+        "fixed top-[16px] right-[16px] z-[4000]",
+        "bg-white",
+        "w-[42px] h-[30px]",
+        "flex justify-center items-center",
+        "px-[11px] pt-[5px] pb-[4px]",
+        "rounded-[16px]",
+        "select-none"
+      )}
+      onClick={onClick}
+    >
+      <img
+        className="w-[12px] h-[12px]"
+        src="/icons/close.svg"
+      />
+    </div>
+  );
+};
 
 function getMobileOS() {
   const userAgent =
