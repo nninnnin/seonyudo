@@ -192,18 +192,24 @@ LocationDetails.ArTriggerButton = ({
 
   console.log("거점별 Proxmity: ", locationProximity);
 
+  const isDev = process.env.IS_DEV === "1";
+
+  const 접근했는가 = isDev
+    ? true
+    : locationProximity[locationName];
+
   return (
     <Button
       className={clsx(
         "!w-[130px]",
         "!bg-black !bg-opacity-20 backdrop-blur-[7.5px]",
         "*:!text-[#f0ff82]",
-        locationProximity[locationName]
+        접근했는가
           ? ""
           : "!bg-slate-300 *:!text-white pointer-events-none !bg-opacity-100"
       )}
       iconSource={
-        locationProximity[locationName]
+        접근했는가
           ? "/icons/twinkle--lime.svg"
           : "/icons/twinkle--white.svg"
       }
