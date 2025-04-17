@@ -200,9 +200,13 @@ LocationDetails.ArTriggerButton = ({
         "*:!text-[#f0ff82]",
         locationProximity[locationName]
           ? ""
-          : "!bg-slate-300 !text-white pointer-events-none !bg-opacity-100"
+          : "!bg-slate-300 *:!text-white pointer-events-none !bg-opacity-100"
       )}
-      iconSource="/icons/twinkle--lime.svg"
+      iconSource={
+        locationProximity[locationName]
+          ? "/icons/twinkle--lime.svg"
+          : "/icons/twinkle--white.svg"
+      }
       onClick={handleOpenButtonArClick}
     >
       Open AR
