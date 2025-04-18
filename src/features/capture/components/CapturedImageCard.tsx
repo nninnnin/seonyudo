@@ -53,9 +53,10 @@ const CapturedImageCard = ({
 
       const isLeft =
         relativePosition < 0 &&
-        relativePosition < -0.5;
+        relativePosition < -0.45;
       const isRight =
-        relativePosition > 0 && relativePosition > 0.5;
+        relativePosition > 0 &&
+        relativePosition > 0.45;
 
       if (isLeft) {
         swipeTo.current = "left";
