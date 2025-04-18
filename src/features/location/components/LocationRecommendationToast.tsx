@@ -4,6 +4,7 @@ import { useStore } from "zustand";
 
 import Toast from "@/shared/components/Toast";
 import { detailsToastStore } from "@/features/location/components/LocationDetailsToast";
+import { useArCompletionStore } from "@/features/ar/store";
 
 const LocationRecommendationToast = ({
   close,
@@ -39,16 +40,7 @@ const LocationRecommendationToast = ({
       )}
       close={close}
     >
-      <p className="w-[281px] break-keep">
-        근처에 또 다른 작품이 있어요
-        <br />
-        다음 장소에서 계속 체험해 보세요
-        <br />
-        There’s another artwork nearby
-        <br />
-        Continue the experience at the next spot
-        <br />
-      </p>
+      <LocationRecommendationToast.Message />
 
       <div className="flex items-start justfiy-between gap-[8px]">
         <p className="w-[162px] break-keep">
@@ -64,6 +56,42 @@ const LocationRecommendationToast = ({
         />
       </div>
     </Toast>
+  );
+};
+
+LocationRecommendationToast.Message = () => {
+  const { arCompletedLocations } =
+    useArCompletionStore();
+
+  const 하나도_완료되지_않았음 =
+    arCompletedLocations.length === 0;
+
+  if (하나도_완료되지_않았음) {
+    return (
+      <p>
+        근처에 작품이 있어요
+        <br />
+        장소를 확인하고 체험해 보세요
+        <br />
+        An artwork is nearby
+        <br />
+        Check the location and enjoy the experience!
+        <br />
+      </p>
+    );
+  }
+
+  return (
+    <p className="w-[281px] break-keep">
+      근처에 또 다른 작품이 있어요
+      <br />
+      다음 장소에서 계속 체험해 보세요
+      <br />
+      There’s another artwork nearby
+      <br />
+      Continue the experience at the next spot
+      <br />
+    </p>
   );
 };
 
