@@ -31,15 +31,16 @@ const IntroPage = () => {
           <p
             className={clsx(
               "w-[236px]",
-              "text-[12px] font-[700] leading-[150%]",
-              "break-keep"
+              "text-[16px] font-[700] leading-[120%]",
+              "break-keep",
+              "flex flex-col gap-[16px]"
             )}
           >
             브라우저를 다시 실행한 후 위치 및 방향 정보
             <br />
             제공에 허용을 선택해 주세요.
             <br />
-            <span className="text-[11px] font-normal">
+            <span>
               Please restart your browser and allow
               access to location and orientation
               information.

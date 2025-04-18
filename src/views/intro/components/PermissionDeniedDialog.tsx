@@ -9,14 +9,15 @@ const PermissionDeniedDialog = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Overlay>
+    <Overlay className="bg-white">
       <div
         className={clsx(
           "intro-dialog-container",
-          "bg-white",
-          "p-[20px] rounded-[8px]",
+          "bg-black bg-opacity-30",
+          "p-[50px] pl-[48px] pr-[49px] pb-[24px] rounded-[18px]",
           "flex flex-col justify-center items-center",
-          "gap-[20px]"
+          "text-white",
+          "backdrop:blur-[10px]"
         )}
       >
         {children}

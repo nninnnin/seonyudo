@@ -57,32 +57,31 @@ const WelcomeDialog = () => {
   };
 
   return (
-    <Overlay>
+    <Overlay className="bg-white">
       <div
         className={clsx(
           "intro-dialog-container",
-          "bg-white",
-          "p-[20px] rounded-[8px]",
+          "bg-black bg-opacity-30",
+          "p-[50px] pl-[48px] pr-[49px] pb-[24px] rounded-[18px]",
           "flex flex-col justify-center items-center",
-          "gap-[20px]"
+          "text-white",
+          "backdrop:blur-[10px]"
         )}
       >
         <p
           className={clsx(
             "w-[236px]",
-            "text-[12px] font-[700] leading-[150%]",
-            "break-keep"
+            "text-[16px] font-[700] leading-[120%]",
+            "break-keep",
+            "flex flex-col gap-[16px]"
           )}
         >
           <span>
-            〈Unseeing: 선유동화〉에서 선유도공원
-            곳곳에 숨겨 놓은 동화 같은 풍경을 AR로
-            경험해 보세요!
+            선유도공원 곳곳에 숨겨 놓은 동화 같은
+            풍경을 AR로 경험해 보세요!
           </span>
 
-          <br />
-
-          <span className="text-[11px] font-normal">
+          <span>
             Explore hidden fairytale scenes in Seonyudo
             Park with AR in Unseeing: Seonyu Donghwa.
           </span>
@@ -90,13 +89,16 @@ const WelcomeDialog = () => {
 
         <button
           className={clsx(
-            "w-[240px] py-[12px] rounded-[8px]",
-            "bg-black text-white p-[10px]",
-            "text-center text-[18px] font-[700] leading-[150%] tracking-[-0.198px]"
+            "p-[12px] rounded-[30px]",
+            "bg-white p-[10px]",
+            "text-black text-center text-[16px] font-[700] leading-[134%] tracking-[-0.198px]",
+            "mt-[26px]",
+            "flex items-center justify-center gap-[4px]"
           )}
           onClick={handleClick}
         >
-          시작하기
+          <img src="/icons/arrow--left.svg" />
+          <span className="px-[8px]">Start</span>
         </button>
       </div>
     </Overlay>
