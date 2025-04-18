@@ -94,11 +94,23 @@ const reduceMinimumDistant = (
   }
 
   return locations.reduce((prev, cur) => {
-    if (prev.distance < cur.distance) {
-      return prev;
-    }
+    return Math.min(prev.distance, cur.distance) ===
+      prev.distance
+      ? prev
+      : cur;
+  });
+};
 
-    return cur;
+const filterInappropriateDistances = (
+  locations: (LocationFormatted & {
+    distance: number;
+  })[]
+) => {
+  return locations.filter((location) => {
+    return !(
+      location.distance === 0 ||
+      isNaN(location.distance)
+    );
   });
 };
 
@@ -109,6 +121,7 @@ export const getMostProximateLocation = (
   return pipe(
     locations,
     mapListItems(withDistance(currentCoords)),
+    filterInappropriateDistances,
     reduceMinimumDistant
   );
 };

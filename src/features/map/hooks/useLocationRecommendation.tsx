@@ -30,10 +30,26 @@ const useLocationRecommendation = () => {
 
   const { locations: allLocations } = useLocations();
 
-  const filteredLocations = allLocations.filter(
-    (location) =>
-      !arCompletedLocations.includes(location.name.KO!)
-  );
+  const filteredLocations = allLocations
+    .filter((location) => {
+      const isDev = process.env.IS_DEV === "1";
+      const isTestLocation =
+        location.name.KO?.includes("테스트");
+
+      if (isDev) {
+        // 데브에서는 테스트 장소만 추천
+        return isTestLocation;
+      } else {
+        // 운영에서는 테스트 장소가 아닌 장소만 추천
+        return !isTestLocation;
+      }
+    })
+    .filter(
+      (location) =>
+        !arCompletedLocations.includes(
+          location.name.KO!
+        )
+    );
 
   useWatchPosition(
     {
