@@ -42,7 +42,7 @@ const CapturedImageCard = ({
       const moveX =
         touchStart.current - e.touches[0].clientX;
 
-      containerRef.current!.style.transform = `translateX(${-moveX}px) rotateZ(${
+      containerRef.current!.style.transform = `translateX(calc(-50% + ${-moveX}px)) rotateZ(${
         (moveX / 10) * -1
       }deg)`;
 
@@ -76,10 +76,6 @@ const CapturedImageCard = ({
     };
 
     const touchEndHandler = () => {
-      if (!swipeTo.current) {
-        containerRef.current!.style.transform = `translateX(0px)`;
-      }
-
       if (swipeTo.current === "left") {
         containerRef.current!.style.transform = `translateX(-150vw)`;
       } else if (swipeTo.current === "right") {
@@ -141,7 +137,7 @@ const CapturedImageCard = ({
     <div
       className={clsx(
         "absolute top-[2dvh] left-1/2 -translate-x-1/2",
-        "h-[57dvh]"
+        "w-[240px]"
       )}
       ref={containerRef}
       style={{
