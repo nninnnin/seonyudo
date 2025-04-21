@@ -17,6 +17,9 @@ const Overlay = ({
         "bg-black bg-opacity-80",
         className
       )}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       {children}
     </div>

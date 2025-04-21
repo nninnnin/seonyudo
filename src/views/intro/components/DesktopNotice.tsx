@@ -14,7 +14,12 @@ const DesktopNotice = () => {
   const { hasOverlayPanel } = useDesktopStore();
 
   return (
-    <div className="h-[calc(100dvh+176px)] bg-blue-500 text-white">
+    <div
+      className={clsx(
+        "w-[100vw] h-[calc(100dvh+176px)] overflow-x-hidden",
+        "bg-blue-500 text-white"
+      )}
+    >
       <Facade
         imageSource={"/images/statue-bg--desktop.png"}
         isDesktop={true}
@@ -45,11 +50,12 @@ const DesktopNotice = () => {
         >
           <div
             className={clsx(
-              "w-[491px] font-bold leading-[134%]",
+              "font-bold leading-[134%]",
               "flex flex-col gap-[20px]"
             )}
             style={{
               fontSize: pvw(20, true),
+              width: pvw(491),
             }}
           >
             <p>
@@ -80,7 +86,7 @@ const DesktopNotice = () => {
               "flex gap-[27px]"
             )}
             style={{
-              width: 174 + 338 + 27,
+              width: pvw(174 + 338 + 27),
             }}
           >
             <div className="w-[174px] h-[174px] bg-white flex justify-center items-center">
@@ -92,12 +98,12 @@ const DesktopNotice = () => {
             </div>
             <div
               className={clsx(
-                "w-[338px]",
                 "font-bold leading-[134%]",
                 "py-[3px]"
               )}
               style={{
                 fontSize: pvw(16, true),
+                width: pvw(338),
               }}
             >
               〈Unseeing: 선유동화〉는 선유도공원 방문
@@ -256,13 +262,13 @@ DesktopNotice.LocationImages = () => {
     <div
       className={clsx(
         "desktop-image-container",
-        "w-[calc(100%+40px)] overflow-auto",
+        "w-[calc(100%+40px)] overflow-x-auto overflow-y-hidden",
         "relative left-[-40px]",
         "my-[55px]",
         "flex gap-[21px]"
       )}
       style={{
-        height: pvw(218),
+        height: pvw(217),
       }}
     >
       <img

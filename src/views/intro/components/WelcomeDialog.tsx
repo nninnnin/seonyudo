@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import React from "react";
+import { useStore } from "zustand";
 
 import { requestDeviceMotionPermission } from "@/features/permission/utils/deviceMotion";
 import {
@@ -10,12 +11,13 @@ import {
 } from "@/features/permission/utils/geolocation";
 import { GeolocationPermissionCode } from "@/features/permission/constants/index";
 import Overlay from "@/shared/components/Overlay";
-import usePageRouter from "@/shared/hooks/usePageRouter";
-import { useStore } from "zustand";
 import { introStore } from "@/views/intro/store/intro";
 
-const WelcomeDialog = () => {
-  const { goHome } = usePageRouter();
+const WelcomeDialog = ({
+  close,
+}: {
+  close: () => void;
+}) => {
   const { setHasPermissionError } =
     useStore(introStore);
   const showPermissionError = () =>
@@ -35,13 +37,18 @@ const WelcomeDialog = () => {
       await checkGeolocationPermission();
 
     if (geolocationPermission.state === "granted") {
-      goHome();
+      close();
       return;
     }
 
     requestGeolocation(
       (position) => {
-        goHome();
+        console.log(
+          "position permission granted",
+          position
+        );
+
+        close();
       },
       (err) => {
         console.log("geolocation request error", err);
@@ -57,7 +64,7 @@ const WelcomeDialog = () => {
   };
 
   return (
-    <Overlay className="bg-white">
+    <Overlay className="!bg-opacity-30 z-[9999]">
       <div
         className={clsx(
           "intro-dialog-container",

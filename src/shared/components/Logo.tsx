@@ -21,7 +21,7 @@ const Logo = forwardRef(
         ref={ref}
         className={clsx(
           "fixed",
-          "left-[16px] z-[9999]",
+          "left-[16px] z-[9998]",
           "logo-typo",
           preventClick && "pointer-events-none"
         )}

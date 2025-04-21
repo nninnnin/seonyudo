@@ -1,7 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
+import { isMobile } from "@/shared/utils/isMobile";
+import { isServer } from "@/shared/utils/isServer";
+import { redirect } from "next/navigation";
 
 const DesktopNotice = dynamic(
   () =>
@@ -10,6 +13,12 @@ const DesktopNotice = dynamic(
 );
 
 const page = () => {
+  useEffect(() => {
+    if (!isServer() && isMobile()) {
+      redirect("/");
+    }
+  }, []);
+
   return <DesktopNotice />;
 };
 

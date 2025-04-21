@@ -3,14 +3,14 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import PageHeader from "@/shared/components/PageHeader";
 import Button from "@/shared/components/Button";
 import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 import PageFooter from "@/shared/components/PageFooter";
-import { useStore } from "zustand";
-import { introStore } from "@/views/intro/store/intro";
+import { isMobile } from "@/shared/utils/isMobile";
+import useCheckPermissions from "@/views/intro/hooks/useCheckPermissions";
 
 const Facade = dynamic(
   () => import("@/views/home/components/Facade"),
@@ -30,17 +30,17 @@ export default function Home() {
     router.prefetch("/map");
   }, [router]);
 
-  const { isIntroWatched } = useStore(introStore);
+  useCheckPermissions();
 
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!isIntroWatched) {
-      router.replace("/intro");
+    if (!isMobile()) {
+      redirect("/desktop");
     }
 
     setMounted(true);
-  }, [isIntroWatched]);
+  }, []);
 
   if (!mounted) return <></>;
 
