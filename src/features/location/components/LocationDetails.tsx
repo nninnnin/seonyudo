@@ -2,8 +2,12 @@
 
 import clsx from "clsx";
 import { useOverlay } from "@toss/use-overlay";
-import { AnimatePresence } from "motion/react";
-import React, { useContext } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+} from "react";
 import { useRouter } from "next/navigation";
 import localFont from "next/font/local";
 import dynamic from "next/dynamic";
@@ -163,6 +167,7 @@ LocationDetails.ArTriggerButton = ({
   locationName: LocationName;
 }) => {
   const router = useRouter();
+  const overlay = useOverlay();
 
   const { setHasPermissionError } =
     useStore(introStore);
@@ -171,7 +176,72 @@ LocationDetails.ArTriggerButton = ({
     LocationProximityContext
   );
 
+  const hasAlert = useRef(false);
+
+  console.log("거점별 Proxmity: ", locationProximity);
+
+  const isDev = process.env.IS_DEV === "1";
+
+  const 접근했는가 = isDev
+    ? true
+    : locationProximity[locationName];
+
   const handleOpenButtonArClick = async () => {
+    if (!접근했는가) {
+      if (hasAlert.current) return;
+
+      hasAlert.current = true;
+
+      overlay.open(({ isOpen, close }) => {
+        useEffect(() => {
+          setTimeout(() => {
+            close();
+
+            setTimeout(
+              () => (hasAlert.current = false),
+              160
+            );
+          }, 2000);
+        }, []);
+
+        return (
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={clsx(
+                  "intro-dialog-container",
+                  "bg-black bg-opacity-30",
+                  "p-[50px] pl-[48px] pr-[49px] rounded-[18px]",
+                  "flex flex-col justify-center items-center",
+                  "text-white",
+                  "backdrop:blur-[10px]",
+                  "fixed left-1/2 -translate-x-1/2 top-[50%] -translate-y-1/2 z-[9999]",
+                  "backdrop-blur-[10px]"
+                )}
+              >
+                <p
+                  className={clsx(
+                    "w-[236px]",
+                    "text-[16px] font-[700] leading-[120%]",
+                    "break-keep",
+                    "flex flex-col gap-[16px]"
+                  )}
+                >
+                  안내판 근처에서 Open AR 버튼을
+                  눌러주세요.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        );
+      });
+
+      return;
+    }
+
     const deviceMotionPermission =
       await requestDeviceMotionPermission();
 
@@ -190,23 +260,16 @@ LocationDetails.ArTriggerButton = ({
     router.push(`/ar/${locationSlug}/contents`);
   };
 
-  console.log("거점별 Proxmity: ", locationProximity);
-
-  const isDev = process.env.IS_DEV === "1";
-
-  const 접근했는가 = isDev
-    ? true
-    : locationProximity[locationName];
-
   return (
     <Button
       className={clsx(
         "!w-[130px]",
         "!bg-black !bg-opacity-20 backdrop-blur-[7.5px]",
         "*:!text-[#f0ff82]",
+        "prevent-select",
         접근했는가
           ? ""
-          : "!bg-slate-300 *:!text-white pointer-events-none !bg-opacity-100"
+          : "!bg-slate-300 *:!text-white !bg-opacity-100"
       )}
       iconSource={
         접근했는가

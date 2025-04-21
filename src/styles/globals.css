@@ -82,3 +82,8 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
 }
+
+.prevent-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
