@@ -16,6 +16,7 @@ import {
 import "./facade.css";
 import { FACADE_SLICES } from "@/views/home/constants/facade";
 import { transitionGradientColors } from "@/views/home/components/Facade/utils/animate";
+import { debounce } from "lodash";
 
 const Facade = ({
   imageSource,
@@ -50,6 +51,46 @@ const Facade = ({
         }
       }
     );
+  }, []);
+
+  useEffect(() => {
+    const facadeContainer = containerRef.current;
+    if (!facadeContainer) return;
+
+    const resizeHandler = () => {
+      removeFacades();
+    };
+
+    const resizeOverHandler = debounce(
+      () => {
+        initializeFacades(
+          facadeContainer,
+          imageSource
+        );
+      },
+      100,
+      {
+        leading: false,
+        trailing: true,
+      }
+    );
+
+    window.addEventListener("resize", resizeHandler);
+    window.addEventListener(
+      "resize",
+      resizeOverHandler
+    );
+
+    return () => {
+      window.removeEventListener(
+        "resize",
+        resizeHandler
+      );
+      window.removeEventListener(
+        "resize",
+        resizeOverHandler
+      );
+    };
   }, []);
 
   const GRADIENT_COLORS = {

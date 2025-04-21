@@ -121,6 +121,9 @@ DesktopNotice.Panel = ({
         height: `calc(100vh - ${176 + 43 + 35}px)`,
         width: pvw(664),
       }}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       {children}
     </div>
