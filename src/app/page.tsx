@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
@@ -32,11 +32,17 @@ export default function Home() {
 
   const { isIntroWatched } = useStore(introStore);
 
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     if (!isIntroWatched) {
       router.replace("/intro");
     }
+
+    setMounted(true);
   }, [isIntroWatched]);
+
+  if (!mounted) return <></>;
 
   return (
     <div
