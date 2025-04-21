@@ -65,7 +65,8 @@ const Facade = ({
       () => {
         initializeFacades(
           facadeContainer,
-          imageSource
+          imageSource,
+          isDesktop
         );
       },
       100,
@@ -154,7 +155,9 @@ const Facade = ({
       ref={containerRef}
       className={clsx(
         "absolute top-0 left-0 z-[0]",
-        "h-full",
+        isDesktop
+          ? "h-[calc(100dvh+176px)]"
+          : "h-full",
         "overflow-x-hidden"
       )}
       initial={{ opacity: 0 }}

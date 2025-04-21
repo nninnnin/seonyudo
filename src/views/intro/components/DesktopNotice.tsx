@@ -3,20 +3,43 @@
 import clsx from "clsx";
 import React from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { motion } from "motion/react";
+import { useOverlay } from "@toss/use-overlay";
+import { AnimatePresence } from "motion/react";
 
 import Facade from "@/views/home/components/Facade";
+import { useDesktopStore } from "@/views/intro/store/desktop";
 
 const DesktopNotice = () => {
+  const { hasOverlayPanel } = useDesktopStore();
+
   return (
     <div className="h-[calc(100dvh+176px)] bg-blue-500 text-white">
       <Facade
-        imageSource={"/images/statue-bg--5.png"}
+        imageSource={"/images/statue-bg--desktop.png"}
         isDesktop={true}
       />
 
       <DesktopNotice.Container>
-        <header></header>
-        <DesktopNotice.Panel>
+        <DesktopNotice.Header />
+
+        <div
+          className={clsx(
+            "absolute bottom-[35px] left-[20px]",
+            "leading-[134%] font-bold text-[24px]"
+          )}
+        >
+          SEONYU DONGHWA
+        </div>
+
+        <DesktopNotice.Panel
+          className={clsx(
+            "transition-all duration-300",
+            hasOverlayPanel &&
+              "translate-y-[-30px] scale-[0.99]"
+          )}
+          animate={false}
+        >
           <div
             className={clsx(
               "w-[491px] text-[20px] font-bold leading-[134%]",
@@ -42,7 +65,9 @@ const DesktopNotice = () => {
               landscape.
             </p>
           </div>
+
           <DesktopNotice.LocationImages />
+
           <div
             className={clsx(
               "h-[174px]",
@@ -94,43 +119,129 @@ DesktopNotice.Container = ({
     <div
       className={clsx(
         "w-[100vw] h-[100dvh]",
-        "flex flex-col justify-center items-center"
+        "flex flex-col justify-center items-center",
+        "relative"
       )}
     >
       {children}
     </div>
+  );
+};
+
+DesktopNotice.Header = () => {
+  return (
+    <header
+      className={clsx(
+        "absolute top-[43px]",
+        "w-[50vw] h-[32px]",
+        "flex justify-between items-center",
+        "font-bold text-[24px] leading-[134%]"
+      )}
+      style={{
+        width: pvw(680),
+        left: pvw(20),
+      }}
+    >
+      <div
+        onClick={() => {
+          location.href = "/desktop";
+        }}
+      >
+        UNSEEING
+      </div>
+
+      <div>선유동화</div>
+    </header>
   );
 };
 
 DesktopNotice.Panel = ({
   children,
+  className = "",
+  animate,
 }: {
   children: React.ReactNode;
+  className?: string;
+  animate?: boolean;
 }) => {
   return (
-    <div
+    <motion.div
       className={clsx(
-        "w-[664px] overflow-y-auto overflow-x-hidden",
+        "overflow-y-auto overflow-x-hidden",
         "bg-black bg-opacity-20",
-        "fixed top-[43px] right-[28px]",
+        "absolute top-[43px] right-[28px]",
         "rounded-[24px]",
         "py-[66px] pl-[40px]",
-        "backdrop-blur-[15px]"
+        "backdrop-blur-[15px]",
+        className
       )}
       style={{
-        height: `calc(100vh - ${176 + 43 + 35}px)`,
+        height: `calc(100vh - ${43 + 35}px)`,
         width: pvw(664),
       }}
       onClick={(e) => {
         e.stopPropagation();
       }}
+      initial={animate ? { translateX: "150%" } : {}}
+      animate={animate ? { translateX: 0 } : {}}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 29,
+      }}
+      exit={animate ? { translateX: "150%" } : {}}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 
 DesktopNotice.LocationImages = () => {
+  const overlay = useOverlay();
+  const { setHasOverlayPanel } = useDesktopStore();
+
+  const handleImageClick =
+    (imageSource: string) => () => {
+      setHasOverlayPanel(true);
+
+      overlay.open(({ close, isOpen }) => {
+        return (
+          <AnimatePresence>
+            {isOpen && (
+              <DesktopNotice.Panel
+                className="!px-[46px] !pt-[92px]"
+                animate={true}
+              >
+                <button
+                  className={clsx(
+                    "outline-none",
+                    "w-[44px] h-[44px]",
+                    "flex justify-center items-center",
+                    "absolute right-[35px] top-[38px]"
+                  )}
+                  onClick={() => {
+                    setHasOverlayPanel(false);
+                    close();
+                  }}
+                >
+                  <img
+                    width="22"
+                    height="22"
+                    src="/icons/close--white.svg"
+                  />
+                </button>
+
+                <img
+                  className="w-full"
+                  src={imageSource}
+                />
+              </DesktopNotice.Panel>
+            )}
+          </AnimatePresence>
+        );
+      });
+    };
+
   return (
     <div
       className={clsx(
@@ -143,27 +254,27 @@ DesktopNotice.LocationImages = () => {
       )}
     >
       <img
-        className="bg-slate-100"
-        width={218}
-        height={218}
+        className="bg-slate-100 min-w-[216px] min-h-[216px] object-cover"
+        src={"/images/whale.png"}
+        onClick={handleImageClick("/images/whale.png")}
       />
 
       <img
-        className="bg-slate-100"
-        width={218}
-        height={218}
+        className="bg-slate-100 min-w-[216px] min-h-[216px] object-cover"
+        src={"/images/whale.png"}
+        onClick={handleImageClick("/images/whale.png")}
       />
 
       <img
-        className="bg-slate-100"
-        width={218}
-        height={218}
+        className="bg-slate-100 min-w-[216px] min-h-[216px] object-cover"
+        src={"/images/whale.png"}
+        onClick={handleImageClick("/images/whale.png")}
       />
 
       <img
-        className="bg-slate-100"
-        width={218}
-        height={218}
+        className="bg-slate-100 min-w-[216px] min-h-[216px] object-cover"
+        src={"/images/whale.png"}
+        onClick={handleImageClick("/images/whale.png")}
       />
     </div>
   );
@@ -174,6 +285,7 @@ DesktopNotice.Footer = () => {
     <div
       className={clsx(
         "w-full h-[176px] bg-black bg-opacity-30",
+        "relative z-[100]",
         "backdrop:blur-[30px]",
         "pt-[76px] pl-[200px]",
         "font-bold leading-[125%]",
