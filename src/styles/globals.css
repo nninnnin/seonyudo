@@ -87,3 +87,12 @@ body {
   user-select: none;
   -webkit-user-select: none;
 }
+
+.scroll-container {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}

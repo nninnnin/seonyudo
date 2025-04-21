@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { motion } from "motion/react";
 import { useOverlay } from "@toss/use-overlay";
@@ -12,6 +12,12 @@ import { useDesktopStore } from "@/views/intro/store/desktop";
 
 const DesktopNotice = () => {
   const { hasOverlayPanel } = useDesktopStore();
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+
+    html?.style.setProperty("overflow-x", "hidden");
+  }, []);
 
   return (
     <div
@@ -265,7 +271,8 @@ DesktopNotice.LocationImages = () => {
         "w-[calc(100%+40px)] overflow-x-auto overflow-y-hidden",
         "relative left-[-40px]",
         "my-[55px]",
-        "flex gap-[21px]"
+        "flex gap-[21px]",
+        "scroll-container"
       )}
       style={{
         height: pvw(217),
