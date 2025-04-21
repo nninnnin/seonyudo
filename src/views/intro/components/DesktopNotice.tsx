@@ -26,8 +26,11 @@ const DesktopNotice = () => {
         <div
           className={clsx(
             "absolute bottom-[35px] left-[20px]",
-            "leading-[134%] font-bold text-[24px]"
+            "leading-[134%] font-bold"
           )}
+          style={{
+            fontSize: pvw(24, true),
+          }}
         >
           SEONYU DONGHWA
         </div>
@@ -42,9 +45,12 @@ const DesktopNotice = () => {
         >
           <div
             className={clsx(
-              "w-[491px] text-[20px] font-bold leading-[134%]",
+              "w-[491px] font-bold leading-[134%]",
               "flex flex-col gap-[20px]"
             )}
+            style={{
+              fontSize: pvw(20, true),
+            }}
           >
             <p>
               〈Unseeing: 선유동화〉는 선유도공원
@@ -87,9 +93,12 @@ const DesktopNotice = () => {
             <div
               className={clsx(
                 "w-[338px]",
-                "text-[16px] font-bold leading-[134%]",
+                "font-bold leading-[134%]",
                 "py-[3px]"
               )}
+              style={{
+                fontSize: pvw(16, true),
+              }}
             >
               〈Unseeing: 선유동화〉는 선유도공원 방문
               후, 모바일 환경에서 경험할 수 있습니다.
@@ -135,11 +144,12 @@ DesktopNotice.Header = () => {
         "absolute top-[43px]",
         "w-[50vw] h-[32px]",
         "flex justify-between items-center",
-        "font-bold text-[24px] leading-[134%]"
+        "font-bold leading-[134%]"
       )}
       style={{
         width: pvw(680),
         left: pvw(20),
+        fontSize: pvw(24, true),
       }}
     >
       <div
@@ -248,33 +258,71 @@ DesktopNotice.LocationImages = () => {
         "desktop-image-container",
         "w-[calc(100%+40px)] overflow-auto",
         "relative left-[-40px]",
-        "h-[218px]",
         "my-[55px]",
         "flex gap-[21px]"
       )}
+      style={{
+        height: pvw(218),
+      }}
     >
       <img
-        className="bg-slate-100 min-w-[216px] min-h-[216px] object-cover"
-        src={"/images/whale.png"}
-        onClick={handleImageClick("/images/whale.png")}
+        className="object-cover"
+        src={"/images/locations/1.png"}
+        onClick={handleImageClick(
+          "/images/locations/1.png"
+        )}
+        style={{
+          width: pvw(223),
+          height: pvw(218),
+        }}
       />
 
       <img
-        className="bg-slate-100 min-w-[216px] min-h-[216px] object-cover"
-        src={"/images/whale.png"}
-        onClick={handleImageClick("/images/whale.png")}
+        className="object-cover"
+        src={"/images/locations/2.png"}
+        onClick={handleImageClick(
+          "/images/locations/2.png"
+        )}
+        style={{
+          width: pvw(223),
+          height: pvw(218),
+        }}
       />
 
       <img
-        className="bg-slate-100 min-w-[216px] min-h-[216px] object-cover"
-        src={"/images/whale.png"}
-        onClick={handleImageClick("/images/whale.png")}
+        className="object-cover"
+        src={"/images/locations/3.png"}
+        onClick={handleImageClick(
+          "/images/locations/3.png"
+        )}
+        style={{
+          width: pvw(223),
+          height: pvw(218),
+        }}
       />
 
       <img
-        className="bg-slate-100 min-w-[216px] min-h-[216px] object-cover"
-        src={"/images/whale.png"}
-        onClick={handleImageClick("/images/whale.png")}
+        className="object-cover"
+        src={"/images/locations/4.png"}
+        onClick={handleImageClick(
+          "/images/locations/4.png"
+        )}
+        style={{
+          width: pvw(223),
+          height: pvw(218),
+        }}
+      />
+
+      <img
+        className="object-cover"
+        src={"/images/locations/5.png"}
+        onClick={handleImageClick(
+          "/images/locations/5.png"
+        )}
+        style={{
+          width: pvw(223),
+          height: pvw(218),
+        }}
       />
     </div>
   );
@@ -321,8 +369,14 @@ DesktopNotice.Footer = () => {
 
 export default DesktopNotice;
 
-function pvw(pixel: number) {
+function pvw(pixel: number, takeMin = false) {
   const standardWidth = 1440;
+
+  if (takeMin) {
+    return `min(${
+      (pixel / standardWidth) * 100
+    }vw, ${pixel}px)`;
+  }
 
   return `${(pixel / standardWidth) * 100}vw`;
 }
