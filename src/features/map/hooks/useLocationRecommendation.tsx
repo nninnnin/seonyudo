@@ -81,18 +81,7 @@ const useLocationRecommendation = () => {
                 {isOpen && (
                   <LocationRecommendationToast
                     close={close}
-                    location={{
-                      name: {
-                        KO: 가장가까운거점.name.KO!,
-                        EN: 가장가까운거점.name.EN!,
-                      },
-                      thumbnail: {
-                        name: 가장가까운거점.arImage
-                          .name,
-                        path: 가장가까운거점.arImage
-                          .path,
-                      },
-                    }}
+                    location={가장가까운거점}
                   />
                 )}
               </AnimatePresence>

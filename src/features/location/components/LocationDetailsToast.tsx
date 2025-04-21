@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
+import { create, useStore } from "zustand";
 import { useRouter } from "next/navigation";
 
 import Toast from "@/shared/components/Toast";
 import Button from "@/shared/components/Button";
 import { LocationFormatted } from "@/features/location/types/location";
-import { create, useStore } from "zustand";
 import useLoadingOverlay from "@/shared/hooks/useLoadingOverlay";
 
 export const detailsToastStore = create<{

@@ -1,30 +1,43 @@
 import clsx from "clsx";
 import React from "react";
 import { useStore } from "zustand";
+import { AnimatePresence } from "motion/react";
+import { useOverlay } from "@toss/use-overlay";
 
 import Toast from "@/shared/components/Toast";
 import { detailsToastStore } from "@/features/location/components/LocationDetailsToast";
 import { useArCompletionStore } from "@/features/ar/store";
+import LocationDetailsToast from "@/features/location/components/LocationDetailsToast";
+import { LocationFormatted } from "@/features/location/types/location";
 
 const LocationRecommendationToast = ({
   close,
   location,
 }: {
   close: () => void;
-  location: {
-    name: {
-      KO: string;
-      EN: string;
-    };
-    thumbnail: {
-      name: string;
-      path: string;
-    };
-  };
+  location: LocationFormatted;
 }) => {
   const { isVisible: detailsToastVisible } = useStore(
     detailsToastStore
   );
+
+  const overlay = useOverlay();
+
+  const handleLocationSectionClick =
+    (location: LocationFormatted) => () => {
+      overlay.open(({ close, isOpen }) => {
+        return (
+          <AnimatePresence>
+            {isOpen && (
+              <LocationDetailsToast
+                close={close}
+                location={location}
+              />
+            )}
+          </AnimatePresence>
+        );
+      });
+    };
 
   return (
     <Toast
@@ -42,7 +55,10 @@ const LocationRecommendationToast = ({
     >
       <LocationRecommendationToast.Message />
 
-      <div className="flex items-start justfiy-between gap-[8px]">
+      <div
+        className="flex items-start justfiy-between gap-[8px]"
+        onClick={handleLocationSectionClick(location)}
+      >
         <p className="w-[162px] break-keep">
           {location.name.KO}
           <br />
@@ -51,8 +67,8 @@ const LocationRecommendationToast = ({
 
         <img
           className="w-[111px] h-[111px]"
-          src={location.thumbnail.path}
-          alt={location.thumbnail.name}
+          src={location.arImage.path}
+          alt={location.arImage.name}
         />
       </div>
     </Toast>
