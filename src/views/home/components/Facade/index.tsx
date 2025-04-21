@@ -19,8 +19,10 @@ import { transitionGradientColors } from "@/views/home/components/Facade/utils/a
 
 const Facade = ({
   imageSource,
+  isDesktop = false,
 }: {
   imageSource: string;
+  isDesktop?: boolean;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +30,11 @@ const Facade = ({
     const facadeContainer = containerRef.current;
     if (!facadeContainer) return;
 
-    initializeFacades(facadeContainer, imageSource);
+    initializeFacades(
+      facadeContainer,
+      imageSource,
+      isDesktop
+    );
 
     document.addEventListener(
       "visibilitychange",
@@ -38,7 +44,8 @@ const Facade = ({
         } else {
           initializeFacades(
             facadeContainer,
-            imageSource
+            imageSource,
+            isDesktop
           );
         }
       }

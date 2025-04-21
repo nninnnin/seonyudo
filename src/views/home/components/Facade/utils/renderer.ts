@@ -1,17 +1,25 @@
-import { FACADE_SLICES } from "@/views/home/constants/facade";
+import {
+  FACADE_SLICES,
+  FacadeConfigs,
+} from "@/views/home/constants/facade";
 
 export const createFacadePillar = (
   index: number,
-  imageSource: string
+  imageSource: string,
+  isDesktop: boolean
 ) => {
+  const configs = isDesktop
+    ? FacadeConfigs.Desktop
+    : FacadeConfigs.Mobile;
+
   const div = document.createElement("div");
   div.classList.add("facade-pillar");
 
-  const width = window.innerWidth / FACADE_SLICES;
-  div.style.width = width + 2 + "px";
+  const width = window.innerWidth / configs.Slices;
+  div.style.width = width + configs.coverWidth + "px";
 
   const percent = Math.min(
-    Math.floor((index / FACADE_SLICES) * 10) / 10,
+    Math.floor((index / configs.Slices) * 10) / 10,
     1
   );
 
@@ -23,6 +31,11 @@ export const createFacadePillar = (
   div.style.setProperty(
     "--background-position-start",
     percentValue + "%"
+  );
+
+  div.style.setProperty(
+    "--background-position-end",
+    configs.flowEnd + "%"
   );
 
   div.style.setProperty(
@@ -39,9 +52,10 @@ export const createFacadePillar = (
   background.style.setProperty("width", "100%");
   background.style.setProperty("height", "100%");
 
-  const POSITION_END = 120;
   const backgroundPositionStart =
-    index * (POSITION_END / FACADE_SLICES) + "%";
+    (isDesktop ? index - 4 : index) *
+      (configs.PositionEnd / configs.Slices) +
+    "%";
 
   background.style.setProperty(
     "--background-position-start",
@@ -55,15 +69,17 @@ export const createFacadePillar = (
 
 export const initializeFacades = (
   container: HTMLDivElement,
-  imageSource: string
+  imageSource: string,
+  isDesktop: boolean
 ) => {
   for (let i = 0; i < FACADE_SLICES + 1; i++) {
     const facadePillar = createFacadePillar(
       i,
-      imageSource
+      imageSource,
+      isDesktop
     );
 
-    addObserver(facadePillar, imageSource);
+    addObserver(facadePillar, imageSource, isDesktop);
 
     container.appendChild(facadePillar);
   }
@@ -85,7 +101,8 @@ export const removeFacades = () => {
 };
 
 export const addFacadePillar = (
-  imageSource: string
+  imageSource: string,
+  isDesktop: boolean
 ) => {
   const container = document.getElementById(
     "facade-container"
@@ -94,10 +111,11 @@ export const addFacadePillar = (
 
   const facadePillar = createFacadePillar(
     0,
-    imageSource
+    imageSource,
+    isDesktop
   );
 
-  addObserver(facadePillar, imageSource);
+  addObserver(facadePillar, imageSource, isDesktop);
 
   // append at the first child
   container.prepend(facadePillar);
@@ -105,7 +123,8 @@ export const addFacadePillar = (
 
 const addObserver = (
   target: HTMLDivElement,
-  imageSource: string
+  imageSource: string,
+  isDesktop: boolean
 ) => {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -116,7 +135,7 @@ const addObserver = (
         !!entry.rootBounds
       ) {
         entry.target.remove();
-        addFacadePillar(imageSource);
+        addFacadePillar(imageSource, isDesktop);
       }
     }
   );

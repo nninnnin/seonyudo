@@ -50,6 +50,7 @@ export default function Home() {
 
       <Facade
         imageSource={"/images/statue-bg--4.png"}
+        isDesktop={false}
       />
 
       <Button

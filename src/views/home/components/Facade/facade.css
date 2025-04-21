@@ -47,7 +47,8 @@
       0%;
   }
   100% {
-    background-position: 105% 0%;
+    background-position: var(--background-position-end)
+      0%;
   }
 }
 
