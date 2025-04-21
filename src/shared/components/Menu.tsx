@@ -40,17 +40,16 @@ Menu.Toggler = ({
         toggleVisibility();
       }}
     >
-      {visibility ? (
-        <img
-          className="w-[12px] h-[12px]"
-          src="/icons/close.svg"
-        />
-      ) : (
-        <img
-          className="w-[20px] h-[21px]"
-          src="/icons/menu.svg"
-        />
-      )}
+      <img
+        className="w-[12px] h-[12px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        src="/icons/close.svg"
+        style={{ opacity: visibility ? 1 : 0 }}
+      />
+      <img
+        className="w-[20px] h-[21px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        src="/icons/menu.svg"
+        style={{ opacity: visibility ? 0 : 1 }}
+      />
     </div>
   );
 };
