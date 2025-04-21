@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React from "react";
+import React, { MouseEvent } from "react";
 import { useStore } from "zustand";
 
 import { languageStore } from "@/shared/store/language";
@@ -8,7 +8,9 @@ const LanguageToggler = () => {
   const { language, toggleLanguage } =
     useStore(languageStore);
 
-  const handleClick = () => {
+  const handleClick = (e: MouseEvent) => {
+    e.stopPropagation();
+
     toggleLanguage();
   };
 
