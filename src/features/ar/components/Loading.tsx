@@ -32,6 +32,7 @@ const Loading = () => {
         alt="ar-loader-top"
         priority
         className={clsx(
+          "animate-bounce",
           "transition-all duration-500",
           showLoaders
             ? "opacity-1 translate-y-0"
@@ -75,6 +76,7 @@ const Loading = () => {
         priority
         className={clsx(
           "transition-all duration-500",
+          "animate-tweak",
           showLoaders
             ? "opacity-1 translate-y-0"
             : "opacity-0 translate-y-[20%]"

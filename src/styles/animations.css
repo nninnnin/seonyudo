@@ -16,3 +16,21 @@
 .animate-chat-bubble {
   animation: bubble 0.5s ease-in-out forwards;
 }
+
+@keyframes tweak {
+  0% {
+    transform: skewX(0deg);
+  }
+
+  50% {
+    transform: skewX(-3deg);
+  }
+
+  100% {
+    transform: skewX(0deg);
+  }
+}
+
+.animate-tweak {
+  animation: tweak 0.5s ease-in-out infinite;
+}
