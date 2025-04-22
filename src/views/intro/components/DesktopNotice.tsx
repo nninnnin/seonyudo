@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { motion } from "motion/react";
 import { useOverlay } from "@toss/use-overlay";
@@ -48,6 +48,7 @@ const DesktopNotice = () => {
 
         <DesktopNotice.Panel
           className={clsx(
+            "main-panel",
             "transition-all duration-300",
             hasOverlayPanel &&
               "translate-y-[-30px] scale-[0.99]"
@@ -95,11 +96,13 @@ const DesktopNotice = () => {
               width: pvw(174 + 338 + 27),
             }}
           >
-            <div className="w-[174px] h-[174px] bg-white flex justify-center items-center">
+            <div className="min-w-[174px] min-h-[174px] bg-white flex justify-center items-center">
               <QRCodeSVG
                 value={location.origin}
-                height={142}
-                width={142}
+                style={{
+                  minWidth: pvw(142),
+                  minHeight: pvw(142),
+                }}
               />
             </div>
             <div
@@ -222,6 +225,25 @@ DesktopNotice.LocationImages = () => {
   const overlay = useOverlay();
   const { setHasOverlayPanel } = useDesktopStore();
 
+  const containerRef = useRef<null | HTMLDivElement>(
+    null
+  );
+
+  useEffect(() => {
+    containerRef.current?.addEventListener(
+      "wheel",
+      (e) => {
+        const mainPanel = document.querySelector(
+          ".main-panel"
+        ) as HTMLDivElement;
+
+        mainPanel.scrollBy({
+          top: e.deltaY,
+        });
+      }
+    );
+  }, []);
+
   const handleImageClick =
     (imageSource: string) => () => {
       setHasOverlayPanel(true);
@@ -231,7 +253,10 @@ DesktopNotice.LocationImages = () => {
           <AnimatePresence>
             {isOpen && (
               <DesktopNotice.Panel
-                className="!px-[46px] !pt-[92px]"
+                className={clsx(
+                  "!px-[46px] !pt-[92px]",
+                  "flex justify-center items-center"
+                )}
                 animate={true}
               >
                 <button
@@ -277,6 +302,7 @@ DesktopNotice.LocationImages = () => {
       style={{
         height: pvw(217),
       }}
+      ref={containerRef}
     >
       <img
         className="object-cover"
@@ -348,14 +374,18 @@ DesktopNotice.Footer = () => {
         "w-full h-[176px] bg-black bg-opacity-30",
         "relative z-[100]",
         "backdrop:blur-[30px]",
-        "pt-[76px] pl-[200px]",
         "font-bold leading-[125%]",
         "flex",
-        "text-white text-[12px] tracking-[-0.132px]",
+        "text-white tracking-[-0.132px]",
         "overflow-hidden"
       )}
+      style={{
+        fontSize: pvw(12, true),
+        paddingTop: pvw(76),
+        paddingLeft: pvw(200),
+      }}
     >
-      <p style={{ minWidth: 486 }}>
+      <p style={{ minWidth: pvw(486, true) }}>
         이 작품은 서울시 공공미술 프로젝트의 일환으로
         기획, 제작되었습니다.
         <br />
@@ -366,15 +396,25 @@ DesktopNotice.Footer = () => {
         Public Art Project.
       </p>
 
-      <div style={{ minWidth: 257 }}>
+      <div style={{ minWidth: pvw(257, true) }}>
         문의처: 02-323-4505
         <br />
         Copyright © 2025 Rebel9. All Rights Reserved.
       </div>
 
       <div className="flex items-start gap-[24px] ml-[104px]">
-        <img width={97} src="/icons/seoul1.svg" />
-        <img width={77} src="/icons/seoul2.svg" />
+        <img
+          style={{
+            minWidth: pvw(97, true),
+          }}
+          src="/icons/seoul1.svg"
+        />
+        <img
+          style={{
+            minWidth: pvw(77, true),
+          }}
+          src="/icons/seoul2.svg"
+        />
       </div>
     </div>
   );
@@ -386,9 +426,9 @@ function pvw(pixel: number, takeMin = false) {
   const standardWidth = 1440;
 
   if (takeMin) {
-    return `min(${
+    return `max(min(${
       (pixel / standardWidth) * 100
-    }vw, ${pixel}px)`;
+    }vw, ${pixel}px), ${pixel * 0.6}px)`;
   }
 
   return `${(pixel / standardWidth) * 100}vw`;
