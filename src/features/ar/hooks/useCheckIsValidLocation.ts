@@ -36,20 +36,6 @@ const useCheckIsValidLocation = (
       getProximity(ADJACENT_STANDARD_LOOSEN_IN_METER)
     );
 
-    console.log(
-      "거리는? ",
-      pipe(
-        location,
-        getLocationCoords,
-        getDistanceBetweenCoords(currentCoords)
-      )
-    );
-
-    console.log(
-      "Location Proximity: ",
-      locationProximity
-    );
-
     if (!locationProximity.nearBy) {
       redirect("/map");
     }

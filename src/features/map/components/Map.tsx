@@ -24,8 +24,6 @@ const Map = () => {
   useArCompletion();
 
   useUserLocation((position) => {
-    console.log("user position", position);
-
     setTimeout(() => {
       const myLocationButton = document.querySelector(
         ".mapboxgl-ctrl-geolocate"
@@ -33,7 +31,7 @@ const Map = () => {
 
       myLocationButton?.click();
     }, 100);
-  });
+  }, false);
 
   return (
     <>
