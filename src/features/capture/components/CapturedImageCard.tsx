@@ -138,7 +138,7 @@ const CapturedImageCard = ({
     <div
       className={clsx(
         "absolute top-[2dvh] left-1/2 -translate-x-1/2",
-        "w-[240px]"
+        "h-[56dvh]"
       )}
       ref={containerRef}
       style={{
