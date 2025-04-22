@@ -81,9 +81,12 @@ const CapturedImageCard = ({
         containerRef.current!.style.transform = `translateX(-150vw)`;
       } else if (swipeTo.current === "right") {
         containerRef.current!.style.transform = `translateX(150vw)`;
+      } else {
+        containerRef.current!.style.transform = `translateX(-50%)`;
       }
 
       const isSwiped = swipeTo.current !== null;
+
       if (isSwiped) {
         increaseSelectedCardIndex();
         addNewCard();
