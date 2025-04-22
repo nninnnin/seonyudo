@@ -26,6 +26,12 @@ const useCheckIsValidLocation = (
   const { passedLandingPage } =
     useArContentsNavigationStore();
 
+  const isHelloBye =
+    location?.slug.includes("hellobye");
+
+  const preventLocationRequest =
+    passedLandingPage || !location || isHelloBye;
+
   useUserLocation((position) => {
     const { coords: currentCoords } = position;
 
@@ -39,7 +45,7 @@ const useCheckIsValidLocation = (
     if (!locationProximity.nearBy) {
       redirect("/map");
     }
-  }, passedLandingPage || !location);
+  }, preventLocationRequest);
 };
 
 export default useCheckIsValidLocation;
