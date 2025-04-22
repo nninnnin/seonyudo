@@ -234,8 +234,15 @@ LocationDetails.ArTriggerButton = ({
                     "flex flex-col gap-[16px]"
                   )}
                 >
-                  안내판 근처에서 Open AR 버튼을
-                  눌러주세요.
+                  <span>
+                    안내판 근처에서 Open AR 버튼을
+                    눌러주세요.
+                  </span>
+
+                  <span>
+                    Press 'Open AR' button nearby QR
+                    code panel
+                  </span>
                 </p>
               </motion.div>
             )}
