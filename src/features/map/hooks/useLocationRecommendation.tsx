@@ -89,6 +89,10 @@ const useLocationRecommendation = () => {
           });
 
         setTimeout(() => {
+          if (window.location.pathname !== "/map") {
+            return;
+          }
+
           openRecommendationToast();
         }, 1500);
       },
