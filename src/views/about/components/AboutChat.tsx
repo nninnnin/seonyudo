@@ -5,7 +5,7 @@ import { last } from "lodash";
 import { format } from "date-fns";
 import { ko, enUS } from "date-fns/locale";
 import { useStore } from "zustand";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   redirect,
   usePathname,
@@ -59,6 +59,10 @@ const AboutChat = ({
 
   const currentLocationSlug =
     last(pathname.split("/")) ?? "";
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+  }, []);
 
   return (
     <Chat.Container
