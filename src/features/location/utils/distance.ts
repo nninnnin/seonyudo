@@ -44,11 +44,13 @@ export const getDistanceBetweenCoords = curry(
   }
 );
 
-export const getProximity = (distance: number) => {
-  return {
-    nearBy: distance <= ADJACENT_STANDARD_IN_METER,
-  };
-};
+export const getProximity = curry(
+  (standard: number, distance: number) => {
+    return {
+      nearBy: distance <= standard,
+    };
+  }
+);
 
 export const zipWithMerge = curry((arr1, arr2) => {
   return zipWith(arr1, arr2, merge);
@@ -64,7 +66,9 @@ export const getLocationProximity = (
     mapListItems(
       getDistanceBetweenCoords(currentCoords)
     ),
-    mapListItems(getProximity),
+    mapListItems(
+      getProximity(ADJACENT_STANDARD_IN_METER)
+    ),
     zipWithMerge(locations)
   );
 };

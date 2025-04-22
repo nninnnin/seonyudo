@@ -39,6 +39,7 @@ import LocationIdeas from "@/features/location/components/LocationIdeas";
 import { replaceNewlineAsBreak } from "@/shared/utils";
 import { requestDeviceMotionPermission } from "@/features/permission/utils/deviceMotion";
 import { introStore } from "@/views/intro/store/intro";
+import { useArContentsNavigationStore } from "@/features/ar/hooks/useCheckIsValidLocation";
 
 const LocationDetails = ({
   locationSlug,
@@ -169,6 +170,9 @@ LocationDetails.ArTriggerButton = ({
   const router = useRouter();
   const overlay = useOverlay();
 
+  const { setPassedLandingPage } =
+    useArContentsNavigationStore();
+
   const { setHasPermissionError } =
     useStore(introStore);
 
@@ -257,6 +261,7 @@ LocationDetails.ArTriggerButton = ({
       }
     }
 
+    setPassedLandingPage(true);
     router.push(`/ar/${locationSlug}/contents`);
   };
 

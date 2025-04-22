@@ -37,6 +37,7 @@ import SoundToggler from "@/features/sound/components/SoundToggler";
 import { replaceNewlineAsBreak } from "@/shared/utils";
 import useSound from "@/features/sound/hooks/useSound";
 import captureSpinnerData from "@/features/ar/assets/animation/capture-spinner.json";
+import useCheckIsValidLocation from "@/features/ar/hooks/useCheckIsValidLocation";
 
 const ArPage = () => {
   const params = useParams();
@@ -49,6 +50,8 @@ const ArPage = () => {
   const { location } = useLocation(
     locationSlug as LocationSlugs
   );
+
+  useCheckIsValidLocation(location);
 
   const [hasArContents, setHasArContents] = useState<
     null | boolean

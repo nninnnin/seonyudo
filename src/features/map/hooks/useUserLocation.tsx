@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 
 const useUserLocation = (
-  onSuccess: (position: GeolocationPosition) => void
+  onSuccess: (position: GeolocationPosition) => void,
+  preventRequest: boolean = true
 ) => {
   useEffect(() => {
+    if (preventRequest) return;
+
     const onError = (
       error: GeolocationPositionError
     ) => {
@@ -17,7 +20,7 @@ const useUserLocation = (
       onSuccess,
       onError
     );
-  }, []);
+  }, [preventRequest]);
 };
 
 export default useUserLocation;
