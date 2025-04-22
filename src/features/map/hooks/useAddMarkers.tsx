@@ -122,7 +122,20 @@ const useAddMarkers = (
 
     removeAllMarkers(map);
 
-    addLocationMarkers(map, locations);
+    const filteredLocations = locations.filter(
+      (loc) => {
+        const isDev = process.env.IS_DEV === "1";
+        const isProduction = !isDev;
+
+        if (isProduction) {
+          return !loc.name.KO!.includes("테스트");
+        }
+
+        return true;
+      }
+    );
+
+    addLocationMarkers(map, filteredLocations);
     addDecorativeMarkers(map, DECORATIVE_LOCATIONS);
   }, [map, locations, arCompletedLocations]);
 };
