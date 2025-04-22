@@ -1,11 +1,12 @@
 "use client";
 
-import clsx from "clsx";
 import React, {
   useEffect,
   useRef,
   useState,
 } from "react";
+import clsx from "clsx";
+import { debounce } from "lodash";
 import { motion } from "motion/react";
 
 import {
@@ -14,9 +15,8 @@ import {
 } from "@/views/home/components/Facade/utils/renderer";
 
 import "./facade.css";
-import { FACADE_SLICES } from "@/views/home/constants/facade";
 import { transitionGradientColors } from "@/views/home/components/Facade/utils/animate";
-import { debounce } from "lodash";
+import { FacadeConfigs } from "@/views/home/constants/facade";
 
 const Facade = ({
   imageSource,
@@ -146,8 +146,12 @@ const Facade = ({
     );
   }, [gradientColor]);
 
+  const configs = isDesktop
+    ? FacadeConfigs.Desktop
+    : FacadeConfigs.Mobile;
+
   const facadePillarWidth =
-    window.innerWidth / FACADE_SLICES;
+    window.innerWidth / configs.Slices;
 
   return (
     <motion.div

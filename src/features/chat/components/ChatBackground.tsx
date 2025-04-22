@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
 import clsx from "clsx";
+import React from "react";
 import { pipe } from "@fxts/core";
 
-import { FACADE_SLICES } from "@/views/home/constants/facade";
+import { FacadeConfigs } from "@/views/home/constants/facade";
 
 const ChatBackground = () => {
   const pillarGradients = [
@@ -55,7 +55,9 @@ const Pillar = ({
       className="h-[100lvh]"
       style={{
         width:
-          window.innerWidth / FACADE_SLICES + "px",
+          window.innerWidth /
+            FacadeConfigs.Mobile.Slices +
+          "px",
         background: `linear-gradient(to right, #60ACED ${gradient.from}%, #0015FF ${gradient.to}%)`,
         backgroundColor: "red",
       }}

@@ -1,5 +1,3 @@
-export const FACADE_SLICES = 12;
-
 export const FacadeConfigs = {
   Mobile: {
     Slices: 9,

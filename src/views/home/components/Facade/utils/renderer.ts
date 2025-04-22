@@ -1,7 +1,4 @@
-import {
-  FACADE_SLICES,
-  FacadeConfigs,
-} from "@/views/home/constants/facade";
+import { FacadeConfigs } from "@/views/home/constants/facade";
 
 export const createFacadePillar = (
   index: number,
@@ -72,7 +69,11 @@ export const initializeFacades = (
   imageSource: string,
   isDesktop: boolean
 ) => {
-  for (let i = 0; i < FACADE_SLICES + 1; i++) {
+  const configs = isDesktop
+    ? FacadeConfigs.Desktop
+    : FacadeConfigs.Mobile;
+
+  for (let i = 0; i < configs.Slices + 1; i++) {
     const facadePillar = createFacadePillar(
       i,
       imageSource,
