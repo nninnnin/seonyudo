@@ -221,7 +221,7 @@ LocationDetails.ArTriggerButton = ({
                 className={clsx(
                   "intro-dialog-container",
                   "bg-black bg-opacity-30",
-                  "p-[50px] pl-[48px] pr-[49px] rounded-[18px]",
+                  "p-[25px] pl-[24px] pr-[23px] rounded-[18px]",
                   "flex flex-col justify-center items-center",
                   "text-white",
                   "backdrop:blur-[10px]",
