@@ -54,6 +54,12 @@ const SharePage = () => {
   const { selectedCardIndex, capturedPictures } =
     useStore(capturedPictureStore);
 
+  useEffect(() => {
+    if (!capturedPictures?.length) {
+      redirect("/");
+    }
+  }, [capturedPictures]);
+
   const [isSharing, setIsSharing] = useState(false);
 
   const dummy = [
