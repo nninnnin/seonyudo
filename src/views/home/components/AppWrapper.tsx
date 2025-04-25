@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-query";
 
 import SuspenseWrapper from "@/views/home/components/SuspenseWrapper";
+import useLocationProximity from "@/features/location/hooks/useLocationProximity";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,8 @@ const AppWrapper = ({
 }: {
   children: React.ReactNode;
 }) => {
+  useLocationProximity();
+
   return (
     <QueryClientProvider client={queryClient}>
       <OverlayProvider>

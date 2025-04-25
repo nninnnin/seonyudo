@@ -3,11 +3,7 @@
 import clsx from "clsx";
 import { useOverlay } from "@toss/use-overlay";
 import { AnimatePresence, motion } from "motion/react";
-import React, {
-  useContext,
-  useEffect,
-  useRef,
-} from "react";
+import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import localFont from "next/font/local";
 import dynamic from "next/dynamic";
@@ -22,8 +18,7 @@ import {
   LocationName,
   LocationSlugs,
 } from "@/features/location/types/location";
-import LocationProximityProvider from "@/features/location/components/LocationProximityProvider";
-import { LocationProximityContext } from "@/features/location/components/LocationProximityProvider";
+import { useLocationProximityStore } from "@/features/location/hooks/useLocationProximity";
 import Button from "@/shared/components/Button";
 const Facade = dynamic(
   () => import("@/views/home/components/Facade"),
@@ -145,17 +140,15 @@ const LocationDetails = ({
           )}
         </div>
 
-        <LocationProximityProvider>
-          <div className="flex gap-[20px]">
-            <LocationDetails.ViewIdeasButton />
-            <LocationDetails.ArTriggerButton
-              locationName={
-                location.name.KO as LocationName
-              }
-              locationSlug={location?.slug}
-            />
-          </div>
-        </LocationProximityProvider>
+        <div className="flex gap-[20px]">
+          <LocationDetails.ViewIdeasButton />
+          <LocationDetails.ArTriggerButton
+            locationName={
+              location.name.KO as LocationName
+            }
+            locationSlug={location?.slug}
+          />
+        </div>
       </div>
     </div>
   );
@@ -179,9 +172,8 @@ LocationDetails.ArTriggerButton = ({
   const { setHasPermissionError } =
     useStore(introStore);
 
-  const locationProximity = useContext(
-    LocationProximityContext
-  );
+  const { locationProximity } =
+    useLocationProximityStore();
 
   const hasAlert = useRef(false);
 

@@ -71,8 +71,6 @@ const useMapboxgl = () => {
     mapInstance.on("zoom", (z) => {
       const zoomLevel = z.target.getZoom();
 
-      console.log("zoomLevel", zoomLevel);
-
       const locationMarkers =
         document.querySelectorAll(".marker.location");
       const decorativeMarkers =
