@@ -90,7 +90,7 @@ const WelcomeDialog = ({
 
           <span>
             Explore hidden fairytale scenes in Seonyudo
-            Park with AR in Unseeing: Seonyu Donghwa.
+            Park with AR in Unseeing: Seonyu Donghwa
           </span>
         </p>
 

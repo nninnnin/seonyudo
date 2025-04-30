@@ -231,7 +231,7 @@ LocationDetails.ArTriggerButton = ({
                 >
                   <span>
                     안내판 근처에서 Open AR 버튼을
-                    눌러주세요.
+                    눌러주세요
                   </span>
 
                   <span>
