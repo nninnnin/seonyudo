@@ -143,7 +143,7 @@ const SharePage = () => {
     router.push("/map");
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     const currentCard =
       capturedPictures[selectedCardIndex];
     const nameMapper: Record<
@@ -166,7 +166,8 @@ const SharePage = () => {
     const filename = `선유도 ${
       locationName ? `-${locationName}` : ""
     }에서`;
-    downloadImage(currentCard.url, filename);
+
+    await downloadImage(currentCard.url, filename);
   };
 
   return (
@@ -344,11 +345,20 @@ function getMobileOS() {
   return "unknown";
 }
 
-function downloadImage(url: string, filename: string) {
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${filename}.png`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+async function downloadImage(
+  url: string,
+  filename: string
+) {
+  const response = await fetch(url);
+  const blob = await response.blob();
+
+  const blobUrl = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = blobUrl;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  URL.revokeObjectURL(blobUrl); // 메모리 해제
 }
